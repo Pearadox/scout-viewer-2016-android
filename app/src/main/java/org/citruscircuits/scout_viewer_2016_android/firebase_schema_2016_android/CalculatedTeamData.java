@@ -1,4 +1,4 @@
-package org.citruscircuits.scout_viewer_2016_android.firebase_classes;
+package org.citruscircuits.scout_viewer_2016_android.firebase_schema_2016_android;
 
 import java.util.Map;
 
@@ -34,7 +34,10 @@ public class CalculatedTeamData {
 	public Map<String, Float> avgDefenseCrossingEffectiveness;
 	public Map<String, Float> avgTimesCrossedDefensesAuto;
 	public Map<String, Float> avgTimesCrossedDefensesTele;
-	public float seigePower;
-	public float seigeConsistency;
-	public float seigeAbility;
+	public float siegePower;
+	public float siegeConsistency;
+	public float siegeAbility;
+	public int numRPs;
+	public int numAutoPoints;
+	public int numScaleandChallengePoints;
 }

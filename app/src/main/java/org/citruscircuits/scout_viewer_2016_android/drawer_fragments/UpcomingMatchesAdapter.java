@@ -14,6 +14,7 @@ import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by citruscircuits on 1/17/16.
@@ -21,70 +22,78 @@ import java.util.Collections;
 public class UpcomingMatchesAdapter extends MatchesAdapter {
 
     public UpcomingMatchesAdapter(Context paramContext) {
-        super(paramContext);
+        super(paramContext, new MatchNumberComparator(true));
     }
 
     @Override
-    public void setupFirebaseListening() {
-        Firebase scheduleRef = new Firebase("https://1678-dev-2016.firebaseio.com/Matches/");
-        scheduleRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Match match = dataSnapshot.getValue(Match.class);
-                if (match.redScore == -1 && match.blueScore == -1) {
-                    matches.add(dataSnapshot.getValue(Match.class));
-                    keys.add(dataSnapshot.getKey());
-                    Collections.sort(matches, new MatchNumberComparator(true));
-                    Collections.sort(keys);
-                    notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Match match = dataSnapshot.getValue(Match.class);
-                int index = keys.indexOf(dataSnapshot.getKey());
-                if (match.redScore == -1 && match.blueScore == -1) {
-                    if (index < 0) {
-                        matches.add(dataSnapshot.getValue(Match.class));
-                        keys.add(dataSnapshot.getKey());
-                        Collections.sort(matches, new MatchNumberComparator(true));
-                        Collections.sort(keys);
-                        notifyDataSetChanged();
-                    } else {
-                        matches.set(index, dataSnapshot.getValue(Match.class));
-                        keys.set(index, dataSnapshot.getKey());
-                        Collections.sort(matches, new MatchNumberComparator(true));
-                        Collections.sort(keys);
-                        notifyDataSetChanged();
-                    }
-                } else {
-                    if (index > -1) {
-                        matches.remove(index);
-                        keys.remove(index);
-                        notifyDataSetChanged();
-                    }
-                }
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int index = matches.indexOf(dataSnapshot.getKey());
-                if (index > -1) {
-                    matches.remove(index);
-                    keys.remove(index);
-                    notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+    public boolean filter(Match value) {
+        return (value.redScore == -1 && value.blueScore == -1);
     }
+
+//    @Override
+//    public void setupFirebaseListening() {
+//        Firebase scheduleRef = new Firebase("https://1678-dev-2016.firebaseio.com/Matches/");
+//        scheduleRef.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                Match match = dataSnapshot.getValue(Match.class);
+//                if (match.redScore == -1 && match.blueScore == -1) {
+//                    matches.add(dataSnapshot.getValue(Match.class));
+//                    keys.add(dataSnapshot.getKey());
+//                    sortMatchesAndKeys();
+//                    notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//                Match match = dataSnapshot.getValue(Match.class);
+//                int index = keys.indexOf(dataSnapshot.getKey());
+//                if (match.redScore == -1 && match.blueScore == -1) {
+//                    if (index < 0) {
+//                        matches.add(dataSnapshot.getValue(Match.class));
+//                        keys.add(dataSnapshot.getKey());
+//                        sortMatchesAndKeys();
+//                        notifyDataSetChanged();
+//                    } else {
+//                        matches.set(index, dataSnapshot.getValue(Match.class));
+//                        keys.set(index, dataSnapshot.getKey());
+//                        sortMatchesAndKeys();
+//                        notifyDataSetChanged();
+//                    }
+//                } else {
+//                    if (index > -1) {
+//                        matches.remove(index);
+//                        keys.remove(index);
+//                        notifyDataSetChanged();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//                int index = matches.indexOf(dataSnapshot.getKey());
+//                if (index > -1) {
+//                    matches.remove(index);
+//                    keys.remove(index);
+//                    notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
+//    }
+//
+//    public void sortMatchesAndKeys() {
+//        Collections.sort(matches, new MatchNumberComparator(true));
+//        Collections.sort(keys);
+//    }
+
 }

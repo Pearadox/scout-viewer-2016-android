@@ -14,7 +14,7 @@ public class UpcomingMatchesFragment extends android.support.v4.app.ListFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         return rootView;
     }
 

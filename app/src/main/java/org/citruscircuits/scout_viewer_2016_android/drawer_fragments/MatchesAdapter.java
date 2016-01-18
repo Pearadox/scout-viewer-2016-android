@@ -7,37 +7,32 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Created by citruscircuits on 1/17/16.
  */
-public class MatchesAdapter extends BaseAdapter {
+public abstract class MatchesAdapter extends FirebaseListAdapter<Match> {
     public Context context;
-    public ArrayList<Match> matches = new ArrayList<>();
-    public ArrayList<String> keys = new ArrayList<>();
 
-    public MatchesAdapter() {}
-
-    public MatchesAdapter(Context paramContext) {
+    public MatchesAdapter(Context paramContext, Comparator<Match> matchesComparator) {
+        super(Match.class, Constants.MATCHES_PATH, matchesComparator);
         context = paramContext;
-
-        setupFirebaseListening();
     }
-
-    public void setupFirebaseListening() {} //Overridden in child classes
 
     @Override
     public int getCount() {
-        return matches.size();
+        return filteredValues.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return matches.get(position);
+        return filteredValues.get(position);
     }
 
     @Override
@@ -48,7 +43,6 @@ public class MatchesAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
-
 
         if (rowView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

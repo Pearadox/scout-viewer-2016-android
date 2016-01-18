@@ -23,6 +23,7 @@ import com.firebase.client.FirebaseError;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.NavigationDrawerFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.RecentMatchesFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.ScheduleFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SiegePowerFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.UpcomingMatchesFragment;
 
 
@@ -92,6 +93,10 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 2:
                 fragment = new ScheduleFragment();
+                break;
+            case 3:
+                fragment = new SiegePowerFragment();
+                break;
         }
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)

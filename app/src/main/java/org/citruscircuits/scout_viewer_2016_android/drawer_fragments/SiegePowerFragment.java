@@ -9,10 +9,9 @@ import android.view.ViewGroup;
 import org.citruscircuits.scout_viewer_2016_android.R;
 
 /**
- * Created by citruscircuits on 1/16/16.
+ * Created by citruscircuits on 1/18/16.
  */
-public class ScheduleFragment extends ListFragment {
-
+public class SiegePowerFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -24,6 +23,6 @@ public class ScheduleFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new ScheduleAdapter(getActivity().getApplicationContext()));
+        setListAdapter(new SiegePowerAdapter(getActivity().getApplicationContext()));
     }
 }
