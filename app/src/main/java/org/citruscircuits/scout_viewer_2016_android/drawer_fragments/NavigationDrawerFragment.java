@@ -1,4 +1,4 @@
-package org.citruscircuits.scout_viewer_2016_android;
+package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -21,6 +21,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.citruscircuits.scout_viewer_2016_android.Constants;
+import org.citruscircuits.scout_viewer_2016_android.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.

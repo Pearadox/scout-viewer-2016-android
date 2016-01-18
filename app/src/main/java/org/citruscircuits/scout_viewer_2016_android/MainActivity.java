@@ -6,23 +6,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.NavigationDrawerFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.RecentMatchesFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.ScheduleFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.UpcomingMatchesFragment;
 
 
 public class MainActivity extends ActionBarActivity
@@ -54,11 +55,8 @@ public class MainActivity extends ActionBarActivity
 
         Log.e("test", "Logcat is up!");
 
-        Firebase.setAndroidContext(this);
         Firebase firebaseRef = new Firebase("https://1678-dev-2016.firebaseio.com");
 
-
-        // Create a handler to handle the result of the authentication
         Firebase.AuthResultHandler authResultHandler = new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
@@ -87,11 +85,13 @@ public class MainActivity extends ActionBarActivity
         switch(position) {
             default:
             case 0:
-                fragment = new PlaceholderFragment();
+                fragment = new RecentMatchesFragment();
                 break;
             case 1:
-                fragment = new ScheduleFragment();
+                fragment = new UpcomingMatchesFragment();
                 break;
+            case 2:
+                fragment = new ScheduleFragment();
         }
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)

@@ -1,69 +1,34 @@
-package org.citruscircuits.scout_viewer_2016_android;
+package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-
-import org.w3c.dom.Text;
+import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 import java.util.ArrayList;
 
 /**
- * Created by citruscircuits on 1/16/16.
+ * Created by citruscircuits on 1/17/16.
  */
-public class ScheduleAdapter extends BaseAdapter {
+public class MatchesAdapter extends BaseAdapter {
+    public Context context;
+    public ArrayList<Match> matches = new ArrayList<>();
+    public ArrayList<String> keys = new ArrayList<>();
 
-    private Context context;
-    private ArrayList<Match> matches = new ArrayList<>();
-    private ArrayList<String> keys = new ArrayList<>();
+    public MatchesAdapter() {}
 
-    public ScheduleAdapter(Context paramContext) {
+    public MatchesAdapter(Context paramContext) {
         context = paramContext;
 
-        Firebase scheduleRef = new Firebase("https://1678-dev-2016.firebaseio.com/Matches/");
-        scheduleRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                matches.add(dataSnapshot.getValue(Match.class));
-                keys.add(dataSnapshot.getKey());
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                int index = keys.indexOf(s);
-                matches.set(index, dataSnapshot.getValue(Match.class));
-                keys.set(index, dataSnapshot.getKey());
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int index = matches.indexOf(dataSnapshot.getKey());
-                matches.remove(index);
-                keys.remove(index);
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+        setupFirebaseListening();
     }
+
+    public void setupFirebaseListening() {} //Overridden in child classes
 
     @Override
     public int getCount() {

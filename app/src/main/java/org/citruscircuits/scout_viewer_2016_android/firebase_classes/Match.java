@@ -1,4 +1,4 @@
-package org.citruscircuits.scout_viewer_2016_android;
+package org.citruscircuits.scout_viewer_2016_android.firebase_classes;
 
 /**
  * Created by citruscircuits on 1/16/16.
@@ -11,4 +11,5 @@ public class Match {
     public int blueScore;
     public String[] redDefensePositions;
     public String[] blueDefensePositions;
+    public CalculatedMatchData calculatedData;
 }
