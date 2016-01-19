@@ -11,7 +11,7 @@ import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 public class SiegePowerAdapter extends RankingsAdapter {
 
     public SiegePowerAdapter(Context paramContext) {
-        super(paramContext, (t) -> t.calclatedTeamData.seigeAbility, false);
+        super(paramContext, (t) -> t.calculatedTeamData.siegeAbility, false);
     }
 
     @Override

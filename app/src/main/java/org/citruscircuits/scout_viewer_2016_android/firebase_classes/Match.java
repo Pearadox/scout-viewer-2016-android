@@ -1,4 +1,4 @@
-package org.citruscircuits.scout_viewer_2016_android.firebase_schema_2016_android;
+package org.citruscircuits.scout_viewer_2016_android.firebase_classes;
 
 /**
  * Created by citruscircuits on 1/17/16
