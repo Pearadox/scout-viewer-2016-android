@@ -39,5 +39,5 @@ public class CalculatedTeamData {
 	public float siegeAbility;
 	public int numRPs;
 	public int numAutoPoints;
-	public int numScaleandChallengePoints;
+	public int numScaleAndChallangePoints;
 }

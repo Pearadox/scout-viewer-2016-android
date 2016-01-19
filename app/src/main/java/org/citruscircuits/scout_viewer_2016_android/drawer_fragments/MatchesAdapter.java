@@ -52,7 +52,7 @@ public abstract class MatchesAdapter extends FirebaseListAdapter<Match> {
         Match match = (Match)getItem(position);
 
         TextView matchTextView = (TextView)rowView.findViewById(R.id.matchNumber);
-        matchTextView.setText(match.number);
+        matchTextView.setText(match.number + "");
 
         int[] teams = new int[6];
         System.arraycopy(match.redAllianceTeamNumbers, 0, teams, 0, 3);

@@ -6,7 +6,7 @@ package org.citruscircuits.scout_viewer_2016_android.firebase_classes;
 
 public class Match {
 	public int number;
-	public CalculatedMatchData calculatedMatchData;
+	public CalculatedMatchData calculatedData;
 	public int[] redAllianceTeamNumbers;
 	public int[] blueAllianceTeamNumbers;
 	public int blueScore;

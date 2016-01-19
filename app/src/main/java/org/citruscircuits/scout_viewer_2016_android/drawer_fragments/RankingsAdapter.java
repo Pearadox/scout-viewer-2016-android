@@ -22,7 +22,7 @@ public abstract class RankingsAdapter extends FirebaseListAdapter<Team> {
     public static TeamValueComparator.TeamValueRetriever valueRetriever;
 
     public RankingsAdapter(Context paramContext, TeamValueComparator.TeamValueRetriever valueRetriever, boolean isNotReversed) {
-        super(Team.class, Constants.MATCHES_PATH, new TeamValueComparator(isNotReversed, valueRetriever));
+        super(Team.class, Constants.TEAMS_PATH, new TeamValueComparator(isNotReversed, valueRetriever));
         context = paramContext;
     }
 

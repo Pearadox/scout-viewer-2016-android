@@ -8,7 +8,7 @@ public class CalculatedMatchData {
 	public float predictedRedScore;
 	public float predictedBlueScore;
 	public int numDefenseCrossesByBlue;
-	public int numDefensesCrossedByRed; 
+	public int numDefenseCrossesByRed;
 	public int blueRPs;
 	public int redRPs;
 }

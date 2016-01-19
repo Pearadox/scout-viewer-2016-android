@@ -10,5 +10,5 @@ public class Team {
 	public int number;
 	public Match[] matches;
 	public TeamInMatchData teamInMatchDatas;
-	public CalculatedTeamData calculatedTeamData;
+	public CalculatedTeamData calculatedData;
 }
