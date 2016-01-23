@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        onSectionAttached(0);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -101,6 +101,7 @@ public class MainActivity extends ActionBarActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+        onSectionAttached(position);
     }
 
     public void onSectionAttached(int number) {
