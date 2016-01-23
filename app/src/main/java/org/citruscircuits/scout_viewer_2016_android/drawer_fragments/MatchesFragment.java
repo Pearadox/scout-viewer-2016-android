@@ -9,24 +9,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-
-import com.fasterxml.jackson.databind.deser.Deserializers;
 
 import org.citruscircuits.scout_viewer_2016_android.MatchDetailsActivity;
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 /**
- * Created by citruscircuits on 1/16/16.
+ * Created by colinunger on 1/23/16.
  */
-public class ScheduleFragment extends MatchesFragment {
+public abstract class MatchesFragment extends SearchableListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        setListAdapter(new ScheduleAdapter(getActivity().getApplicationContext()));
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        MatchesAdapter adapter = (MatchesAdapter)getListAdapter();
+        Match matchClicked = adapter.filteredValues.get(position);
+
+        Intent matchDetailsActivityIntent = new Intent(getActivity(), MatchDetailsActivity.class);
+        matchDetailsActivityIntent.putExtra("match", matchClicked);
+
+        startActivity(matchDetailsActivityIntent);
     }
 }

@@ -153,7 +153,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
         return null;
     }
 
-    private void filterValues() {
+    public void filterValues() {
         filteredValues.clear();
         for (T value : mModels) {
             if(filter(value)) {

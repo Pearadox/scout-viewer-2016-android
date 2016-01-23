@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.citruscircuits.scout_viewer_2016_android" >
+    package="org.citruscircuits.scout_viewer_2016_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".ViewerApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="org.citruscircuits.scout_viewer_2016_android.ViewerApplication">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TeamDetailsActivity"
+            android:label="@string/title_activity_team_details"></activity>
+        <activity
+            android:name=".MatchDetailsActivity"
+            android:label="@string/title_activity_match_details"></activity>
     </application>
 
 </manifest>

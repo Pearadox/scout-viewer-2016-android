@@ -1,10 +1,12 @@
 package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.citruscircuits.scout_viewer_2016_android.Constants;
@@ -17,7 +19,7 @@ import java.util.Comparator;
 /**
  * Created by citruscircuits on 1/17/16.
  */
-public abstract class MatchesAdapter extends FirebaseListAdapter<Match> {
+public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match> {
     public Context context;
 
     public MatchesAdapter(Context paramContext, Comparator<Match> matchesComparator) {
@@ -72,4 +74,29 @@ public abstract class MatchesAdapter extends FirebaseListAdapter<Match> {
 
         return rowView;
     }
+
+    @Override
+    public boolean filter(Match value) {
+        int[] teams = new int[6];
+        System.arraycopy(value.redAllianceTeamNumbers, 0, teams, 0, 3);
+        System.arraycopy(value.blueAllianceTeamNumbers, 0, teams, 3, 3);
+
+        if (secondaryFilter(value)) {
+            for (int team : teams) {
+                String teamNumberString = team + "";
+                if (teamNumberString.contains(searchString)) {
+                    return true;
+                }
+            }
+
+            String matchNumberString = value.number + "";
+            if (matchNumberString.contains(searchString)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public abstract boolean secondaryFilter (Match value);
 }

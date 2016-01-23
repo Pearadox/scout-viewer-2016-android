@@ -18,9 +18,4 @@ public class SiegePowerAdapter extends RankingsAdapter {
             }
         }, false);
     }
-
-    @Override
-    public boolean filter(Team value) {
-        return true;
-    }
 }

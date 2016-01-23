@@ -10,14 +10,7 @@ import org.citruscircuits.scout_viewer_2016_android.R;
 /**
  * Created by citruscircuits on 1/17/16.
  */
-public class UpcomingMatchesFragment extends android.support.v4.app.ListFragment {
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        return rootView;
-    }
-
+public class UpcomingMatchesFragment extends MatchesFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

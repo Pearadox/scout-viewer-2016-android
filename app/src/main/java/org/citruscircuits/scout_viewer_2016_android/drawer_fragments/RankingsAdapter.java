@@ -1,6 +1,7 @@
 package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,13 @@ import java.util.Comparator;
 /**
  * Created by citruscircuits on 1/18/16.
  */
-public abstract class RankingsAdapter extends FirebaseListAdapter<Team> {
+public abstract class RankingsAdapter extends SearchableFirebaseListAdapter<Team> {
     public Context context;
     public static TeamValueComparator.TeamValueRetriever valueRetriever;
 
     public RankingsAdapter(Context paramContext, TeamValueComparator.TeamValueRetriever valueRetriever, boolean isNotReversed) {
         super(Team.class, Constants.TEAMS_PATH, new TeamValueComparator(isNotReversed, valueRetriever));
+        this.valueRetriever = valueRetriever;
         context = paramContext;
     }
 
@@ -59,8 +61,14 @@ public abstract class RankingsAdapter extends FirebaseListAdapter<Team> {
         teamNumberTextView.setText(team.number + "");
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-        valueTextView.setText(valueRetriever.retrieve(team) + "");
+        valueTextView.setText(valueRetriever.retrieve(team).toString() + "");
 
         return rowView;
+    }
+
+    @Override
+    public boolean filter(Team value) {
+        String teamNumberString = value.number + "";
+        return teamNumberString.contains(searchString);
     }
 }
