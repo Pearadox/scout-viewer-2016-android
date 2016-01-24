@@ -3,6 +3,7 @@ package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
 import android.content.Context;
 
 import org.citruscircuits.scout_viewer_2016_android.TeamValueComparator;
+import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 
 /**
@@ -14,7 +15,7 @@ public class SiegePowerAdapter extends RankingsAdapter {
         super(paramContext, new TeamValueComparator.TeamValueRetriever() {
             @Override
             public Float retrieve(Team t) {
-                return Float.valueOf(t.calculatedData.avgBallControl);
+                return (Float)Utils.getObjectField(t.calculatedData, "siegePower");
             }
         }, false);
     }

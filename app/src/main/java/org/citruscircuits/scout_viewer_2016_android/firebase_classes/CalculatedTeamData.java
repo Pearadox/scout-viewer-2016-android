@@ -37,7 +37,7 @@ public class CalculatedTeamData implements Parcelable {
 	public Map<String, Float> avgDefenseCrossingEffectiveness;
 	public Map<String, Float> avgTimesCrossedDefensesAuto;
 	public Map<String, Float> avgTimesCrossedDefensesTele;
-	public float siegePower;
+	public Float siegePower;
 	public float siegeConsistency;
 	public float siegeAbility;
 	public int numRPs;
