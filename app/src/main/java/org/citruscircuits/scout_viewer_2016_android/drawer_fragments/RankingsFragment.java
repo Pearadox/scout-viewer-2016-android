@@ -3,6 +3,7 @@ package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,10 @@ public abstract class RankingsFragment extends SearchableListFragment {
         super.onListItemClick(l, v, position, id);
 
         RankingsAdapter adapter = (RankingsAdapter)getListAdapter();
-        Team teamClicked = adapter.filteredValues.get(position);
+        int teamNumberClicked = adapter.filteredValues.get(position - 1).number;
 
         Intent teamDetailsViewIntent = new Intent(getActivity(), TeamDetailsActivity.class);
-        teamDetailsViewIntent.putExtra("team", teamClicked);
+        teamDetailsViewIntent.putExtra("teamNumber", teamNumberClicked);
 
         startActivity(teamDetailsViewIntent);
     }

@@ -12,7 +12,7 @@ public class TeamValueComparator implements Comparator<Team> {
     private TeamValueRetriever retrievalFunction;
 
     public interface TeamValueRetriever {
-        Float retrieve(Team t);
+        Comparable retrieve(Team t);
     }
 
     public TeamValueComparator(boolean notReverse, TeamValueRetriever retrievalFunction) {

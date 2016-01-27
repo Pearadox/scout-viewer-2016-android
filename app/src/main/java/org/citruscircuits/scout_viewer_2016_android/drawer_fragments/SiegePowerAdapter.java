@@ -15,7 +15,7 @@ public class SiegePowerAdapter extends RankingsAdapter {
         super(paramContext, new TeamValueComparator.TeamValueRetriever() {
             @Override
             public Float retrieve(Team t) {
-                return (Float)Utils.getObjectField(t.calculatedData, "siegePower");
+                return (Float)Utils.getObjectField(t, "calculatedData.siegePower");
             }
         }, false);
     }

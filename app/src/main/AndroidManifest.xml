@@ -21,10 +21,13 @@
         </activity>
         <activity
             android:name=".TeamDetailsActivity"
-            android:label="@string/title_activity_team_details"></activity>
+            android:label="@string/title_activity_team_details" />
         <activity
             android:name=".MatchDetailsActivity"
-            android:label="@string/title_activity_match_details"></activity>
+            android:label="@string/title_activity_match_details" />
+        <activity
+            android:name=".RankingsActivity"
+            android:label="@string/title_activity_rankings"></activity>
     </application>
 
 </manifest>

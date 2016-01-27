@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="5dp" android:clickable="false">
+
+    <ImageView
+        android:id="@+id/teamDetailsImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        android:background="#ff0000"/>
+
+    <TextView
+        android:id="@+id/teamDetailsTeamNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teamDetailsImageView"
+        android:textSize="50sp"
+        android:text="1678"/>
+
+    <TextView
+        android:id="@+id/teamDetailsTeamNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teamDetailsTeamNumberTextView"
+        android:textSize="25sp"
+        android:text="Citrus Circuits"/>
+
+    <TextView
+        android:id="@+id/teamDetailsSeeding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/teamDetailsTeamNumberTextView"
+        android:textSize="50sp"
+        android:text="17"/>
+
+    <TextView
+        android:id="@+id/teamDetailsPredictedSeeding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/teamDetailsTeamNameTextView"
+        android:textSize="25sp"
+        android:text="12"/>
+</RelativeLayout>

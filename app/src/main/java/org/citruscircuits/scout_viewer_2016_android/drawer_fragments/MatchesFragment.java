@@ -30,10 +30,10 @@ public abstract class MatchesFragment extends SearchableListFragment {
         super.onListItemClick(l, v, position, id);
 
         MatchesAdapter adapter = (MatchesAdapter)getListAdapter();
-        Match matchClicked = adapter.filteredValues.get(position);
+        int matchNumberClicked = adapter.filteredValues.get(position).number;
 
         Intent matchDetailsActivityIntent = new Intent(getActivity(), MatchDetailsActivity.class);
-        matchDetailsActivityIntent.putExtra("match", matchClicked);
+        matchDetailsActivityIntent.putExtra("matchNumber", matchNumberClicked);
 
         startActivity(matchDetailsActivityIntent);
     }
