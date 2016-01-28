@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Created by colinunger on 1/24/16.
  */
-public class FirebaseList extends HashMap<String, Team> {
+public class FirebaseList extends LinkedHashMap<String, Team> {
 
     public FirebaseList(String url, FirebaseUpdatedCallback firebaseUpdatedCallback) {
         setupFirebaseListening(url, firebaseUpdatedCallback);

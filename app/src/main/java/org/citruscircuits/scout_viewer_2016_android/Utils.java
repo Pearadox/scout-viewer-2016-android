@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -29,20 +30,20 @@ public class Utils {
     public static Object getObjectField(Object object, String fieldName) {
         try {
             String[] fieldNames = fieldName.split("\\.");
-            Log.e("test", "FIELD NAMES IS " + fieldName.toString());
+            Object modObject = object;
             for (String singleFieldLevelName : fieldNames) {
-                if (object instanceof Map) {
-                    Log.e("test", "Is a type of map!");
-                    object = ((Map) object).get(singleFieldLevelName);
+                if (modObject instanceof Map) {
+                    LinkedHashMap lhm = (LinkedHashMap)modObject;
+                    modObject = lhm.get(singleFieldLevelName);
                 } else {
-                    Field f = object.getClass().getDeclaredField(singleFieldLevelName);
+                    Field f = modObject.getClass().getDeclaredField(singleFieldLevelName);
                     f.setAccessible(true);
 
-                    object = f.get(object);
+                    modObject = f.get(modObject);
                 }
             }
 
-            return object;
+            return modObject;
         } catch (Exception e) {
             Log.e("test", "The exception is " + e.getMessage());
             return null;

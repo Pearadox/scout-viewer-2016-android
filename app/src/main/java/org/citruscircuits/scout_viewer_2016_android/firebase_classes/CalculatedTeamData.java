@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class CalculatedTeamData {
 	public float firstPickAbility;
-	public Map<Integer, Float> secondPickAbility;
+	public Map<String, Float> secondPickAbility;
 	public float driverAbility;
 	public float highShotAccuracyAuto;
 	public float lowShotAccuracyAuto;
@@ -54,4 +54,6 @@ public class CalculatedTeamData {
 	public float sdBallsKnockedOffMidlineAuto;
 	public Map<String, Float> sdDefenseCrossesAuto;
 	public Map<String, Float> sdDefenseCrossesTele;
+    public int calculatedSeed;
+    public int predictedSeed;
 }
