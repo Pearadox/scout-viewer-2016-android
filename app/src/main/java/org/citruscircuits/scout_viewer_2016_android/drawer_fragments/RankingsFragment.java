@@ -23,7 +23,7 @@ public abstract class RankingsFragment extends SearchableListFragment {
         super.onListItemClick(l, v, position, id);
 
         RankingsAdapter adapter = (RankingsAdapter)getListAdapter();
-        int teamNumberClicked = adapter.filteredValues.get(position - 1).number;
+        int teamNumberClicked = adapter.filteredValues.get(position - getListView().getHeaderViewsCount()).number;
 
         Intent teamDetailsViewIntent = new Intent(getActivity(), TeamDetailsActivity.class);
         teamDetailsViewIntent.putExtra("teamNumber", teamNumberClicked);

@@ -29,7 +29,26 @@ import javax.xml.transform.Templates;
  * Created by citruscircuits on 1/23/16.
  */
 public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
-    private String[][] fieldsToDisplay = {{"calculatedData.avgHighShotsAuto", "calculatedData.avgLowShotsAuto"}, {"calculatedData.avgHighShotsTele", "calculatedData.avgLowShotsTele"}, {"calculated.avgTimesCrossedDefensesAuto.a.cdf", "calculated.avgTimesCrossedDefensesAuto.a.pc", "calculated.avgTimesCrossedDefensesAuto.b.mt", "calculated.avgTimesCrossedDefensesAuto.b.rp", "calculated.avgTimesCrossedDefensesAuto.c.db", "calculated.avgTimesCrossedDefensesAuto.c.sp", "calculated.avgTimesCrossedDefensesAuto.d.rt", "calculated.avgTimesCrossedDefensesAuto.d.rw", "calculated.avgTimesCrossedDefensesAuto.lb.lb", "calculated.avgTimesCrossedDefensesTele.a.cdf", "calculated.avgTimesCrossedDefensesTele.a.pc", "calculated.avgTimesCrossedDefensesTele.b.mt", "calculated.avgTimesCrossedDefensesTele.b.rp", "calculated.avgTimesCrossedDefensesTele.c.db", "calculated.avgTimesCrossedDefensesTele.c.sp", "calculated.avgTimesCrossedDefensesTele.d.rt", "calculated.avgTimesCrossedDefensesTele.d.rw", "calculated.avgTimesCrossedDefensesAuto.lb.lb"}};
+    private String[][] fieldsToDisplay = {{"calculatedData.avgHighShotsAuto", "calculatedData.avgLowShotsAuto"},
+            {"calculatedData.avgHighShotsTele", "calculatedData.avgLowShotsTele"},
+            {"calculatedData.avgSuccessfulTimesCrossedDefensesAuto.a.cdf",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.a.pc",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.b.mt",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.b.rp",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.c.db",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.c.sp",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.d.rt",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.d.rw",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.lb.lb",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.a.cdf",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.a.pc",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.b.mt",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.b.rp",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.c.db",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.c.sp",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.d.rt",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.d.rw",
+                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.lb.lb"}};
 
     private String[] sectionTitles = {"Auto", "Teleop", "Defenses"};
     private FirebaseList teams;
@@ -77,6 +96,7 @@ public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
     @Override
     public int getRankOfRowAndSection(final int section, final int row) {
         List<Team> sortedTeams = new ArrayList<>(teams.values());
+        String valueName = (String)getRowItem(section, row);
         Collections.sort(sortedTeams, new TeamValueComparator(false, new TeamValueComparator.TeamValueRetriever() {
             @Override
             public Float retrieve(Team t) {
