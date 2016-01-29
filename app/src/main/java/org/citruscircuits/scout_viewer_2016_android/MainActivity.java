@@ -22,9 +22,11 @@ import com.firebase.client.FirebaseError;
 
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.FirstPickAbilityFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.NavigationDrawerFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.PredictedSeedingFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.RecentMatchesFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.ScheduleFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SecondPickAbilityFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SeedingFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SiegePowerFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.UpcomingMatchesFragment;
 
@@ -97,9 +99,15 @@ public class MainActivity extends ActionBarActivity
                 fragment = new ScheduleFragment();
                 break;
             case 3:
-                fragment = new FirstPickAbilityFragment();
+                fragment = new SeedingFragment();
                 break;
             case 4:
+                fragment = new PredictedSeedingFragment();
+                break;
+            case 5:
+                fragment = new FirstPickAbilityFragment();
+                break;
+            case 6:
                 fragment = new SecondPickAbilityFragment();
                 break;
         }

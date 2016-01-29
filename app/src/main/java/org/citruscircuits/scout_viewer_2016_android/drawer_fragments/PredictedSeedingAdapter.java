@@ -7,15 +7,15 @@ import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 
 /**
- * Created by citruscircuits on 1/27/16.
+ * Created by colinunger on 1/28/16.
  */
-public class SecondPickAbilityListAdapter extends RankingsAdapter {
+public class PredictedSeedingAdapter extends RankingsAdapter {
 
-    public SecondPickAbilityListAdapter(Context paramContext, final int team) {
+    public PredictedSeedingAdapter(Context paramContext) {
         super(paramContext, new TeamValueComparator.TeamValueRetriever() {
             @Override
             public Float retrieve(Team t) {
-                return (Float) Utils.getObjectField(t, "calculatedData.secondPickAbility." + 1678);
+                return (Float) Utils.getObjectField(t, "calculatedData.predictedSeed");
             }
         }, false);
     }

@@ -36,8 +36,10 @@ public class CalculatedTeamData {
 	public float incapacitatedPercentage;
 	public float scalePercentage;
 	public float challengePercentage;
-	public Map<String, Map<String, Float>> avgTimesCrossedDefensesAuto;
-	public Map<String, Map<String, Float>> avgTimesCrossedDefensesTele;
+	public Map<String, Map<String, Float>> avgSuccessfulTimesCrossedDefensesAuto;
+	public Map<String, Map<String, Float>> avgSuccessfulTimesCrossedDefensesTele;
+	public Map<String, Map<String, Float>> avgFailedTimesCrossedDefensesAuto;
+	public Map<String, Map<String, Float>> avgFailedTimesCrossedDefensesTele;
 	public float siegePower;
 	public float siegeConsistency;
 	public float siegeAbility;
@@ -52,8 +54,10 @@ public class CalculatedTeamData {
 	public float sdShotsBlocked;
 	public float sdMidlineBallsIntakedAuto;
 	public float sdBallsKnockedOffMidlineAuto;
-	public Map<String, Float> sdDefenseCrossesAuto;
-	public Map<String, Float> sdDefenseCrossesTele;
-    public int calculatedSeed;
+	public Map<String, Map<String, Float>> sdSuccessfulDefenseCrossesAuto;
+	public Map<String, Map<String, Float>> sdSuccessfulDefenseCrossesTele;
+	public Map<String, Map<String, Float>> sdFailedDefenseCrossesAuto;
+	public Map<String, Map<String, Float>> sdFailedDefenseCrossesTele;
+	public int actualSeed;
     public int predictedSeed;
 }

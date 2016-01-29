@@ -18,7 +18,7 @@ public class SecondPickAbilityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View result = inflater.inflate(R.layout.second_pick_list_header, container, false);
+        View result = inflater.inflate(R.layout.second_pick_view_pager, container, false);
         ViewPager pager = (ViewPager) result.findViewById(R.id.secondPickAbilityPager);
 
         pager.setAdapter(buildAdapter());

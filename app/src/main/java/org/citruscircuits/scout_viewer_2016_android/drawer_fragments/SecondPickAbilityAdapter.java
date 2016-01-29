@@ -29,7 +29,7 @@ import java.util.List;
 public class SecondPickAbilityAdapter extends FragmentStatePagerAdapter {
     Context ctxt = null;
     FirebaseList teamList;
-    ArrayList<Team> sortedTeams;
+    ArrayList<Team> sortedTeams = new ArrayList<>();
 
     public SecondPickAbilityAdapter(Context ctxt, FragmentManager mgr) {
         super(mgr);
@@ -38,14 +38,15 @@ public class SecondPickAbilityAdapter extends FragmentStatePagerAdapter {
         teamList = new FirebaseList(Constants.TEAMS_PATH, new FirebaseList.FirebaseUpdatedCallback() {
             @Override
             public void execute() {
-                ArrayList<Team> teams = new ArrayList(teamList.values());
-                Collections.sort(teams, new TeamValueComparator(true, new TeamValueComparator.TeamValueRetriever() {
+                sortedTeams.clear();
+                sortedTeams.addAll(teamList.values());
+                Collections.sort(sortedTeams, new TeamValueComparator(true, new TeamValueComparator.TeamValueRetriever() {
                     @Override
                     public Comparable retrieve(Team t) {
                         return (Float)Utils.getObjectField(t, "calculatedData.firstPickAbility");
                     }
                 }));
-                sortedTeams = teams;
+                notifyDataSetChanged();
             }
         });
     }
@@ -57,7 +58,7 @@ public class SecondPickAbilityAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return(SecondPickAbilityListFragment.newInstance(position));
+        return(SecondPickAbilityListFragment.newInstance(position, sortedTeams.get(position).number));
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -41,8 +42,10 @@ public class MatchDetailsActivity extends ActionBarActivity {
     private void updateUI() {
         LinearLayout redTeamsLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsRedTeamsLinearLayout);
         for (int teamNumber : match.redAllianceTeamNumbers) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
             View view = getLayoutInflater().inflate(R.layout.match_details_team_cell, redTeamsLinearLayout);
+            TextView teamNumberTextView = (TextView)view.findViewById(R.id.matchDetailsTeamCellTeamNumberTextView);
+            teamNumberTextView.setText(teamNumber + "");
             view.setLayoutParams(params);
             view.setBackgroundColor(Color.RED);
         }
