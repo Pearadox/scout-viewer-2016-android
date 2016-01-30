@@ -1,4 +1,4 @@
-package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
+package org.citruscircuits.scout_viewer_2016_android;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;

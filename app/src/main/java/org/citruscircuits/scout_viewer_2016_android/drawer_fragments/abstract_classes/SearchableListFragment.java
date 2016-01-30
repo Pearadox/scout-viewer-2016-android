@@ -1,4 +1,4 @@
-package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
+package org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,10 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 
 import org.citruscircuits.scout_viewer_2016_android.R;
 
@@ -43,6 +40,6 @@ public abstract class SearchableListFragment extends ListFragment {
             }
         });
 
-        getListView().addHeaderView(headerView);
+        getListView().addHeaderView(headerView, null, false);
     }
 }

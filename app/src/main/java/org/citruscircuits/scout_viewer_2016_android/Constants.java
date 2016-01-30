@@ -10,7 +10,8 @@ public class Constants {
     public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Second Pick"};
     public static final String MATCHES_PATH = "https://1678-dev-2016.firebaseio.com/Matches";
     public static final String TEAMS_PATH = "https://1678-dev-2016.firebaseio.com/Teams";
-//    private String[][] fieldsToDisplay = {{"avgHighShotsAuto", "avgLowShotsAuto"}, {"avgHighShotsTele", "avgLowShotsTele"}};
+    public static final String TEAMS_UPDATED_ACTION = "org.citruscircuits.scout_viewer_2016_android.teamsupdated";
+    public static final String MATCHES_UPDATED_ACTION = "org.citruscircuits.scout_viewer_2016_android.matchesupdated";
 
     public static final Map<String, String> KEYS_TO_TITLES = new HashMap<String, String> () {
         {

@@ -1,31 +1,29 @@
-package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
+package org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.citruscircuits.scout_viewer_2016_android.Constants;
+import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
+import org.citruscircuits.scout_viewer_2016_android.ObjectFieldComparator;
 import org.citruscircuits.scout_viewer_2016_android.R;
-import org.citruscircuits.scout_viewer_2016_android.TeamValueComparator;
-import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 
-import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by citruscircuits on 1/18/16.
  */
 public abstract class RankingsAdapter extends SearchableFirebaseListAdapter<Team> {
-    public Context context;
-    public static TeamValueComparator.TeamValueRetriever valueRetriever;
+    private String fieldName;
 
-    public RankingsAdapter(Context paramContext, TeamValueComparator.TeamValueRetriever valueRetriever, boolean isNotReversed) {
-        super(Team.class, Constants.TEAMS_PATH, new TeamValueComparator(isNotReversed, valueRetriever));
-        this.valueRetriever = valueRetriever;
-        context = paramContext;
+    public RankingsAdapter(Context context, String fieldName, boolean isNotReversed) {
+        super(context, new ObjectFieldComparator(fieldName, isNotReversed));
+        this.fieldName = fieldName;
     }
 
     @Override
@@ -58,17 +56,27 @@ public abstract class RankingsAdapter extends SearchableFirebaseListAdapter<Team
         rankingTextView.setText(filteredValues.indexOf(team) + 1 + "");
 
         TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
-        teamNumberTextView.setText(team.number + "");
+        teamNumberTextView.setText(team.number.toString());
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-        valueTextView.setText(valueRetriever.retrieve(team).toString() + "");
+        valueTextView.setText(Utils.getObjectField(team, fieldName).toString());
 
         return rowView;
     }
 
     @Override
     public boolean filter(Team value) {
-        String teamNumberString = value.number + "";
+        String teamNumberString = value.number.toString();
         return teamNumberString.contains(searchString);
+    }
+
+    @Override
+    public List<Team> getFirebaseList() {
+        return FirebaseLists.teamsList.getValues();
+    }
+
+    @Override
+    public String getBroadcastAction() {
+        return Constants.TEAMS_UPDATED_ACTION;
     }
 }

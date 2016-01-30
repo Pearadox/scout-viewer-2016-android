@@ -1,22 +1,10 @@
 package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
 
-import com.fasterxml.jackson.databind.deser.Deserializers;
-
-import org.citruscircuits.scout_viewer_2016_android.MatchDetailsActivity;
-import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesAdapter;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesFragment;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 /**
@@ -28,5 +16,20 @@ public class ScheduleFragment extends MatchesFragment {
         super.onCreate(savedInstanceState);
 
         setListAdapter(new ScheduleAdapter(getActivity().getApplicationContext()));
+    }
+
+    /**
+     * Created by citruscircuits on 1/16/16.
+     */
+    public static class
+            ScheduleAdapter extends MatchesAdapter {
+        public ScheduleAdapter(Context context) {
+            super(context, true);
+        }
+
+        @Override
+        public boolean secondaryFilter(Match value) {
+            return true;
+        }
     }
 }

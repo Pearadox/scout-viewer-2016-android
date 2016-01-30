@@ -1,45 +1,43 @@
 package org.citruscircuits.scout_viewer_2016_android.firebase_classes;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by citruscircuits on 1/17/16
  */
 
-public class TeamInMatchData {
-	public int teamNumber;
-	public int matchNumber;
+public class TeamInMatchData extends Object {
+	public Integer teamNumber;
+	public Integer matchNumber;
 
-	public boolean didGetIncapacitated;
-	public boolean didGetDisabled;
+	public Boolean didGetIncapacitated;
+	public Boolean didGetDisabled;
 
-	public int rankTorque;
-	public int rankSpeed;
-	public int rankEvasion;
-	public int rankDefense;
-	public int rankBallControl;
+	public Integer rankTorque;
+	public Integer rankSpeed;
+	public Integer rankEvasion;
+	public Integer rankDefense;
+	public Integer rankBallControl;
 
 	//Auto
-	public int[] ballsIntakedAuto;
-	public int numBallsKnockedOffMidlineAuto;
+	public List<Integer> ballsIntakedAuto;
+	public Integer numBallsKnockedOffMidlineAuto;
 	public Map<String, Map<String, Integer>> timesDefensesCrossedAuto;
-	public int numHighShotsMadeAuto;
-	public int numLowShotsMadeAuto;
-	public int numHighShotsMissedAuto;
-	public int numLowShotsMissedAuto;
-	public boolean didReachAuto;
+	public Integer numHighShotsMadeAuto;
+	public Integer numLowShotsMadeAuto;
+	public Integer numHighShotsMissedAuto;
+	public Integer numLowShotsMissedAuto;
+	public Boolean didReachAuto;
 
 	//Tele
-	public int numHighShotsMadeTele;
-	public int numLowShotsMadeTele;
-	public int numHighShotsMissedTele;
-	public int numLowShotsMissedTele;
-	public int numGroundIntakesTele;
-	public int numShotsBlockedTele;
-	public boolean didScaleTele;
-	public boolean didChallengeTele;
+	public Integer numHighShotsMadeTele;
+	public Integer numLowShotsMadeTele;
+	public Integer numHighShotsMissedTele;
+	public Integer numLowShotsMissedTele;
+	public Integer numGroundIntakesTele;
+	public Integer numShotsBlockedTele;
+	public Boolean didScaleTele;
+	public Boolean didChallengeTele;
 	public Map<String, Map<String, Integer>> timesDefensesCrossedTele;
 }

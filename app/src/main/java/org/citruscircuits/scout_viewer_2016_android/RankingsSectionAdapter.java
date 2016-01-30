@@ -4,15 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HeaderViewListAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.applidium.headerlistview.HeaderListView;
 import com.applidium.headerlistview.SectionAdapter;
-
-import java.util.ArrayList;
 
 /**
  * Created by colinunger on 1/24/16.
@@ -35,26 +29,16 @@ public abstract class RankingsSectionAdapter extends SectionAdapter {
         }
 
         TextView rankingTextView = (TextView)rowView.findViewById(R.id.rankingTextView);
-        rankingTextView.setText(getRankOfRowAndSection(section, row) + "");
+        rankingTextView.setText(getRankOfRowInSection(section, row) + "");
 
         TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
-        teamNumberTextView.setText(getNameOfRowAndSection(section, row));
+        teamNumberTextView.setText(getNameOfRowInSection(section, row));
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-        valueTextView.setText(getValueOfRowAndSection(section, row).toString());
+        valueTextView.setText(getValueOfRowInSection(section, row).toString());
 
         return rowView;
     }
-
-//    @Override
-//    public Object getRowItem(int section, int row) {
-//        return displayObjects[section][row];
-//    }
-//
-//    @Override
-//    public Object getSectionHeaderItem(int section) {
-//        return sectionHeaders[section];
-//    }
 
     @Override
     public View getSectionHeaderView(int section, View convertView, ViewGroup parent) {
@@ -71,7 +55,7 @@ public abstract class RankingsSectionAdapter extends SectionAdapter {
         return rowView;
     }
 
-    public abstract int getRankOfRowAndSection(int section, int row);
-    public abstract String getNameOfRowAndSection(int section, int row);
-    public abstract Float getValueOfRowAndSection(int section, int row);
+    public abstract int getRankOfRowInSection(int section, int row);
+    public abstract String getNameOfRowInSection(int section, int row);
+    public abstract Object getValueOfRowInSection(int section, int row);
 }

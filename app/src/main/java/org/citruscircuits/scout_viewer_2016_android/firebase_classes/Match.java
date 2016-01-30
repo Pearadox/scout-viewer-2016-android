@@ -3,19 +3,23 @@ package org.citruscircuits.scout_viewer_2016_android.firebase_classes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Created by citruscircuits on 1/17/16
  */
 
-public class Match {
-	public int number;
+public class Match extends Object {
+	public Integer number;
 	public CalculatedMatchData calculatedData;
-	public int[] redAllianceTeamNumbers;
-	public int[] blueAllianceTeamNumbers;
-	public int redScore;
-	public int blueScore;
-	public String[] redDefensePositions;
-	public String[] blueDefensePositions;
-	public boolean redAllianceDidCapture;
-	public boolean blueAllianceDidCapture;
+	public List<Integer> redAllianceTeamNumbers;
+	public List<Integer> blueAllianceTeamNumbers;
+	public Integer redScore;
+	public Integer blueScore;
+	public List<String> redDefensePositions;
+	public List<String> blueDefensePositions;
+	public Boolean redAllianceDidCapture;
+	public Boolean blueAllianceDidCapture;
+	public Boolean redAllianceDidBreach;
+	public Boolean blueAllianceDidBreach;
 }

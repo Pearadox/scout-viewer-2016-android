@@ -1,25 +1,22 @@
 package org.citruscircuits.scout_viewer_2016_android.firebase_classes;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.Map;
 
 /**
  * Created by citruscircuits on 1/17/16
  */
 
-public class CalculatedMatchData {
-    public float predictedRedScore;
-    public float predictedBlueScore;
-    public int numDefensesCrossedByBlue;
-    public int numDefensesCrossedByRed;
-    public float predictedBlueRPs;
-    public float predictedRedRPs;
-    public int actualBlueRPs;
-    public int actualRedRPs;
-    public boolean redAllianceDidBreach;
-    public boolean blueAllianceDidBreach;
+public class CalculatedMatchData extends Object {
+    public Float predictedRedScore;
+    public Float predictedBlueScore;
+    public Integer numDefensesCrossedByBlue;
+    public Integer numDefensesCrossedByRed;
+    public Float predictedBlueRPs;
+    public Float predictedRedRPs;
+    public Integer actualBlueRPs;
+    public Integer actualRedRPs;
+    public Boolean redAllianceDidBreach;
+    public Boolean blueAllianceDidBreach;
     public Map<String, Float> redScoresForDefenses;
     public Map<String, Float> redWinningChanceForDefenses;
     public Map<String, Float> redBreachChanceForDefenses;

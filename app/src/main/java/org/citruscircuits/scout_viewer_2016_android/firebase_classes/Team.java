@@ -5,27 +5,28 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by citruscircuits on 1/17/16
  */
 
-public class Team {
+public class Team extends Object {
 	public String name;
-	public int number;
-	public Match[] matches;
-	public TeamInMatchData[] teamInMatchDatas;
+	public Integer number;
+	public List<Match> matches;
+	public List<TeamInMatchData> teamInMatchDatas;
 	public CalculatedTeamData calculatedData;
 	public String selectedImageUrl;
-	public String[] otherImageUrls;
-	public boolean pitLowBarCapability;
-	public boolean pitPotentialLowBarCapability;
-	public boolean pitPotentialCDFAndPCCapability;
-	public boolean pitPotentialMidlineBallCapability;
-	public int pitOrganization;
-	public float pitFrontBumperWidth;
-	public boolean pitPotentialShotBlockerCapability;
+	public List<String> otherImageUrls;
+	public Boolean pitLowBarCapability;
+	public Boolean pitPotentialLowBarCapability;
+	public Boolean pitPotentialCDFAndPCCapability;
+	public Boolean pitPotentialMidlineBallCapability;
+	public Integer pitOrganization;
+	public Float pitFrontBumperWidth;
+	public Boolean pitPotentialShotBlockerCapability;
 	public String pitNotes;
-	public int pitNumberOfWheels;
-	public int pitHeightOfRobot;
+	public Integer pitNumberOfWheels;
+	public Integer pitHeightOfRobot;
 }

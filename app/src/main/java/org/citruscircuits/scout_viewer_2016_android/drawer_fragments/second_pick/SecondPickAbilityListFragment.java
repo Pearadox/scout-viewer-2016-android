@@ -1,24 +1,23 @@
-package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
+package org.citruscircuits.scout_viewer_2016_android.drawer_fragments.second_pick;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.citruscircuits.scout_viewer_2016_android.R;
-import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.RankingsAdapter;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.RankingsFragment;
 
 /**
  * Created by citruscircuits on 1/27/16.
  */
 public class SecondPickAbilityListFragment extends RankingsFragment {
     private static final String KEY_POSITION = "position";
-    private int teamNumber;
+    private Integer teamNumber;
 
-    public SecondPickAbilityListFragment(int t) {
-        teamNumber = t;
+    public SecondPickAbilityListFragment() {
+        teamNumber = getArguments().getInt("teamNumber");
     }
 
     @Override
@@ -26,8 +25,6 @@ public class SecondPickAbilityListFragment extends RankingsFragment {
         super.onCreate(savedInstanceState);
 
         setListAdapter(new SecondPickAbilityListAdapter(getActivity().getApplicationContext(), teamNumber));
-
-        int position=getArguments().getInt(KEY_POSITION, -1);
     }
 
     @Override
@@ -40,17 +37,14 @@ public class SecondPickAbilityListFragment extends RankingsFragment {
         getListView().addHeaderView(secondPickTeamTitleListHeader, null, false);
     }
 
-    static SecondPickAbilityListFragment newInstance(int position, int t) {
-        SecondPickAbilityListFragment frag = new SecondPickAbilityListFragment(t);
-        Bundle args=new Bundle();
+    /**
+     * Created by citruscircuits on 1/27/16.
+     */
+    public static class
+            SecondPickAbilityListAdapter extends RankingsAdapter {
 
-        args.putInt(KEY_POSITION, position);
-        frag.setArguments(args);
-
-        return(frag);
+        public SecondPickAbilityListAdapter(Context context, int teamNumber) {
+            super(context, "calculatedData.secondPickAbility." + 1678, false);
+        }
     }
-
-//    static String getTitle(Context ctxt, int position) {
-//        return(String.format(ctxt.getString(R.string.hint), position + 1));
-//    }
 }

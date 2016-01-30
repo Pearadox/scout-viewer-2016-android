@@ -2,25 +2,17 @@ package org.citruscircuits.scout_viewer_2016_android;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +40,11 @@ public class Utils {
             Log.e("test", "The exception is " + e.getMessage());
             return null;
         }
+    }
+
+    public static int getRankOfObject(Object o, List<Object> os, String fieldname) {
+        Collections.sort(os, new ObjectFieldComparator(fieldname, true));
+        return os.indexOf(o);
     }
 
     public static Bitmap downloadImage(String urlString) {

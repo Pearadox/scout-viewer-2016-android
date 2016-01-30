@@ -1,4 +1,4 @@
-package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
+package org.citruscircuits.scout_viewer_2016_android.drawer_fragments.second_pick;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,12 +21,8 @@ public class SecondPickAbilityFragment extends Fragment {
         View result = inflater.inflate(R.layout.second_pick_view_pager, container, false);
         ViewPager pager = (ViewPager) result.findViewById(R.id.secondPickAbilityPager);
 
-        pager.setAdapter(buildAdapter());
+        pager.setAdapter(new SecondPickAbilityAdapter(getActivity(), getChildFragmentManager()));
 
         return (result);
-    }
-
-    private SecondPickAbilityAdapter buildAdapter() {
-        return (new SecondPickAbilityAdapter(getActivity(), getChildFragmentManager()));
     }
 }

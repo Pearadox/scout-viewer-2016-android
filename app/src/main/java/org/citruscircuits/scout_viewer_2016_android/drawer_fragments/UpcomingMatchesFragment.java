@@ -1,11 +1,11 @@
 package org.citruscircuits.scout_viewer_2016_android.drawer_fragments;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesAdapter;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesFragment;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 /**
  * Created by citruscircuits on 1/17/16.
@@ -16,5 +16,20 @@ public class UpcomingMatchesFragment extends MatchesFragment {
         super.onCreate(savedInstanceState);
 
         setListAdapter(new UpcomingMatchesAdapter(getActivity().getApplicationContext()));
+    }
+
+    /**
+     * Created by citruscircuits on 1/17/16.
+     */
+    public static class UpcomingMatchesAdapter extends MatchesAdapter {
+
+        public UpcomingMatchesAdapter(Context context) {
+            super(context, false);
+        }
+
+        @Override
+        public boolean secondaryFilter(Match value) {
+            return value.redScore == -1 && value.blueScore == -1;
+        }
     }
 }
