@@ -30,7 +30,6 @@ public abstract class SearchableFirebaseListAdapter<T> extends BaseAdapter {
     public SearchableFirebaseListAdapter(Context context, Comparator<T> filterComparator) {
         this.filterComparator = filterComparator;
         this.context = context;
-        Log.e("test", "The length of the firebase list is " + getFirebaseList().size());
         LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

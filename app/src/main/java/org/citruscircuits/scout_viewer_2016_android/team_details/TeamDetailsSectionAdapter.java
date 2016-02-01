@@ -1,13 +1,19 @@
-package org.citruscircuits.scout_viewer_2016_android;
+package org.citruscircuits.scout_viewer_2016_android.team_details;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
+import org.citruscircuits.scout_viewer_2016_android.Constants;
+import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
+import org.citruscircuits.scout_viewer_2016_android.RankingsActivity;
+import org.citruscircuits.scout_viewer_2016_android.RankingsSectionAdapter;
+import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 
 import java.util.ArrayList;
@@ -18,7 +24,6 @@ import java.util.List;
  */
 public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
     private String[][] fieldsToDisplay = {
-            {},
             {"calculatedData.firstPickAbility"},
             {"calculatedData.avgHighShotsAuto", "calculatedData.avgLowShotsAuto"},
             {"calculatedData.avgHighShotsTele", "calculatedData.avgLowShotsTele"},
@@ -61,7 +66,7 @@ public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
 
     @Override
     public Object getRowItem(int section, int row) {
-            return fieldsToDisplay[section + 1][row];
+            return fieldsToDisplay[section][row];
     }
 
     @Override
@@ -72,7 +77,7 @@ public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
     @Override
     public int numberOfRows(int section) {
         if (section > -1) {
-            return fieldsToDisplay[section + 1].length;
+            return fieldsToDisplay[section].length;
         } else {
             return 0;
         }
@@ -85,7 +90,7 @@ public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
 
     @Override
     public Object getSectionHeaderItem(int section) {
-        return sectionTitles[section + 1];
+        return sectionTitles[section];
     }
 
     @Override
@@ -115,7 +120,7 @@ public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
     @Override
     public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id) {
         Intent rankingsActivityIntent = new Intent(context, RankingsActivity.class);
-        rankingsActivityIntent.putExtra("field", (String)getRowItem(section, row));
+        rankingsActivityIntent.putExtra("field", (String) getRowItem(section, row));
 
         context.startActivity(rankingsActivityIntent);
     }

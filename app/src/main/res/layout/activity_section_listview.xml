@@ -8,7 +8,7 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     android:paddingBottom="0dp"
-    tools:context=".TeamDetailsActivity">
+    tools:context=".team_details.TeamDetailsActivity">
     
     <com.applidium.headerlistview.HeaderListView
         android:id="@+id/teamDetailsHeaderListView"

@@ -51,7 +51,7 @@ public class HeaderListView extends RelativeLayout {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mAdapter != null) {
-                    mAdapter.onItemClick(parent, view, position, id);
+                    mAdapter.onItemClick(parent, view, position - getListView().getHeaderViewsCount(), id);
                 }
             }
         });

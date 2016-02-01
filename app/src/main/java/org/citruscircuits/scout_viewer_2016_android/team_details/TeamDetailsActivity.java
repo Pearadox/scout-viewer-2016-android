@@ -1,6 +1,5 @@
-package org.citruscircuits.scout_viewer_2016_android;
+package org.citruscircuits.scout_viewer_2016_android.team_details;
 
-import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,39 +7,27 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.applidium.headerlistview.HeaderListView;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
+import org.citruscircuits.scout_viewer_2016_android.Constants;
+import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
-import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 
 public class TeamDetailsActivity extends ActionBarActivity {
@@ -51,16 +38,13 @@ public class TeamDetailsActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_team_details);
+        setContentView(R.layout.activity_section_listview);
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);
 
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
         teamDetailsHeaderListView.setAdapter(new TeamDetailsSectionAdapter(this, teamNumber));
         View teamDetailsHeaderView = getLayoutInflater().inflate(R.layout.team_details_header, null);
         teamDetailsHeaderListView.getListView().addHeaderView(teamDetailsHeaderView, null, false);
-
-//        teamDetailsHeaderListView.getListView().
-
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new BroadcastReceiver() {
             @Override
@@ -70,7 +54,7 @@ public class TeamDetailsActivity extends ActionBarActivity {
         }, new IntentFilter(Constants.TEAMS_UPDATED_ACTION));
 
         imageView = (ImageView)teamDetailsHeaderView.findViewById(R.id.teamDetailsImageView);
-        new TeamImageDownloadAsyncTask().execute();
+//        new TeamImageDownloadAsyncTask().execute();
     }
 
     public void reload() {
@@ -96,7 +80,7 @@ public class TeamDetailsActivity extends ActionBarActivity {
         teamDetailsPredictedSeedingTextView.setText(team.calculatedData.predictedSeed.toString());
 
         TextView teamDetailsPredictedSeedingRPsTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeedingRPs);
-        teamDetailsPredictedSeedingRPsTextView.setText(team.calculatedData.numRPs.toString());
+        teamDetailsPredictedSeedingRPsTextView.setText(team.calculatedData.predictedNumRPs.toString());
     }
 
     private class TeamImageDownloadAsyncTask extends AsyncTask {

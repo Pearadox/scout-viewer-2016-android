@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by citruscircuits on 1/18/16.
  */
-public abstract class RankingsAdapter extends SearchableFirebaseListAdapter<Team> {
+public abstract class RankingsAdapter<T> extends SearchableFirebaseListAdapter<T> {
     private String fieldName;
 
     public RankingsAdapter(Context context, String fieldName, boolean isNotReversed) {
@@ -50,33 +50,21 @@ public abstract class RankingsAdapter extends SearchableFirebaseListAdapter<Team
             rowView = inflater.inflate(R.layout.ranking_cell, parent, false);
         }
 
-        Team team = (Team)getItem(position);
+        T value = (T)getItem(position);
 
         TextView rankingTextView = (TextView)rowView.findViewById(R.id.rankingTextView);
-        rankingTextView.setText(filteredValues.indexOf(team) + 1 + "");
+        rankingTextView.setText(filteredValues.indexOf(value) + 1 + "");
 
         TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
-        teamNumberTextView.setText(team.number.toString());
+        teamNumberTextView.setText(getRankCellText(value));
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-        valueTextView.setText(Utils.getObjectField(team, fieldName).toString());
+        valueTextView.setText(Utils.getObjectField(value, fieldName).toString());
 
         return rowView;
     }
 
-    @Override
-    public boolean filter(Team value) {
-        String teamNumberString = value.number.toString();
-        return teamNumberString.contains(searchString);
-    }
 
-    @Override
-    public List<Team> getFirebaseList() {
-        return FirebaseLists.teamsList.getValues();
-    }
+    public abstract String getRankCellText(T value);
 
-    @Override
-    public String getBroadcastAction() {
-        return Constants.TEAMS_UPDATED_ACTION;
-    }
 }

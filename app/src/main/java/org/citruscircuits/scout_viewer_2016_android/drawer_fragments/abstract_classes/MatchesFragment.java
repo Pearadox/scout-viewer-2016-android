@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import org.citruscircuits.scout_viewer_2016_android.MatchDetailsActivity;
+import org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsActivity;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 /**
  * Created by colinunger on 1/23/16.
@@ -20,8 +21,8 @@ public abstract class MatchesFragment extends SearchableListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        MatchesAdapter adapter = (MatchesAdapter)getListAdapter();
-        int matchNumberClicked = adapter.filteredValues.get(position).number;
+        SearchableFirebaseListAdapter<Match> adapter = (SearchableFirebaseListAdapter)getListAdapter();
+        int matchNumberClicked = adapter.filteredValues.get(position - getListView().getHeaderViewsCount()).number;
 
         Intent matchDetailsActivityIntent = new Intent(getActivity(), MatchDetailsActivity.class);
         matchDetailsActivityIntent.putExtra("matchNumber", matchNumberClicked);

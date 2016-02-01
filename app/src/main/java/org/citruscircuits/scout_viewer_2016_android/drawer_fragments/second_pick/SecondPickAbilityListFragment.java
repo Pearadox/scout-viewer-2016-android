@@ -7,23 +7,23 @@ import android.widget.TextView;
 
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.RankingsAdapter;
-import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.RankingsFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.TeamRankingsAdapter;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.TeamRankingsFragment;
 
 /**
  * Created by citruscircuits on 1/27/16.
  */
-public class SecondPickAbilityListFragment extends RankingsFragment {
-    private static final String KEY_POSITION = "position";
+public class SecondPickAbilityListFragment extends TeamRankingsFragment {
     private Integer teamNumber;
 
     public SecondPickAbilityListFragment() {
-        teamNumber = getArguments().getInt("teamNumber");
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        teamNumber = getArguments().getInt("teamNumber");
         setListAdapter(new SecondPickAbilityListAdapter(getActivity().getApplicationContext(), teamNumber));
     }
 
@@ -40,8 +40,7 @@ public class SecondPickAbilityListFragment extends RankingsFragment {
     /**
      * Created by citruscircuits on 1/27/16.
      */
-    public static class
-            SecondPickAbilityListAdapter extends RankingsAdapter {
+    public static class SecondPickAbilityListAdapter extends TeamRankingsAdapter {
 
         public SecondPickAbilityListAdapter(Context context, int teamNumber) {
             super(context, "calculatedData.secondPickAbility." + 1678, false);

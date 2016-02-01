@@ -1,7 +1,9 @@
-package org.citruscircuits.scout_viewer_2016_android;
+package org.citruscircuits.scout_viewer_2016_android.team_details;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+
+import org.citruscircuits.scout_viewer_2016_android.Utils;
 
 /**
  * Created by colinunger on 1/26/16.

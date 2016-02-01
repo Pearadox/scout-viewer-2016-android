@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TeamDetailsActivity"
+            android:name=".team_details.TeamDetailsActivity"
             android:label="@string/title_activity_team_details" />
         <activity
-            android:name=".MatchDetailsActivity"
+            android:name=".match_details.MatchDetailsActivity"
             android:label="@string/title_activity_match_details" />
         <activity
             android:name=".RankingsActivity"

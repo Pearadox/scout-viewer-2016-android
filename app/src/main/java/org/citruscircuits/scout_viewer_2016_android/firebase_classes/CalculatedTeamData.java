@@ -60,4 +60,5 @@ public class CalculatedTeamData extends Object{
 	public Map<String, Map<String, Float>> sdFailedDefenseCrossesTele;
 	public Integer actualSeed;
     public Integer predictedSeed;
+	public Float predictedNumRPs;
 }

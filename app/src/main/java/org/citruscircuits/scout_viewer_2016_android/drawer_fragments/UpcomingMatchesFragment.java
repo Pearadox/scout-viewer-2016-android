@@ -24,7 +24,7 @@ public class UpcomingMatchesFragment extends MatchesFragment {
     public static class UpcomingMatchesAdapter extends MatchesAdapter {
 
         public UpcomingMatchesAdapter(Context context) {
-            super(context, false);
+            super(context, true);
         }
 
         @Override
