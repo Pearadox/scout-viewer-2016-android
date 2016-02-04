@@ -19,7 +19,7 @@ public class ViewerApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Firebase.setAndroidContext(this);
-
+        Firebase.getDefaultConfig().setPersistenceEnabled(true);
 
         FirebaseLists.matchesList = new FirebaseList<>(Constants.MATCHES_PATH, new FirebaseList.FirebaseUpdatedCallback() {
             @Override
