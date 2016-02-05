@@ -14,6 +14,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.applidium.headerlistview.HeaderListView;
@@ -32,7 +34,7 @@ import java.net.URL;
 
 public class TeamDetailsActivity extends ActionBarActivity {
 
-    ImageView imageView;
+    LinearLayout headerPhotoLinearLayout;
     Integer teamNumber;
 
     @Override
@@ -53,8 +55,8 @@ public class TeamDetailsActivity extends ActionBarActivity {
             }
         }, new IntentFilter(Constants.TEAMS_UPDATED_ACTION));
 
-        imageView = (ImageView)teamDetailsHeaderView.findViewById(R.id.teamDetailsImageView);
-//        new TeamImageDownloadAsyncTask().execute();
+        headerPhotoLinearLayout = (LinearLayout)teamDetailsHeaderView.findViewById(R.id.teamDetailsTeamPhotoLinearLayout);
+        new TeamImageDownloadAsyncTask().execute();
     }
 
     public void reload() {
@@ -113,10 +115,10 @@ public class TeamDetailsActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Object o) {
             Bitmap bitmap = (Bitmap)o;
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            ImageView imageView = new ImageView(getApplicationContext());
             imageView.setImageBitmap(bitmap);
-            imageView.setMaxHeight(bitmap.getHeight());
-//            imageView.set
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            headerPhotoLinearLayout.addView(imageView, params);
         }
     }
 }

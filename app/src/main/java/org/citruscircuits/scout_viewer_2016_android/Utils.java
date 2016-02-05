@@ -50,8 +50,6 @@ public class Utils {
     public static Bitmap downloadImage(String urlString) {
         try {
             URL url = new URL("https://dl.dropboxusercontent.com/u/63662632/1678.jpeg");
-//            URLConnection uc = url.openConnection();
-//            uc.addRequestProperty();
             Log.e("test", "Input stream is " + url.openStream().toString());
             InputStream in = new BufferedInputStream(url.openStream());
             Log.e("test", in.toString());
@@ -64,14 +62,6 @@ public class Utils {
         } catch (IOException ioe) {
             Log.e("error", "io Exception: " + ioe.getMessage());
             return null;
-        }
-    }
-
-    public static String getKeyForField(String field) {
-        if (Constants.KEYS_TO_TITLES.containsKey(field)) {
-            return Constants.KEYS_TO_TITLES.get(field);
-        } else {
-            return field;
         }
     }
 }

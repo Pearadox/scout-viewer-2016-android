@@ -35,15 +35,17 @@ import java.net.URL;
 public class TeamInMatchDetailsActivity extends ActionBarActivity {
 
     Integer teamNumber;
+    Integer matchNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_listview);
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);
+        matchNumber = getIntent().getIntExtra("matchNumber", 1);
 
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
-        teamDetailsHeaderListView.setAdapter(new TeamDetailsSectionAdapter(this, teamNumber));
+        teamDetailsHeaderListView.setAdapter(new TeamInMatchDetailsSectionAdapter(this, teamNumber, matchNumber));
     }
 }
 

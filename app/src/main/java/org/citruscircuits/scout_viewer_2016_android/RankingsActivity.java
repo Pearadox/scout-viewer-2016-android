@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 
 public abstract class RankingsActivity extends ActionBarActivity {
 
@@ -21,6 +22,15 @@ public abstract class RankingsActivity extends ActionBarActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.rankingsLinearLayout, fragment, "").commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_graph) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.rankingsLinearLayout, new GraphFragment(), "").commit();
+        }
+        return true;
     }
 
     public abstract Fragment getFragment();

@@ -29,12 +29,6 @@ public class SuperAbilityAdapter extends FragmentStatePagerAdapter {
     Context context;
     String[] fields = {"calculatedData.avgTorque", "calculatedData.avgSpeed", "calculatedData.avgEvasion", "calculatedData.avgDefense", "calculatedData.avgBallControl"};
 
-    public Float avgTorque;
-    public Float avgSpeed;
-    public Float avgEvasion;
-    public Float avgDefense;
-    public Float avgBallControl;
-
     public SuperAbilityAdapter(Context context, FragmentManager mgr) {
         super(mgr);
         this.context = context;
@@ -50,7 +44,7 @@ public class SuperAbilityAdapter extends FragmentStatePagerAdapter {
         Bundle argumentsBundle = new Bundle();
         argumentsBundle.putString("field", fields[position]);
 
-        SecondPickAbilityListFragment secondPickAbilityListFragment = new SecondPickAbilityListFragment();
+        SuperAbilityListFragment secondPickAbilityListFragment = new SuperAbilityListFragment();
         secondPickAbilityListFragment.setArguments(argumentsBundle);
         return secondPickAbilityListFragment;
     }

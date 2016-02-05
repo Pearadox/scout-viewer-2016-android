@@ -72,7 +72,7 @@ public class TeamInMatchDetailsSectionAdapter extends RankingsSectionAdapter {
     @Override
     public int getRankOfRowInSection(int section, int row) {
         String fieldName = (String) getRowItem(section, row);
-        TeamInMatchData teamInMatchData = FirebaseLists.teamInMatchDataList.getFirebaseObjectByKey(teamNumber.toString() + "Q" + matchNumber.toString());
+//        TeamInMatchData teamInMatchData = FirebaseLists.teamInMatchDataList.getFirebaseObjectByKey(teamNumber.toString() + "Q" + matchNumber.toString());
 //        List<Object> TeamInMatch = new ArrayList<>();
 //        teams.addAll(FirebaseLists.teamsList.getValues());
 //        int rank = Utils.getRankOfObject(team, teams, fieldName);
@@ -87,7 +87,8 @@ public class TeamInMatchDetailsSectionAdapter extends RankingsSectionAdapter {
     @Override
     public Object getValueOfRowInSection(int section, int row) {
         if (FirebaseLists.teamsList.getKeys().contains(teamNumber.toString())) {
-            return Utils.getObjectField(FirebaseLists.teamInMatchDataList.getFirebaseObjectByKey(teamNumber.toString() + "Q" + matchNumber.toString()), (String) getRowItem(section, row));
+            String key = teamNumber.toString() + "Q" + matchNumber.toString();
+            return Utils.getObjectField(FirebaseLists.teamInMatchDataList.getFirebaseObjectByKey(key), (String)getRowItem(section, row));
         } else {
             return -1;
         }

@@ -26,8 +26,11 @@
             android:name=".match_details.MatchDetailsActivity"
             android:label="@string/title_activity_match_details" />
         <activity
-            android:name=".RankingsActivity"
-            android:label="@string/title_activity_rankings"></activity>
+            android:name=".team_details.TeamRankingsActivity"
+            android:label="@string/title_activity_team_rankings"/>
+        <activity
+            android:name=".match_details.TeamInMatchDetailsActivity"
+            android:label="@string/title_activity_team_in_match_details" />
     </application>
 
 </manifest>

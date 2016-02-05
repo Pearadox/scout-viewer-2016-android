@@ -1,6 +1,7 @@
 package org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
@@ -10,6 +11,11 @@ import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsActi
  * Created by colinunger on 1/22/16.
  */
 public abstract class TeamRankingsFragment extends SearchableListFragment {
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {

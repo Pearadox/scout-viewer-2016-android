@@ -119,7 +119,7 @@ public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
 
     @Override
     public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id) {
-        Intent rankingsActivityIntent = new Intent(context, RankingsActivity.class);
+        Intent rankingsActivityIntent = new Intent(context, TeamRankingsActivity.class);
         rankingsActivityIntent.putExtra("field", (String) getRowItem(section, row));
 
         context.startActivity(rankingsActivityIntent);

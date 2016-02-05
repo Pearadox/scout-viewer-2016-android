@@ -10,13 +10,10 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_cl
 public class TeamRankingsActivityFragment extends TeamRankingsFragment {
     String field;
 
-    public TeamRankingsActivityFragment() {
-        field = getArguments().getString("field");
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        field = getArguments().getString("field");
 
         setListAdapter(new TeamRankingsActivityAdapter(getActivity().getApplicationContext(), field));
     }

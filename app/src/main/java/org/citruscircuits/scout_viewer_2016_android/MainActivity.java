@@ -24,6 +24,7 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.FirstPickAb
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.PredictedSeedingFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.RecentMatchesFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.ScheduleFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SuperAbilityFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.second_pick.SecondPickAbilityFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SeedingFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.UpcomingMatchesFragment;
@@ -107,6 +108,9 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 6:
                 fragment = new SecondPickAbilityFragment();
+                break;
+            case 7:
+                fragment = new SuperAbilityFragment();
                 break;
         }
         fragmentManager.beginTransaction()
