@@ -1,6 +1,16 @@
 package org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +20,16 @@ import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
 import org.citruscircuits.scout_viewer_2016_android.ObjectFieldComparator;
 import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.Utils;
+import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsActivity;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +42,11 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
     public MatchesAdapter(Context context, boolean isNotReversed) {
         super(context, new ObjectFieldComparator("number", isNotReversed));
         this.context = context;
+    }
 
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
     }
 
     @Override
@@ -53,8 +75,18 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
 
         Match match = (Match)getItem(position);
 
+        if (ViewerApplication.isStarredMatch(match.number)) {
+            rowView.setBackgroundColor(Color.argb(60, 228, 230, 0));
+        } else {
+            rowView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
         TextView matchTextView = (TextView)rowView.findViewById(R.id.matchNumber);
-        matchTextView.setText(match.number.toString());
+        if (selectedScope == "Match") {
+            matchTextView.setText(Utils.highlightTextInString(match.number.toString(), searchString));
+        } else {
+            matchTextView.setText(match.number.toString());
+        }
 
         List<Integer> teamsInMatch = new ArrayList<>();
         teamsInMatch.addAll(match.redAllianceTeamNumbers);
@@ -63,7 +95,11 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
         int[] teamTextViewIDs = {R.id.teamOne, R.id.teamTwo, R.id.teamThree, R.id.teamFour, R.id.teamFive, R.id.teamSix};
         for (int i = 0; i < 6; i++) {
             TextView teamTextView = (TextView)rowView.findViewById(teamTextViewIDs[i]);
-            teamTextView.setText(teamsInMatch.get(i).toString());
+            if (selectedScope == "Team") {
+                teamTextView.setText(Utils.highlightTextInString(teamsInMatch.get(i).toString(), searchString));
+            } else {
+                teamTextView.setText(teamsInMatch.get(i).toString());
+            }
         }
 
         TextView redScoreTextView = (TextView)rowView.findViewById(R.id.redScore);
@@ -72,30 +108,33 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
         TextView blueScoreTextView = (TextView)rowView.findViewById(R.id.blueScore);
         blueScoreTextView.setText((match.blueScore >= 0) ? match.blueScore.toString() : "???");
 
+        rowView.setOnLongClickListener(new StarLongClickListener());
+        rowView.setOnClickListener(new StarClickListener());
         return rowView;
     }
 
     @Override
-    public boolean filter(Match value) {
+    public boolean filter(Match value, String scope) {
         List<Integer> teamsInMatch = new ArrayList<>();
         teamsInMatch.addAll(value.redAllianceTeamNumbers);
         teamsInMatch.addAll(value.blueAllianceTeamNumbers);
 
+        boolean found = false;
         if (secondaryFilter(value)) {
-            for (Integer team : teamsInMatch) {
-                String teamNumberString = team.toString();
-                if (teamNumberString.contains(searchString)) {
-                    return true;
+            if (searchString.length() == 0) {
+                found = true;
+            } else if (scope == "Team") {
+                for (Integer team : teamsInMatch) {
+                    if (team.toString().indexOf(searchString) == 0) {
+                        found = true;
+                    }
                 }
-            }
-
-            String matchNumberString = value.number.toString();
-            if (matchNumberString.contains(searchString)) {
-                return true;
+            } else if (scope == "Match") {
+                found = value.number.toString().indexOf(searchString) == 0;
             }
         }
 
-        return false;
+        return found;
     }
 
     @Override
@@ -109,4 +148,36 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
     }
 
     public abstract boolean secondaryFilter (Match value);
+
+    private class StarLongClickListener implements View.OnLongClickListener {
+
+        @Override
+        public boolean onLongClick(View v) {
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(75);
+            TextView matchNumberTextView = (TextView)v.findViewById(R.id.matchNumber);
+            if (ViewerApplication.isStarredMatch(Integer.parseInt(matchNumberTextView.getText().toString()))) {
+                ViewerApplication.removeStarredMatch(Integer.parseInt(matchNumberTextView.getText().toString()));
+            } else {
+                ViewerApplication.addStarredMatch(Integer.parseInt(matchNumberTextView.getText().toString()));
+            }
+            notifyDataSetChanged();
+            return true;
+        }
+    }
+
+    private class StarClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            TextView matchNumberTextView = (TextView)v.findViewById(R.id.matchNumber);
+            Integer matchNumberClicked = Integer.parseInt(matchNumberTextView.getText().toString());
+
+            Intent matchDetailsActivityIntent = new Intent(context, MatchDetailsActivity.class);
+            matchDetailsActivityIntent.putExtra("matchNumber", matchNumberClicked);
+            matchDetailsActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            context.startActivity(matchDetailsActivityIntent);
+        }
+    }
 }

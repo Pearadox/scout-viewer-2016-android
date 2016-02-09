@@ -2,7 +2,14 @@ package org.citruscircuits.scout_viewer_2016_android;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
+
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -63,5 +70,37 @@ public class Utils {
             Log.e("error", "io Exception: " + ioe.getMessage());
             return null;
         }
+    }
+
+    public static String dataPointToPercentage(Float dataPoint, int decimalPlaces) {
+        return roundDataPoint(dataPoint * 100, decimalPlaces) + "%";
+    }
+
+    public static String roundDataPoint(Object dataPoint, int decimalPlaces) {
+        int substringIndex = dataPoint.toString().indexOf(".") + 1 + decimalPlaces;
+        if (decimalPlaces < 1) {
+            substringIndex--;
+        }
+        return dataPoint.toString().substring(0, Math.min(substringIndex, dataPoint.toString().length()));
+    }
+
+    public static Integer getLastMatchPlayed() {
+        Integer lastMatch = -1;
+        for (Match match : FirebaseLists.matchesList.getValues()) {
+            if(match.redScore > -1 || match.blueScore > -1) {
+                lastMatch = match.number;
+            }
+        }
+
+        return lastMatch;
+    }
+
+    public static SpannableString highlightTextInString(String fullString, String toHighlight) {
+        SpannableString spannableString = new SpannableString(fullString);
+        int index = fullString.indexOf(toHighlight);
+        if (index == 0) {
+            spannableString.setSpan(new BackgroundColorSpan(Color.GREEN), fullString.indexOf(toHighlight), fullString.indexOf(toHighlight) + toHighlight.length(), 0);
+        }
+        return spannableString;
     }
 }

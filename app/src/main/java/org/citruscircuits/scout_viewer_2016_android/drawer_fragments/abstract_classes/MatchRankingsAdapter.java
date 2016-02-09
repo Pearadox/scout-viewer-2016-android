@@ -15,11 +15,11 @@ import java.util.List;
  */
 public abstract class MatchRankingsAdapter extends RankingsAdapter<Match> {
     public MatchRankingsAdapter(Context context, String fieldName, boolean isNotReversed) {
-        super(context, fieldName, isNotReversed);
+        super(context, fieldName, fieldName, isNotReversed);
     }
 
     @Override
-    public boolean filter(Match value) {
+    public boolean filter(Match value, String scope) {
         List<Integer> teamsInMatch = new ArrayList<>();
         teamsInMatch.addAll(value.redAllianceTeamNumbers);
         teamsInMatch.addAll(value.blueAllianceTeamNumbers);

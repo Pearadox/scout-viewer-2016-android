@@ -1,6 +1,8 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,7 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.CitrusScheduleFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.FirstPickAbilityFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.PredictedSeedingFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.RecentMatchesFragment;
@@ -28,6 +31,9 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SuperAbilit
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.second_pick.SecondPickAbilityFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SeedingFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.UpcomingMatchesFragment;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class MainActivity extends ActionBarActivity
@@ -48,6 +54,8 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         onSectionAttached(0);
@@ -59,7 +67,7 @@ public class MainActivity extends ActionBarActivity
 
         Log.e("test", "Logcat is up!");
 
-        Firebase firebaseRef = new Firebase("https://1678-dev-2016.firebaseio.com");
+        Firebase firebaseRef = new Firebase("https://1678-dev2-2016.firebaseio.com");
 
         Firebase.AuthResultHandler authResultHandler = new Firebase.AuthResultHandler() {
             @Override
@@ -95,24 +103,28 @@ public class MainActivity extends ActionBarActivity
                 fragment = new UpcomingMatchesFragment();
                 break;
             case 2:
-                fragment = new ScheduleFragment();
+                fragment = new CitrusScheduleFragment();
                 break;
             case 3:
-                fragment = new SeedingFragment();
+                fragment = new ScheduleFragment();
                 break;
             case 4:
-                fragment = new PredictedSeedingFragment();
+                fragment = new SeedingFragment();
                 break;
             case 5:
-                fragment = new FirstPickAbilityFragment();
+                fragment = new PredictedSeedingFragment();
                 break;
             case 6:
-                fragment = new SecondPickAbilityFragment();
+                fragment = new FirstPickAbilityFragment();
                 break;
             case 7:
+                fragment = new SecondPickAbilityFragment();
+                break;
+            case 8:
                 fragment = new SuperAbilityFragment();
                 break;
         }
+
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
@@ -121,6 +133,7 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         mTitle = Constants.DRAWER_TITLES[number];
+
     }
 
     public void restoreActionBar() {

@@ -1,10 +1,18 @@
 package org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import org.citruscircuits.scout_viewer_2016_android.Constants;
+import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsActivity;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
@@ -15,6 +23,8 @@ public abstract class MatchesFragment extends SearchableListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -28,5 +38,12 @@ public abstract class MatchesFragment extends SearchableListFragment {
         matchDetailsActivityIntent.putExtra("matchNumber", matchNumberClicked);
 
         startActivity(matchDetailsActivityIntent);
+    }
+
+
+
+    @Override
+    public String[] getScopes() {
+        return Constants.MATCH_SCOPES;
     }
 }

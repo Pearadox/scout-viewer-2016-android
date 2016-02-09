@@ -24,7 +24,7 @@ public class TeamRankingsActivityFragment extends TeamRankingsFragment {
     public static class TeamRankingsActivityAdapter extends TeamRankingsAdapter {
 
         public TeamRankingsActivityAdapter(Context context, String field) {
-            super(context, field, false);
+            super(context, field, field, false);
         }
     }
 }

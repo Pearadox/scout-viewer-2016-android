@@ -1,5 +1,6 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.firebase.client.ChildEventListener;
@@ -23,7 +24,7 @@ public class FirebaseList<T> {
     }
 
     public void setupFirebaseListening(String url, final Class<T> firebaseClass, final FirebaseUpdatedCallback firebaseUpdatedCallback) {
-        Firebase firebase = new Firebase(url);
+        final Firebase firebase = new Firebase(url);
         firebase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -92,6 +93,8 @@ public class FirebaseList<T> {
                         keys.add(nextIndex, key);
                     }
                 }
+
+                firebaseUpdatedCallback.execute();
             }
 
             @Override

@@ -44,4 +44,6 @@ public class TeamInMatchData extends Object {
 	public Boolean didChallengeTele;
 	public Map<String, Map<String, List<Long>>> timesSuccessfulCrossedDefensesTele;
 	public Map<String, Map<String, List<Long>>> timesFailedCrossedDefensesTele;
+
+	public String superNotes;
 }

@@ -22,7 +22,7 @@
             android:layout_alignTop="@+id/matchDetailsMatchTitleTextView"
             android:layout_toLeftOf="@+id/matchDetailsMatchTitleTextView">
             <TextView
-                android:id="@+id/redAllianceScore"
+                android:id="@+id/matchDetailsRedAllianceScore"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="1678"
@@ -32,7 +32,7 @@
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/redAlliancePredictedScore"
+                android:id="@+id/matchDetailsRedAlliancePredictedScore"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:textColor="#FF0000"
@@ -41,7 +41,7 @@
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/redAllianceWinChance"
+                android:id="@+id/matchDetailsRedAllianceWinChance"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -68,7 +68,7 @@
             android:layout_alignTop="@+id/matchDetailsMatchTitleTextView"
             android:layout_toRightOf="@+id/matchDetailsMatchTitleTextView">
             <TextView
-                android:id="@+id/blueAllianceScore"
+                android:id="@+id/matchDetailsBlueAllianceScore"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="1678"
@@ -78,7 +78,7 @@
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/blueAlliancePredictedScore"
+                android:id="@+id/matchDetailsBlueAlliancePredictedScore"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:textColor="#0000ff"
@@ -87,7 +87,7 @@
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/blueAllianceWinChance"
+                android:id="@+id/matchDetailsBlueAllianceWinChance"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -102,7 +102,8 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_below="@id/matchDetailsMatchNumberLinearLayout"
-        android:layout_above="@+id/matchDetailsRedTeamsDefensesLinearLayout">
+        android:layout_above="@+id/matchDetailsRedTeamsDefensesLinearLayout"
+        android:paddingTop="30dp">
 
         <LinearLayout
             android:id="@+id/matchDetailsRedTeamsLinearLayout"

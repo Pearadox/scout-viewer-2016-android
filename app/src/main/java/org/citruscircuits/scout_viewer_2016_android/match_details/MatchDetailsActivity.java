@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import com.firebase.client.ValueEventListener;
 
 import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 public class MatchDetailsActivity extends ActionBarActivity {
@@ -62,6 +65,22 @@ public class MatchDetailsActivity extends ActionBarActivity {
         TextView matchDetailsMatchTitleTextView = (TextView)findViewById(R.id.matchDetailsMatchTitleTextView);
         matchDetailsMatchTitleTextView.setText("Q" + match.number.toString());
 
+        TextView redAllianceScoreTextView = (TextView)findViewById(R.id.matchDetailsRedAllianceScore);
+        TextView redAlliancePredictedScoreTextView = (TextView)findViewById(R.id.matchDetailsRedAlliancePredictedScore);
+        TextView redAllianceWinChanceTextView = (TextView)findViewById(R.id.matchDetailsRedAllianceWinChance);
+
+        redAllianceScoreTextView.setText(match.redScore.toString());
+        redAlliancePredictedScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedRedScore, 0));
+        redAllianceWinChanceTextView.setText(Utils.dataPointToPercentage(match.calculatedData.redWinChance, 0));
+
+        TextView blueAllianceScoreTextView = (TextView)findViewById(R.id.matchDetailsBlueAllianceScore);
+        TextView blueAlliancePredictedScoreTextView = (TextView)findViewById(R.id.matchDetailsBlueAlliancePredictedScore);
+        TextView blueAllianceWinChanceTextView = (TextView)findViewById(R.id.matchDetailsBlueAllianceWinChance);
+
+        blueAllianceScoreTextView.setText(match.blueScore.toString());
+        blueAlliancePredictedScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedBlueScore, 0));
+        blueAllianceWinChanceTextView.setText(Utils.dataPointToPercentage(match.calculatedData.blueWinChance, 0));
+
         LinearLayout redOptimalDefensesLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsRedTeamsDefensesLinearLayout);
         for (String redOptimalDefense : match.calculatedData.optimalRedDefenses) {
             redOptimalDefensesLinearLayout.addView(getTeamInMatchDefenseCell(redOptimalDefense, true));
@@ -73,10 +92,11 @@ public class MatchDetailsActivity extends ActionBarActivity {
         }
     }
 
-    private class MatchDetailsTeamClickedListener implements View.OnClickListener {
+    private class MatchDetailsTeamClickedListener implements ViewGroup.OnClickListener {
 
         @Override
         public void onClick(View v) {
+            Log.e("test", "CLICKED!");
             TextView teamNumberTextView = (TextView)v.findViewById(R.id.matchDetailsTeamCellTeamNumberTextView);
             String teamNumberText = teamNumberTextView.getText().toString();
             Integer teamNumber = Integer.parseInt(teamNumberText);
@@ -95,7 +115,7 @@ public class MatchDetailsActivity extends ActionBarActivity {
         teamNumberTextView.setOnClickListener(new MatchDetailsTeamClickedListener());
 
         ListView listView = (ListView)view.findViewById(R.id.matchDetailsTeamCellTeamValues);
-        listView.setAdapter(new MatchDetailsTeamCellAdapter(getApplicationContext()));
+        listView.setAdapter(new MatchDetailsTeamCellAdapter(getApplicationContext(), teamNumber));
 
         return view;
     }

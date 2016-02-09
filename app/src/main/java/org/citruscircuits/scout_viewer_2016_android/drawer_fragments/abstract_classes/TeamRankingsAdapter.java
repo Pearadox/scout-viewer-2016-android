@@ -12,14 +12,14 @@ import java.util.List;
  * Created by colinunger on 1/31/16.
  */
 public abstract class TeamRankingsAdapter extends RankingsAdapter<Team> {
-    public TeamRankingsAdapter(Context context, String fieldName, boolean isNotReversed) {
-        super(context, fieldName, isNotReversed);
+    public TeamRankingsAdapter(Context context, String rankFieldName, String valueFieldName, boolean isNotReversed) {
+        super(context, rankFieldName, valueFieldName, isNotReversed);
     }
 
     @Override
-    public boolean filter(Team value) {
+    public boolean filter(Team value, String scope) {
         String teamNumberString = value.number.toString();
-        return teamNumberString.contains(searchString);
+        return teamNumberString.indexOf(searchString) == 0;
     }
 
     @Override

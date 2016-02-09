@@ -61,4 +61,6 @@ public class CalculatedTeamData extends Object{
 	public Integer actualSeed;
     public Integer predictedSeed;
 	public Float predictedNumRPs;
+	public Float scoreContribution;
+	public Float citrusDPR;
 }

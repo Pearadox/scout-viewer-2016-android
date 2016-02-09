@@ -43,7 +43,7 @@ public class SecondPickAbilityListFragment extends TeamRankingsFragment {
     public static class SecondPickAbilityListAdapter extends TeamRankingsAdapter {
 
         public SecondPickAbilityListAdapter(Context context, int teamNumber) {
-            super(context, "calculatedData.secondPickAbility." + 1678, false);
+            super(context, "calculatedData.secondPickAbility." + 1678, "calculatedData.secondPickAbility." + 1678, false);
         }
     }
 }

@@ -8,28 +8,28 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_cl
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 /**
- * Created by citruscircuits on 1/17/16.
+ * Created by colinunger on 2/8/16.
  */
-public class RecentMatchesFragment extends MatchesFragment {
+public class CitrusScheduleFragment extends MatchesFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new RecentMatchesAdapter(getActivity().getApplicationContext()));
+        setListAdapter(new CitrusScheduleAdapter(getActivity().getApplicationContext()));
     }
 
     /**
      * Created by citruscircuits on 1/17/16.
      */
-    public static class RecentMatchesAdapter extends MatchesAdapter {
+    public static class CitrusScheduleAdapter extends MatchesAdapter {
 
-        public RecentMatchesAdapter(Context context) {
-            super(context, false);
+        public CitrusScheduleAdapter(Context context) {
+            super(context, true);
         }
 
         @Override
         public boolean secondaryFilter(Match value) {
-            return value.redScore > -1 || value.blueScore > -1;
+            return (value.redAllianceTeamNumbers.contains(1678) || value.blueAllianceTeamNumbers.contains(1678));
         }
     }
 }

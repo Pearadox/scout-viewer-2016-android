@@ -30,7 +30,7 @@ public class MatchRankingsActivityFragment extends MatchesFragment {
     public static class MatchRankingsActivityAdapter extends TeamRankingsAdapter {
 
         public MatchRankingsActivityAdapter(Context context, String field) {
-            super(context, field, false);
+            super(context, field, field, false);
         }
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsActivity;
 
 /**
@@ -28,5 +29,10 @@ public abstract class TeamRankingsFragment extends SearchableListFragment {
         teamDetailsViewIntent.putExtra("teamNumber", teamNumberClicked);
 
         startActivity(teamDetailsViewIntent);
+    }
+
+    @Override
+    public String[] getScopes() {
+        return Constants.TEAM_SCOPES;
     }
 }

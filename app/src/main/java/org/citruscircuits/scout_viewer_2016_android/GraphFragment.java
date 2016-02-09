@@ -31,6 +31,7 @@ public class GraphFragment extends Fragment {
                 new DataPoint(3, 2),
                 new DataPoint(4, 6)
         });
+
         // styling
         series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
             @Override

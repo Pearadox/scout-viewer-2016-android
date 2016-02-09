@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -19,27 +20,15 @@ public abstract class SearchableListFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LayoutInflater inflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View headerView = inflater.inflate(R.layout.search_header, null);
-
-        final SearchableFirebaseListAdapter searchableFirebaseListAdapter = (SearchableFirebaseListAdapter)getListAdapter();
-        searchableFirebaseListAdapter.searchWithText("");
-
-        EditText searchBar = (EditText)headerView.findViewById(R.id.listSearchEditText);
-        searchBar.addTextChangedListener(new TextWatcher() {
+        SearchView searchView = new SearchView(getActivity().getApplicationContext(), getScopes()) {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                searchableFirebaseListAdapter.searchWithText(s.toString());
+            public void search(String searchString, String scope) {
+                ((SearchableFirebaseListAdapter)getListAdapter()).searchWithTextInScope(searchString, scope);
             }
-        });
+        };
 
-        getListView().addHeaderView(headerView, null, false);
+        getListView().addHeaderView(searchView);
     }
+
+    public abstract String[] getScopes();
 }

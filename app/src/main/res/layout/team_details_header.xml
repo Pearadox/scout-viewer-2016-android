@@ -31,39 +31,19 @@
         android:id="@+id/teamDetailsSeeding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/teamDetailsSeedingRPs"
+        android:layout_alignParentRight="true"
         android:layout_alignBaseline="@id/teamDetailsTeamNumberTextView"
         android:textSize="50sp"
         android:text="17"/>
 
-    <TextView
-        android:id="@+id/teamDetailsSeedingRPs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignBaseline="@id/teamDetailsTeamNumberTextView"
-        android:textSize="50sp"
-        android:textColor="#aaaaaa"
-        android:paddingLeft="15dp"
-        android:text="(17)"/>
+
 
     <TextView
         android:id="@+id/teamDetailsPredictedSeeding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/teamDetailsPredictedSeedingRPs"
-        android:layout_alignBaseline="@id/teamDetailsTeamNameTextView"
-        android:textSize="25sp"
-        android:text="12"/>
-
-    <TextView
-        android:id="@+id/teamDetailsPredictedSeedingRPs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignBaseline="@id/teamDetailsTeamNameTextView"
         android:textSize="25sp"
-        android:textColor="#aaaaaa"
-        android:paddingLeft="10dp"
-        android:text="(17)"/>
+        android:text="12"/>
 </RelativeLayout>

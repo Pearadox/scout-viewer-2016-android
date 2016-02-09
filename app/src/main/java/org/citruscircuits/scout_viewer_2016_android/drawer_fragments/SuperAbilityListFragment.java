@@ -43,7 +43,7 @@ public class SuperAbilityListFragment extends TeamRankingsFragment {
     public static class SuperAbilityListAdapter extends TeamRankingsAdapter {
 
         public SuperAbilityListAdapter(Context context, String field) {
-            super(context, field, false);
+            super(context, field, field, false);
         }
     }
 }

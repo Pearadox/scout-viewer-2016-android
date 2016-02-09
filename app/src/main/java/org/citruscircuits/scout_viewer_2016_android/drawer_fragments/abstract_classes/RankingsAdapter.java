@@ -19,11 +19,13 @@ import java.util.List;
  * Created by citruscircuits on 1/18/16.
  */
 public abstract class RankingsAdapter<T> extends SearchableFirebaseListAdapter<T> {
-    private String fieldName;
+    private String rankFieldName;
+    private String valueFieldName;
 
-    public RankingsAdapter(Context context, String fieldName, boolean isNotReversed) {
-        super(context, new ObjectFieldComparator(fieldName, isNotReversed));
-        this.fieldName = fieldName;
+    public RankingsAdapter(Context context, String rankFieldName, String valueFieldName, boolean isNotReversed) {
+        super(context, new ObjectFieldComparator(rankFieldName, isNotReversed));
+        this.rankFieldName = rankFieldName;
+        this.valueFieldName = valueFieldName;
     }
 
     @Override
@@ -56,10 +58,14 @@ public abstract class RankingsAdapter<T> extends SearchableFirebaseListAdapter<T
         rankingTextView.setText(filteredValues.indexOf(value) + 1 + "");
 
         TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
-        teamNumberTextView.setText(getRankCellText(value));
+        if (searchString.length() > 0) {
+            teamNumberTextView.setText(Utils.highlightTextInString(getRankCellText(value), searchString));
+        } else {
+            teamNumberTextView.setText(getRankCellText(value));
+        }
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-        valueTextView.setText(Utils.getObjectField(value, fieldName).toString());
+        valueTextView.setText(Utils.roundDataPoint(Utils.getObjectField(value, valueFieldName), 2));
 
         return rowView;
     }

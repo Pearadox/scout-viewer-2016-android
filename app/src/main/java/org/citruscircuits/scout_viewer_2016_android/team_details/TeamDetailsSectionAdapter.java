@@ -6,122 +6,128 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
+import org.citruscircuits.scout_viewer_2016_android.MultitypeRankingsSectionAdapter;
+import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.RankingsActivity;
 import org.citruscircuits.scout_viewer_2016_android.RankingsSectionAdapter;
 import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by citruscircuits on 1/23/16.
  */
-public class TeamDetailsSectionAdapter extends RankingsSectionAdapter {
+public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     private String[][] fieldsToDisplay = {
             {"calculatedData.firstPickAbility"},
-            {"calculatedData.avgHighShotsAuto", "calculatedData.avgLowShotsAuto"},
-            {"calculatedData.avgHighShotsTele", "calculatedData.avgLowShotsTele"},
-            {"calculatedData.avgSuccessfulTimesCrossedDefensesAuto.a.cdf",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.a.pc",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.b.mt",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.b.rp",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.c.db",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.c.sp",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.d.rt",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.d.rw",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.e.lb",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.a.cdf",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.a.pc",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.b.mt",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.b.rp",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.c.db",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.c.sp",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.d.rt",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesTele.d.rw",
-                    "calculatedData.avgSuccessfulTimesCrossedDefensesAuto.e.lb"},
-            {"calculatedData.siegePower"}};
+            {"calculatedData.numAutoPoints",
+                    "calculatedData.highShotAccuracyAuto",
+                    "calculatedData.lowShotAccuracyAuto",
+                    "calculatedData.avgMidlineBallsIntakedAuto",
+                    "calculatedData.avgBallsKnockedOffMidlineAuto",
+                    "calculatedData.avgHighShotsAuto"},
+            {"calculatedData.highShotAccuracyTele",
+                    "calculatedData.lowShotAccuracyTele",
+                    "calculatedData.avgHighShotsTele",
+                    "calculatedData.avgLowShotsTele",
+                    "calculatedData.avgGroundIntakes"},
+            {},
+            {"calculatedData.siegeConsistency"},
+            {"calculatedData.disabledPercentage",
+                    "calculatedData.incapacitatedPercentage"},
+            {"pitLowBarCapability",
+                    "pitPotentialLowBarCapability",
+                    "pitPotentialMidlineBallCapability",
+                    "pitDriveBaseWidth",
+                    "pitDriveBaseLength",
+                    "pitBumperHeight",
+                    "pitPotentialShotBlockerCapability",
+                    "pitOrganization",
+                    "pitNotes"}};
 
-    private String[] sectionTitles = {"High Level", "Auto", "Teleop", "Defenses", "Siege"};
-    private Integer teamNumber;
-    private Context context;
+    private String[] sectionTitles = {"High Level", "Auto", "Teleop", "Defenses", "Siege", "Status", "Pit"};
+
+    private String[] shouldDisplayAsPercentage = {
+            "calculatedData.highShotAccuracyTele",
+            "calculatedData.lowShotAccuracyTele",
+            "calculatedData.highShotAccuracyAuto",
+            "calculatedData.lowShotAccuracyAuto",
+            "calculatedData.siegeConsistency",
+            "calculatedData.disabledPercentage",
+            "calculatedData.incapacitatedPercentage"
+    };
+
+    private String[] displayAsUnranked = {
+            "pitLowBarCapability",
+            "pitPotentialLowBarCapability",
+            "pitPotentialMidlineBallCapability",
+            "pitDriveBaseWidth",
+            "pitDriveBaseLength",
+            "pitBumperHeight",
+            "pitPotentialShotBlockerCapability",
+            "pitOrganization"
+    };
+
+    private String[] shouldDisplayAsLongText = {
+            "pitNotes"
+    };
+
+    Integer teamNumber;
 
     public TeamDetailsSectionAdapter(Context context, Integer teamNumber) {
         super(context);
         this.teamNumber = teamNumber;
-        this.context = context;
-        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                notifyDataSetChanged();
-            }
-        }, new IntentFilter(Constants.TEAMS_UPDATED_ACTION));
-    }
-
-
-    @Override
-    public Object getRowItem(int section, int row) {
-            return fieldsToDisplay[section][row];
     }
 
     @Override
-    public int numberOfSections() {
-        return sectionTitles.length;
+    public String[][] getFieldsToDisplay() {
+        return fieldsToDisplay;
     }
 
     @Override
-    public int numberOfRows(int section) {
-        if (section > -1) {
-            return fieldsToDisplay[section].length;
-        } else {
-            return 0;
-        }
+    public String[] getSectionTitles() {
+        return sectionTitles;
     }
 
     @Override
-    public boolean hasSectionHeaderView(int section) {
-        return true;
+    public String[] getUnrankedFields() {
+        return displayAsUnranked;
     }
 
     @Override
-    public Object getSectionHeaderItem(int section) {
-        return sectionTitles[section];
+    public String[] getLongTextFields() {
+        return shouldDisplayAsLongText;
     }
 
     @Override
-    public int getRankOfRowInSection(int section, int row) {
-        String fieldName = (String)getRowItem(section, row);
-        Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
+    public String[] getPercentageFields() {
+        return shouldDisplayAsPercentage;
+    }
+
+    @Override
+    public String getUpdatedAction() {
+        return Constants.TEAMS_UPDATED_ACTION;
+    }
+
+    @Override
+    public Object getObject() {
+        return FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
+    }
+
+    @Override
+    public List<Object> getObjectList() {
         List<Object> teams = new ArrayList<>();
         teams.addAll(FirebaseLists.teamsList.getValues());
-        int rank = Utils.getRankOfObject(team, teams, fieldName);
-        return rank;
-    }
-
-    @Override
-    public String getNameOfRowInSection(int section, int row) {
-        return Constants.KEYS_TO_TITLES.get(getRowItem(section, row));
-    }
-
-    @Override
-    public Object getValueOfRowInSection(int section, int row) {
-        if (FirebaseLists.teamsList.getKeys().contains(teamNumber.toString())) {
-            return Utils.getObjectField(FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString()), (String)getRowItem(section, row));
-        } else {
-            return -1;
-        }
-    }
-
-    @Override
-    public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id) {
-        Intent rankingsActivityIntent = new Intent(context, TeamRankingsActivity.class);
-        rankingsActivityIntent.putExtra("field", (String) getRowItem(section, row));
-
-        context.startActivity(rankingsActivityIntent);
+        return teams;
     }
 }

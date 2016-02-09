@@ -1,5 +1,7 @@
 package org.citruscircuits.scout_viewer_2016_android.firebase_classes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

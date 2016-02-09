@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by citruscircuits on 1/17/16
@@ -18,15 +19,18 @@ public class Team extends Object {
 	public List<TeamInMatchData> teamInMatchDatas;
 	public CalculatedTeamData calculatedData;
 	public String selectedImageUrl;
-	public List<String> otherImageUrls;
+	public Map<String, String> otherImageUrls;
 	public Boolean pitLowBarCapability;
-	public Boolean pitPotentialLowBarCapability;
-	public Boolean pitPotentialCDFAndPCCapability;
-	public Boolean pitPotentialMidlineBallCapability;
+	public Integer pitPotentialLowBarCapability;
+	public Integer pitPotentialCDFAndPCCapability;
+	public Integer pitPotentialMidlineBallCapability;
 	public Integer pitOrganization;
 	public Float pitFrontBumperWidth;
-	public Boolean pitPotentialShotBlockerCapability;
+	public Integer pitPotentialShotBlockerCapability;
 	public String pitNotes;
 	public Integer pitNumberOfWheels;
 	public Integer pitHeightOfRobot;
+	public Float pitBumperHeight;
+	public Float pitDriveBaseWidth;
+	public Float pitDriveBaseLength;
 }

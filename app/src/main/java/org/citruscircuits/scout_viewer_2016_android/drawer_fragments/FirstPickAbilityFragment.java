@@ -24,7 +24,7 @@ public class FirstPickAbilityFragment extends TeamRankingsFragment {
     public static class FirstPickAbilityAdapter extends TeamRankingsAdapter {
 
         public FirstPickAbilityAdapter(Context context) {
-            super(context, "calculatedData.firstPickAbility", false);
+            super(context, "calculatedData.firstPickAbility", "calculatedData.firstPickAbility", false);
         }
     }
 }
