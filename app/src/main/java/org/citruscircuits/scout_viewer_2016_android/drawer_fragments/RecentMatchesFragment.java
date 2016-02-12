@@ -31,5 +31,10 @@ public class RecentMatchesFragment extends MatchesFragment {
         public boolean secondaryFilter(Match value) {
             return value.redScore > -1 || value.blueScore > -1;
         }
+
+        @Override
+        public boolean shouldBoldTextViewWithText(String text) {
+            return false;
+        }
     }
 }

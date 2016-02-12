@@ -18,6 +18,10 @@ android {
         }
     }
 
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+
     defaultConfig {
         applicationId "org.citruscircuits.scout_viewer_2016_android"
         minSdkVersion 19
@@ -43,5 +47,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.firebase:firebase-client-android:2.5.0'
     compile project(':HeaderListView')
-    compile 'com.jjoe64:graphview:4.0.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.2'
 }

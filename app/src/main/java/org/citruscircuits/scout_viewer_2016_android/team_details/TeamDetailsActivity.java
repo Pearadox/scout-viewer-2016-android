@@ -41,6 +41,7 @@ public class TeamDetailsActivity extends ActionBarActivity {
     Integer teamNumber;
     BroadcastReceiver teamUpdatedReceiver;
     BroadcastReceiver photoDownloadedReceiver;
+    Bitmap bitmap;
 
 
     @Override
@@ -113,7 +114,7 @@ public class TeamDetailsActivity extends ActionBarActivity {
     public void reloadTeamImage() {
         try {
             File file = new File(getApplicationContext().getFilesDir(), "image_" + teamNumber.toString());
-            Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
             ImageView imageView = new ImageView(getApplicationContext());
             imageView.setImageBitmap(bitmap);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -129,5 +130,9 @@ public class TeamDetailsActivity extends ActionBarActivity {
 
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(teamUpdatedReceiver);
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(photoDownloadedReceiver);
+
+        if (bitmap != null) {
+            bitmap.recycle();
+        }
     }
 }

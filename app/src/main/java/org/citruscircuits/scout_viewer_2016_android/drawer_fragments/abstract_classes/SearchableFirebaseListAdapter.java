@@ -27,17 +27,19 @@ public abstract class SearchableFirebaseListAdapter<T> extends BaseAdapter {
     public List<T> filteredValues = new ArrayList<>();
     Comparator<T> filterComparator;
     public Context context;
+    private BroadcastReceiver broadcastReceiver;
 
     public SearchableFirebaseListAdapter(Context context, Comparator<T> filterComparator) {
         this.filterComparator = filterComparator;
         this.context = context;
-        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
+        broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 searchWithTextInScope(searchString, selectedScope);
                 notifyDataSetChanged();
             }
-        }, new IntentFilter(getBroadcastAction()));
+        };
+        LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter(getBroadcastAction()));
     }
 
     public void searchWithTextInScope(String searchString, String scope) {
@@ -65,4 +67,7 @@ public abstract class SearchableFirebaseListAdapter<T> extends BaseAdapter {
     public abstract List<T> getFirebaseList();
 
 //    public abstract String[] getSearchScopes();
+    public void cleanup() {
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(broadcastReceiver);
+    }
 }

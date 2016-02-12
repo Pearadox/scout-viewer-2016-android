@@ -33,4 +33,5 @@ public class Team extends Object {
 	public Float pitBumperHeight;
 	public Float pitDriveBaseWidth;
 	public Float pitDriveBaseLength;
+	public Integer pitHeightOfBallLeavingShooter;
 }

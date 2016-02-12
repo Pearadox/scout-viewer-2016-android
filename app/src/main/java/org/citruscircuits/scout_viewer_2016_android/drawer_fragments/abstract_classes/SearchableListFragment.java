@@ -28,7 +28,15 @@ public abstract class SearchableListFragment extends ListFragment {
         };
 
         getListView().addHeaderView(searchView);
+
     }
 
     public abstract String[] getScopes();
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        ((SearchableFirebaseListAdapter)getListAdapter()).cleanup();
+    }
 }

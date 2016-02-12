@@ -21,8 +21,7 @@ public class ScheduleFragment extends MatchesFragment {
     /**
      * Created by citruscircuits on 1/16/16.
      */
-    public static class
-            ScheduleAdapter extends MatchesAdapter {
+    public static class ScheduleAdapter extends MatchesAdapter {
         public ScheduleAdapter(Context context) {
             super(context, true);
         }
@@ -30,6 +29,11 @@ public class ScheduleFragment extends MatchesFragment {
         @Override
         public boolean secondaryFilter(Match value) {
             return true;
+        }
+
+        @Override
+        public boolean shouldBoldTextViewWithText(String text) {
+            return false;
         }
     }
 }

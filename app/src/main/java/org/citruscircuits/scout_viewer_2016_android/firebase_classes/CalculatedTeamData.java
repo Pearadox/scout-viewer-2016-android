@@ -63,4 +63,11 @@ public class CalculatedTeamData extends Object{
 	public Float predictedNumRPs;
 	public Float scoreContribution;
 	public Float citrusDPR;
+	public Float RScoreTorque;
+	public Float RScoreSpeed;
+	public Float RScoreEvasion;
+	public Float RScoreDefense;
+	public Float RScoreBallControl;
+	public Float overallSecondPickAbility;
+	public Float breachPercentage;
 }

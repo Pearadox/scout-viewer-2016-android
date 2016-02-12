@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Vibrator;
@@ -100,6 +101,12 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
             } else {
                 teamTextView.setText(teamsInMatch.get(i).toString());
             }
+            boolean shouldBold = shouldBoldTextViewWithText(teamTextView.getText().toString());
+            if (shouldBold) {
+                teamTextView.setBackgroundColor(Color.YELLOW);
+            } else {
+                teamTextView.setBackgroundColor(Color.TRANSPARENT);
+            }
         }
 
         TextView redScoreTextView = (TextView)rowView.findViewById(R.id.redScore);
@@ -180,4 +187,6 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
             context.startActivity(matchDetailsActivityIntent);
         }
     }
+
+    public abstract boolean shouldBoldTextViewWithText(String text);
 }

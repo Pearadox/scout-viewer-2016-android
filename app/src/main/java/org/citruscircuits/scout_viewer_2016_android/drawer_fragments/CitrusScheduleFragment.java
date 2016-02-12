@@ -31,5 +31,10 @@ public class CitrusScheduleFragment extends MatchesFragment {
         public boolean secondaryFilter(Match value) {
             return (value.redAllianceTeamNumbers.contains(1678) || value.blueAllianceTeamNumbers.contains(1678));
         }
+
+        @Override
+        public boolean shouldBoldTextViewWithText(String text) {
+            return text.equals("1678");
+        }
     }
 }
