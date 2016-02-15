@@ -6,35 +6,35 @@ import android.os.Bundle;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesAdapter;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesFragment;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 
 /**
- * Created by colinunger on 2/8/16.
+ * Created by colinunger on 2/14/16.
  */
-public class CitrusScheduleFragment extends MatchesFragment {
+public class StarredMatchesFragment extends MatchesFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new CitrusScheduleAdapter(getActivity().getApplicationContext()));
+        setListAdapter(new StarredMatchesAdapter(getActivity().getApplicationContext()));
     }
 
     /**
-     * Created by citruscircuits on 1/17/16.
+     * Created by citruscircuits on 1/16/16.
      */
-    public static class CitrusScheduleAdapter extends MatchesAdapter {
-
-        public CitrusScheduleAdapter(Context context) {
+    public static class StarredMatchesAdapter extends MatchesAdapter {
+        public StarredMatchesAdapter(Context context) {
             super(context, true);
         }
 
         @Override
         public boolean secondaryFilter(Match value) {
-            return (value.redAllianceTeamNumbers.contains(1678) || value.blueAllianceTeamNumbers.contains(1678));
+            return StarManager.isImportantMatch(value.number);
         }
 
         @Override
-        public boolean shouldBoldTextViewWithText(String text) {
-            return text.equals("1678");
+        public boolean shouldHighlightTextViewWithText(String text) {
+            return false;
         }
     }
 }

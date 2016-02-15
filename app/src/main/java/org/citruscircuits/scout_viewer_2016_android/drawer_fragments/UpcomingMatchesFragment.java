@@ -33,7 +33,7 @@ public class UpcomingMatchesFragment extends MatchesFragment {
         }
 
         @Override
-        public boolean shouldBoldTextViewWithText(String text) {
+        public boolean shouldHighlightTextViewWithText(String text) {
             return false;
         }
     }

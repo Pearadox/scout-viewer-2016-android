@@ -8,33 +8,38 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_cl
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 /**
- * Created by citruscircuits on 1/17/16.
+ * Created by colinunger on 2/8/16.
  */
-public class RecentMatchesFragment extends MatchesFragment {
+public class TeamScheduleFragment extends MatchesFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new RecentMatchesAdapter(getActivity().getApplicationContext()));
+        Integer teamNumber = getArguments().getInt("teamNumber");
+
+        setListAdapter(new CitrusScheduleAdapter(getActivity().getApplicationContext(), teamNumber));
     }
 
     /**
      * Created by citruscircuits on 1/17/16.
      */
-    public static class RecentMatchesAdapter extends MatchesAdapter {
+    public static class CitrusScheduleAdapter extends MatchesAdapter {
+        Integer teamNumber;
 
-        public RecentMatchesAdapter(Context context) {
-            super(context, false);
+
+        public CitrusScheduleAdapter(Context context, Integer teamNumber) {
+            super(context, true);
+            this.teamNumber = teamNumber;
         }
 
         @Override
         public boolean secondaryFilter(Match value) {
-            return value.redScore > -1 || value.blueScore > -1;
+            return (value.redAllianceTeamNumbers.contains(teamNumber) || value.blueAllianceTeamNumbers.contains(teamNumber));
         }
 
         @Override
         public boolean shouldHighlightTextViewWithText(String text) {
-            return false;
+            return text.equals(teamNumber.toString());
         }
     }
 }

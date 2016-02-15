@@ -18,6 +18,7 @@ import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.TeamInMatchData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,6 +26,9 @@ import java.util.List;
  */
 public class TeamInMatchDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     private String[][] fieldsToDisplay = {{
+            "teamNumber",
+            "matchNumber"
+    }, {
             "numBallsKnockedOffMidlineAuto",
             "numHighShotsMadeAuto",
             "numHighShotsMissedAuto",
@@ -50,11 +54,12 @@ public class TeamInMatchDetailsSectionAdapter extends MultitypeRankingsSectionAd
             "superNotes"
     }};
 
-    private String[] sectionTitles = {"Auto", "Tele", "Siege", "Super"};
+    private String[] sectionTitles = {"Information", "Auto", "Tele", "Siege", "Super"};
 
     private String[] shouldDisplayAsPercentage = {};
 
-    private String[] displayAsUnranked = {"superNotes", "didChallengeTele", "didScaleTele"};
+    private String[] displayAsUnranked = {"superNotes", "didChallengeTele", "didScaleTele", "matchNumber",
+            "teamNumber"};
 
     private String[] shouldDisplayAsLongText = {"superNotes"};
     private Integer teamNumber;
@@ -66,19 +71,10 @@ public class TeamInMatchDetailsSectionAdapter extends MultitypeRankingsSectionAd
         this.matchNumber = matchNumber;
     }
 
-    @Override
-    public boolean isUnranked(int section, int row) {
-        return false;
-    }
 
     @Override
     public boolean isOtherTypeOfView(int section, int row) {
-        return false;
-    }
-
-    @Override
-    public View getOtherTypeOfView(int section, int row) {
-        return null;
+        return (Arrays.asList(shouldDisplayAsLongText).contains(getRowItem(section, row)));
     }
 
     @Override
@@ -115,6 +111,26 @@ public class TeamInMatchDetailsSectionAdapter extends MultitypeRankingsSectionAd
     }
 
     @Override
+    public String[] getFurtherInformationFields() {
+        return new String[0];
+    }
+
+    @Override
+    public String[] getNotClickableFields() {
+        return displayAsUnranked;
+    }
+
+    @Override
+    public String[] getNonDefaultClickResponseFields() {
+        return new String[0];
+    }
+
+    @Override
+    public void handleNonDefaultClick(int section, int row) {
+
+    }
+
+    @Override
     public String getUpdatedAction() {
         return Constants.TEAM_IN_MATCH_DATAS_UPDATED_ACTION;
     }
@@ -127,7 +143,12 @@ public class TeamInMatchDetailsSectionAdapter extends MultitypeRankingsSectionAd
     @Override
     public List<Object> getObjectList() {
         List<Object> objects = new ArrayList<>();
-        objects.addAll(FirebaseLists.teamInMatchDataList.getValues());
+        objects.addAll(Utils.getTeamInMatchDatasForTeamNumber(teamNumber));
         return objects;
+    }
+
+    @Override
+    public boolean isRowEnabled(int section, int row) {
+        return false;
     }
 }

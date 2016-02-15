@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -25,6 +27,7 @@ import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
+import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -41,6 +44,7 @@ public class TeamDetailsActivity extends ActionBarActivity {
     Integer teamNumber;
     BroadcastReceiver teamUpdatedReceiver;
     BroadcastReceiver photoDownloadedReceiver;
+    BroadcastReceiver starReceiver;
     Bitmap bitmap;
 
 
@@ -64,6 +68,13 @@ public class TeamDetailsActivity extends ActionBarActivity {
         };
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(teamUpdatedReceiver, new IntentFilter(Constants.TEAMS_UPDATED_ACTION));
 
+        starReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                reload();
+            }
+        };
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(starReceiver, new IntentFilter(Constants.STARS_MODIFIED_ACTION));
 
         photoDownloadedReceiver = new BroadcastReceiver() {
             @Override
@@ -87,13 +98,19 @@ public class TeamDetailsActivity extends ActionBarActivity {
 
     public void reload() {
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
-        teamDetailsHeaderListView.setAdapter(new TeamDetailsSectionAdapter(this, teamNumber));
+//        teamDetailsHeaderListView.setAdapter(new TeamDetailsSectionAdapter(this, teamNumber));
         View teamDetailsHeaderView = teamDetailsHeaderListView.getChildAt(0);
+        if (StarManager.isStarredTeam(teamNumber)) {
+            teamDetailsHeaderView.setBackgroundColor(Constants.STAR_COLOR);
+        } else {
+            teamDetailsHeaderView.setBackgroundColor(Color.TRANSPARENT);
+        }
 
         Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
 
         TextView teamDetailsTeamNumberTextView = (TextView)teamDetailsHeaderView.findViewById(R.id.teamDetailsTeamNumberTextView);
         teamDetailsTeamNumberTextView.setText(team.number.toString());
+        teamDetailsTeamNumberTextView.setOnLongClickListener(new StarLongClickListener());
 
         TextView teamDetailsTeamNameTextView = (TextView)teamDetailsHeaderView.findViewById(R.id.teamDetailsTeamNameTextView);
         teamDetailsTeamNameTextView.setText(team.name.toString());
@@ -107,7 +124,7 @@ public class TeamDetailsActivity extends ActionBarActivity {
         TextView teamDetailsPredictedSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeeding);
         teamDetailsPredictedSeedingTextView.setText(team.calculatedData.predictedSeed.toString());
 
-//        TextView teamDetailsPredictedSeedingRPsTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeedingRPs);
+//        TextView teamDetailsPredictedSeedingRPsTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeeding);
 //        teamDetailsPredictedSeedingRPsTextView.setText(team.calculatedData.predictedNumRPs.toString());
     }
 
@@ -133,6 +150,24 @@ public class TeamDetailsActivity extends ActionBarActivity {
 
         if (bitmap != null) {
             bitmap.recycle();
+        }
+    }
+
+    private class StarLongClickListener implements View.OnLongClickListener {
+
+        @Override
+        public boolean onLongClick(View v) {
+            Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(75);
+            TextView teamNumberTextView = (TextView)v;
+            Integer teamNumber = Integer.parseInt(teamNumberTextView.getText().toString());
+            if (StarManager.isStarredTeam(teamNumber)) {
+                StarManager.removeStarredTeam(teamNumber);
+            } else {
+                StarManager.addStarredTeam(teamNumber);
+            }
+            reload();
+            return true;
         }
     }
 }

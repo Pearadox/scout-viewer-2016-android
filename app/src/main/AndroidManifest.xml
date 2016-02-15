@@ -32,6 +32,9 @@
         <activity
             android:name=".match_details.TeamInMatchDetailsActivity"
             android:label="@string/title_activity_team_in_match_details" />
+        <activity
+            android:name=".DefenseDetailsActivity"
+            android:label="@string/title_activity_team_in_match_details" />
         <service android:name=".services.StarManager"/>
         <service android:name=".services.PhotoSync"/>
     </application>

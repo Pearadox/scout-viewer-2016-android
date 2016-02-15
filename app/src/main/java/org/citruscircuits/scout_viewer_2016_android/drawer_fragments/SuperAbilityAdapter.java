@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class SuperAbilityAdapter extends FragmentStatePagerAdapter {
     Context context;
-    String[] fields = {"calculatedData.avgTorque", "calculatedData.avgSpeed", "calculatedData.avgEvasion", "calculatedData.avgDefense", "calculatedData.avgBallControl"};
+    String[] fields = {"calculatedData.RScoreDrivingAbility", "calculatedData.RScoreTorque", "calculatedData.RScoreSpeed", "calculatedData.RScoreEvasion", "calculatedData.RScoreDefense", "calculatedData.RScoreBallControl"};
 
     public SuperAbilityAdapter(Context context, FragmentManager mgr) {
         super(mgr);

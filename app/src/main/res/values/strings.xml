@@ -13,5 +13,6 @@
     <string name="title_activity_team_in_match_details">TeamInMatchDetailsActivity</string>
     <string name="title_activity_match_details">MatchDetailsActivity</string>
     <string name="title_activity_team_rankings">TeamRankingsActivity</string>
+    <string name="title_activity_defense_details">DefenseDetailsActivity</string>
 
 </resources>

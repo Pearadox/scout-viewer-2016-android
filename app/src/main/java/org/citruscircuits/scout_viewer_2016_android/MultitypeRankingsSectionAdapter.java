@@ -80,6 +80,7 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
 
     @Override
     public String getValueOfRowInSection(int section, int row) {
+        //TODO: REWRITE THIS CODE
         String fieldKey = (String)getRowItem(section, row);
 //        if (FirebaseLists.teamsList.getKeys().contains(teamNumber.toString())) {
         if (Utils.getObjectField(getObject(), fieldKey).getClass().equals(String.class)) {
@@ -107,35 +108,60 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
         return (Arrays.asList(getUnrankedFields()).contains(getRowItem(section, row)));
     }
 
-    @Override
-    public boolean isOtherTypeOfView(int section, int row) {
+    public boolean isLongText(int section, int row) {
         return (Arrays.asList(getLongTextFields()).contains(getRowItem(section, row)));
+    }
+
+    public boolean isFurtherInformation(int section, int row) {
+        return (Arrays.asList(getFurtherInformationFields()).contains(getRowItem(section, row)));
+    }
+
+    public boolean isClickable(int section, int row) {
+        return !(Arrays.asList(getNotClickableFields()).contains(getRowItem(section, row)));
+    }
+
+    public boolean respondsNormallyToClick(int section, int row) {
+        return !(Arrays.asList(getNonDefaultClickResponseFields()).contains(getRowItem(section, row)));
     }
 
     @Override
     public View getOtherTypeOfView(int section, int row) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View longTextCellView = inflater.inflate(R.layout.long_text_cell, null, false);
-        TextView titleTextView = (TextView)longTextCellView.findViewById(R.id.teamNumberTextView);
-        titleTextView.setText(getNameOfRowInSection(section, row));
-        TextView longTextView = (TextView)longTextCellView.findViewById(R.id.longTextView);
-        longTextView.setText(getValueOfRowInSection(section, row));
-        return longTextCellView;
+        View cell = null;
+        if (isLongText(section, row)) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            cell = inflater.inflate(R.layout.long_text_cell, null, false);
+            TextView titleTextView = (TextView) cell.findViewById(R.id.teamNumberTextView);
+            titleTextView.setText(getNameOfRowInSection(section, row));
+            TextView longTextView = (TextView) cell.findViewById(R.id.longTextView);
+            longTextView.setText(getValueOfRowInSection(section, row));
+        } else if (isFurtherInformation(section, row)) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            cell = inflater.inflate(R.layout.team_details_further_info_cell, null, false);
+            TextView titleTextView = (TextView) cell.findViewById(R.id.teamNumberTextView);
+            titleTextView.setText(getNameOfRowInSection(section, row));
+        }
+
+        return cell;
     }
 
     @Override
     public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id) {
-        if(!isUnranked(section, row) && !isOtherTypeOfView(section, row)) {
-            Intent rankingsActivityIntent = new Intent(context, TeamRankingsActivity.class);
-            rankingsActivityIntent.putExtra("field", (String) getRowItem(section, row));
+        if(isClickable(section, row)) {
+            if (respondsNormallyToClick(section, row)) {
+                Intent rankingsActivityIntent = new Intent(context, TeamRankingsActivity.class);
+                rankingsActivityIntent.putExtra("team", ((Team)getObject()).number);
+                rankingsActivityIntent.putExtra("field", (String) getRowItem(section, row));
 
-            context.startActivity(rankingsActivityIntent);
+                context.startActivity(rankingsActivityIntent);
+            } else {
+                handleNonDefaultClick(section, row);
+            }
         }
     }
 
     @Override
     public boolean isRowEnabled(int section, int row) {
-        return !isUnranked(section, row) && !isOtherTypeOfView(section, row);
+        return isClickable(section, row);
     }
 
     public abstract String[][] getFieldsToDisplay();
@@ -143,6 +169,10 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     public abstract String[] getUnrankedFields();
     public abstract String[] getLongTextFields();
     public abstract String[] getPercentageFields();
+    public abstract String[] getFurtherInformationFields();
+    public abstract String[] getNotClickableFields();
+    public abstract String[] getNonDefaultClickResponseFields();
+    public abstract void handleNonDefaultClick(int section, int row);
     public abstract String getUpdatedAction();
     public abstract Object getObject();
     public abstract List<Object> getObjectList();

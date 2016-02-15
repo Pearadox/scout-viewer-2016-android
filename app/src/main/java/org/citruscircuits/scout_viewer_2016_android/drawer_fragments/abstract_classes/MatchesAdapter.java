@@ -1,17 +1,9 @@
 package org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +17,8 @@ import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 import org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsActivity;
+import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,8 +64,10 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
 
         Match match = (Match)getItem(position);
 
-        if (ViewerApplication.isStarredMatch(match.number)) {
-            rowView.setBackgroundColor(Color.argb(60, 228, 230, 0));
+
+
+        if (StarManager.isImportantMatch(match.number)) {
+            rowView.setBackgroundColor(Constants.STAR_COLOR);
         } else {
             rowView.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -101,7 +91,7 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
             } else {
                 teamTextView.setText(teamsInMatch.get(i).toString());
             }
-            boolean shouldBold = shouldBoldTextViewWithText(teamTextView.getText().toString());
+            boolean shouldBold = shouldHighlightTextViewWithText(teamTextView.getText().toString());
             if (shouldBold) {
                 teamTextView.setBackgroundColor(Color.YELLOW);
             } else {
@@ -109,14 +99,23 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
             }
         }
 
-        TextView redScoreTextView = (TextView)rowView.findViewById(R.id.redScore);
-        redScoreTextView.setText((match.redScore >= 0) ? match.redScore.toString() : "???");
+        TextView redScoreTextView = (TextView) rowView.findViewById(R.id.redScore);
+        TextView blueScoreTextView = (TextView) rowView.findViewById(R.id.blueScore);
 
-        TextView blueScoreTextView = (TextView)rowView.findViewById(R.id.blueScore);
-        blueScoreTextView.setText((match.blueScore >= 0) ? match.blueScore.toString() : "???");
+        if (match.redScore > 0 || match.blueScore > 0) {
+            redScoreTextView.setText((match.redScore >= 0) ? match.redScore.toString() : "???");
+            blueScoreTextView.setText((match.blueScore >= 0) ? match.blueScore.toString() : "???");
+            redScoreTextView.setTextColor(Color.argb(255, 255, 0, 0));
+            blueScoreTextView.setTextColor(Color.argb(255, 0, 0, 255));
+        } else {
+            redScoreTextView.setText(match.calculatedData.predictedRedScore.toString());
+            blueScoreTextView.setText(match.calculatedData.predictedBlueScore.toString());
+            redScoreTextView.setTextColor(Color.argb(75, 255, 0, 0));
+            blueScoreTextView.setTextColor(Color.argb(75, 0, 0, 255));
+        }
 
         rowView.setOnLongClickListener(new StarLongClickListener());
-        rowView.setOnClickListener(new StarClickListener());
+        rowView.setOnClickListener(new MatchClickListener());
         return rowView;
     }
 
@@ -163,17 +162,17 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(75);
             TextView matchNumberTextView = (TextView)v.findViewById(R.id.matchNumber);
-            if (ViewerApplication.isStarredMatch(Integer.parseInt(matchNumberTextView.getText().toString()))) {
-                ViewerApplication.removeStarredMatch(Integer.parseInt(matchNumberTextView.getText().toString()));
+            if (StarManager.isImportantMatch(Integer.parseInt(matchNumberTextView.getText().toString()))) {
+                StarManager.removeImportantMatch(Integer.parseInt(matchNumberTextView.getText().toString()));
             } else {
-                ViewerApplication.addStarredMatch(Integer.parseInt(matchNumberTextView.getText().toString()));
+                StarManager.addImportantMatch(Integer.parseInt(matchNumberTextView.getText().toString()));
             }
             notifyDataSetChanged();
             return true;
         }
     }
 
-    private class StarClickListener implements View.OnClickListener {
+    private class MatchClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
@@ -188,5 +187,5 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
         }
     }
 
-    public abstract boolean shouldBoldTextViewWithText(String text);
+    public abstract boolean shouldHighlightTextViewWithText(String text);
 }

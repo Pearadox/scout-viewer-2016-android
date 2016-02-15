@@ -6,6 +6,7 @@ import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
+import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,5 +53,25 @@ public abstract class MatchRankingsAdapter extends RankingsAdapter<Match> {
     @Override
     public String getRankCellText(Match value) {
         return "Q" + value.number.toString();
+    }
+
+    @Override
+    public boolean isImportant(String valueTitle) {
+        return StarManager.isImportantMatch(Integer.parseInt(valueTitle));
+    }
+
+    @Override
+    public void makeImportant(String valueTitle) {
+        StarManager.removeImportantMatch(Integer.parseInt(valueTitle));
+    }
+
+    @Override
+    public void makeNoLongerImportant(String valueTitle) {
+        StarManager.removeStarredTeam(Integer.parseInt(valueTitle));
+    }
+
+    @Override
+    public void respondToClick(String valueTitle) {
+        // Do nothing right now...
     }
 }

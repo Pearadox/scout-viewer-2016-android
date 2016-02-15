@@ -1,65 +1,90 @@
 package org.citruscircuits.scout_viewer_2016_android.match_details;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import org.citruscircuits.scout_viewer_2016_android.Constants;
+import org.citruscircuits.scout_viewer_2016_android.FirebaseList;
+import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.Utils;
+import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
+import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MatchDetailsActivity extends ActionBarActivity {
-    private Match match;
+    private Integer matchNumber;
+    private BroadcastReceiver matchesUpdatedReceiver;
+    private BroadcastReceiver starReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_details);
 
-        int matchNumber = getIntent().getIntExtra("matchNumber", 0);
+        matchNumber = getIntent().getIntExtra("matchNumber", 0);
 
-        Firebase matchRef = new Firebase(Constants.MATCHES_PATH + "/" + matchNumber);
-        matchRef.addValueEventListener(new ValueEventListener() {
+        matchesUpdatedReceiver = new BroadcastReceiver() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                match = dataSnapshot.getValue(Match.class);
+            public void onReceive(Context context, Intent intent) {
                 updateUI();
             }
+        };
 
+        starReceiver = new BroadcastReceiver() {
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
+            public void onReceive(Context context, Intent intent) {
+                updateUI();
             }
-        });
+        };
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(starReceiver, new IntentFilter(Constants.STARS_MODIFIED_ACTION));
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(matchesUpdatedReceiver, new IntentFilter(Constants.MATCHES_UPDATED_ACTION));
+        TextView matchNumberTextView = (TextView)findViewById(R.id.matchDetailsMatchTitleTextView);
+        matchNumberTextView.setOnLongClickListener(new StarLongClickListener());
+        updateUI();
     }
 
     private void updateUI() {
-        LinearLayout redTeamsLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsRedTeamsLinearLayout);
-        for (Integer redTeamNumber : match.redAllianceTeamNumbers) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-            View teamInMatchDetailsCell = getTeamInMatchCell(redTeamNumber, true);
-            redTeamsLinearLayout.addView(teamInMatchDetailsCell, params);
+        Match match = FirebaseLists.matchesList.getFirebaseObjectByKey(matchNumber.toString());
+        int[] teamCellIDs = {R.id.redTeamCell1, R.id.redTeamCell2, R.id.redTeamCell3, R.id.blueTeamCell1, R.id.blueTeamCell2, R.id.blueTeamCell3};
+        List<Integer> allTeamNumbers = new ArrayList<>();
+        allTeamNumbers.addAll(match.redAllianceTeamNumbers);
+        allTeamNumbers.addAll(match.blueAllianceTeamNumbers);
+        for (int i = 0; i < teamCellIDs.length; i++) {
+            MatchDetailsTeamCell matchDetailsTeamCell = (MatchDetailsTeamCell)findViewById(teamCellIDs[i]);
+            matchDetailsTeamCell.update(allTeamNumbers.get(i), (i < 3));
         }
 
-        LinearLayout blueTeamsLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsBlueTeamsLinearLayout);
-        for (Integer blueTeamNumber : match.blueAllianceTeamNumbers) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-            View teamInMatchDetailsCell = getTeamInMatchCell(blueTeamNumber, false);
-            blueTeamsLinearLayout.addView(teamInMatchDetailsCell, params);
+        if (StarManager.isImportantMatch(matchNumber)) {
+            getWindow().getDecorView().setBackgroundColor(Constants.STAR_COLOR);
+        } else {
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
         }
 
         TextView matchDetailsMatchTitleTextView = (TextView)findViewById(R.id.matchDetailsMatchTitleTextView);
@@ -82,42 +107,16 @@ public class MatchDetailsActivity extends ActionBarActivity {
         blueAllianceWinChanceTextView.setText(Utils.dataPointToPercentage(match.calculatedData.blueWinChance, 0));
 
         LinearLayout redOptimalDefensesLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsRedTeamsDefensesLinearLayout);
+        redOptimalDefensesLinearLayout.removeAllViews();
         for (String redOptimalDefense : match.calculatedData.optimalRedDefenses) {
             redOptimalDefensesLinearLayout.addView(getTeamInMatchDefenseCell(redOptimalDefense, true));
         }
 
         LinearLayout blueOptimalDefensesLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsBlueTeamsDefensesLinearLayout);
+        blueOptimalDefensesLinearLayout.removeAllViews();
         for (String blueOptimalDefense : match.calculatedData.optimalBlueDefenses) {
             blueOptimalDefensesLinearLayout.addView(getTeamInMatchDefenseCell(blueOptimalDefense, false));
         }
-    }
-
-    private class MatchDetailsTeamClickedListener implements ViewGroup.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            Log.e("test", "CLICKED!");
-            TextView teamNumberTextView = (TextView)v.findViewById(R.id.matchDetailsTeamCellTeamNumberTextView);
-            String teamNumberText = teamNumberTextView.getText().toString();
-            Integer teamNumber = Integer.parseInt(teamNumberText);
-            Intent matchDetailsTeamCellClickedIntent = new Intent(getApplicationContext(), TeamInMatchDetailsActivity.class);
-            matchDetailsTeamCellClickedIntent.putExtra("teamNumber", teamNumber);
-            matchDetailsTeamCellClickedIntent.putExtra("matchNumber", match.number);
-            startActivity(matchDetailsTeamCellClickedIntent);
-        }
-    }
-
-    private View getTeamInMatchCell(Integer teamNumber, boolean isRed) {
-        View view = getLayoutInflater().inflate(R.layout.match_details_team_cell, null);
-        TextView teamNumberTextView = (TextView)view.findViewById(R.id.matchDetailsTeamCellTeamNumberTextView);
-        teamNumberTextView.setText(teamNumber.toString());
-        teamNumberTextView.setTextColor((isRed) ? Color.RED : Color.BLUE);
-        teamNumberTextView.setOnClickListener(new MatchDetailsTeamClickedListener());
-
-        ListView listView = (ListView)view.findViewById(R.id.matchDetailsTeamCellTeamValues);
-        listView.setAdapter(new MatchDetailsTeamCellAdapter(getApplicationContext(), teamNumber));
-
-        return view;
     }
 
     private View getTeamInMatchDefenseCell(String defense, boolean isRed) {
@@ -130,4 +129,23 @@ public class MatchDetailsActivity extends ActionBarActivity {
         return optimalDefenseView;
     }
 
+    private class StarLongClickListener implements View.OnLongClickListener {
+
+        @Override
+        public boolean onLongClick(View v) {
+            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(75);
+            TextView matchNumberTextView = (TextView)v;
+            String matchNumberString = matchNumberTextView.getText().toString().substring(1);
+            Integer matchNumberClicked = Integer.parseInt(matchNumberString);
+            if (StarManager.isImportantMatch(matchNumberClicked)) {
+                StarManager.removeImportantMatch(matchNumberClicked);
+            } else {
+                StarManager.addImportantMatch(matchNumberClicked);
+            }
+
+            updateUI();
+            return true;
+        }
+    }
 }

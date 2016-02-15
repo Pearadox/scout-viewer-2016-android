@@ -110,14 +110,46 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1"/>
+            android:layout_weight="1">
+            <org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsTeamCell
+                android:id="@+id/redTeamCell1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsTeamCell
+                android:id="@+id/redTeamCell2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsTeamCell
+                android:id="@+id/redTeamCell3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/matchDetailsBlueTeamsLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1"/>
+            android:layout_weight="1">
+            <org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsTeamCell
+                android:id="@+id/blueTeamCell1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsTeamCell
+                android:id="@+id/blueTeamCell2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <org.citruscircuits.scout_viewer_2016_android.match_details.MatchDetailsTeamCell
+                android:id="@+id/blueTeamCell3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
     </LinearLayout>
     <LinearLayout

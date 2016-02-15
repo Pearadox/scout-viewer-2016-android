@@ -1,8 +1,5 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -10,11 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
@@ -22,7 +16,8 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
-import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.CitrusScheduleFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.StarredMatchesFragment;
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.TeamScheduleFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.FirstPickAbilityFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.PredictedSeedingFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.RecentMatchesFragment;
@@ -31,9 +26,6 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SuperAbilit
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.second_pick.SecondPickAbilityFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SeedingFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.UpcomingMatchesFragment;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class MainActivity extends ActionBarActivity
@@ -67,26 +59,28 @@ public class MainActivity extends ActionBarActivity
 
         Log.e("test", "Logcat is up!");
 
-        Firebase firebaseRef = new Firebase("https://1678-dev2-2016.firebaseio.com");
+        Firebase firebaseRef = new Firebase(Constants.ROOT_FIREBASE_PATH);
 
         Firebase.AuthResultHandler authResultHandler = new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
                 // Do nothing if authenticated
-            }
-
-            @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
                 Context context = getApplicationContext();
-                CharSequence text = "Invalid Permissions.";
+                CharSequence text = "Authenticated!";
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             }
+
+            @Override
+            public void onAuthenticationError(FirebaseError firebaseError) {
+
+            }
         };
 
-        firebaseRef.authWithPassword("1678programming@gmail.com", "Squeezecrush1", authResultHandler);
+//        firebaseRef.authWithCustomToken("qVIARBnAD93iykeZSGG8mWOwGegminXUUGF2q0ee", authResultHandler);
+//        firebaseRef.authWithPassword("1678programming@gmail.com", "Squeezecrush1", authResultHandler);
     }
 
     @Override
@@ -103,24 +97,30 @@ public class MainActivity extends ActionBarActivity
                 fragment = new UpcomingMatchesFragment();
                 break;
             case 2:
-                fragment = new CitrusScheduleFragment();
+                Bundle args = new Bundle();
+                args.putInt("teamNumber", Constants.TEAM_NUMBER);
+                fragment = new TeamScheduleFragment();
+                fragment.setArguments(args);
                 break;
             case 3:
-                fragment = new ScheduleFragment();
+                fragment = new StarredMatchesFragment();
                 break;
             case 4:
-                fragment = new SeedingFragment();
+                fragment = new ScheduleFragment();
                 break;
             case 5:
-                fragment = new PredictedSeedingFragment();
+                fragment = new SeedingFragment();
                 break;
             case 6:
-                fragment = new FirstPickAbilityFragment();
+                fragment = new PredictedSeedingFragment();
                 break;
             case 7:
-                fragment = new SecondPickAbilityFragment();
+                fragment = new FirstPickAbilityFragment();
                 break;
             case 8:
+                fragment = new SecondPickAbilityFragment();
+                break;
+            case 9:
                 fragment = new SuperAbilityFragment();
                 break;
         }

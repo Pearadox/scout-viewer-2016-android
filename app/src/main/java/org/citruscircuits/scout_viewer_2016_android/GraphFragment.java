@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,8 @@ import java.util.List;
 /**
  * Created by colinunger on 2/5/16.
  */
-public class GraphFragment extends Fragment {
+public abstract class GraphFragment extends Fragment {
     BarChart barChart;
-    int[] xVals = new int[] {0, 1, 2, 3, 4, 5};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,41 +38,69 @@ public class GraphFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         barChart = (BarChart)view.findViewById(R.id.chart);
-        ArrayList<BarEntry> dataPoints = new ArrayList<BarEntry>();
 
-        for (int x : xVals) {
-            dataPoints.add(new BarEntry(getYForX(x), x));
-        }
-
-        BarDataSet dataSet = new BarDataSet(dataPoints, "Team 1678");
-//        barChart.setX
-//        dataSet.setAxisDependency(XAxis.XAxisPosition.BOTTOM);
-//        setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart.getAxisLeft().setEnabled(false);
-        barChart.getAxisRight().setEnabled(false);
-        barChart.setDrawGridBackground(false);
-        barChart.setDrawBorders(false);
         barChart.setDrawBarShadow(false);
-        barChart.setDrawHighlightArrow(false);
-        barChart.setDrawValueAboveBar(false);
-        barChart.setDrawMarkerViews(false);
+        barChart.setDrawValueAboveBar(true);
+
+        barChart.setDescription("");
+
+        // scaling can now only be done on x- and y-axis separately
+        barChart.setPinchZoom(false);
+
+        barChart.setDrawGridBackground(false);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+//        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setSpaceBetweenLabels(2);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setTextSize(13f);
+
+        YAxis left = barChart.getAxisLeft();
+        left.setDrawLabels(false);
+        left.setStartAtZero(false);
+        left.setSpaceTop(25f);
+        left.setSpaceBottom(25f);
+        left.setDrawAxisLine(false);
+        left.setDrawGridLines(false);
+        left.setDrawZeroLine(true); // draw a zero line
+        left.setZeroLineColor(Color.GRAY);
+        left.setZeroLineWidth(0.7f);
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.setDoubleTapToZoomEnabled(false);
+//        barChart.setHighlightPerTapEnabled(false);
+        barChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
+
+        BarDataSet dataSet = new BarDataSet(listToDataPoints(getValues()), "");
+//        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+//        barChart.getAxisLeft().setEnabled(false);
+//        barChart.getAxisRight().setEnabled(false);
+//        barChart.setDrawGridBackground(false);
+//        barChart.setDrawMarkerViews(false);
 
         // use the interface ILineDataSet
-        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        List<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataSet);
 
-        List<String> labels = new ArrayList<>();
-        labels.add("1.Q"); labels.add("2.Q"); labels.add("3.Q"); labels.add("4.Q"); labels.add("5.Q"); labels.add("6.Q");
-
-        BarData data = new BarData(labels, dataSets);
+        BarData data = new BarData(getLabels(), dataSets);
         barChart.setData(data);
-        barChart.setDescription("");
-        barChart.getLegend().setEnabled(false);
+//        barChart.setDescription("");
+//        barChart.getLegend().setEnabled(false);
         barChart.invalidate(); // refresh
     }
 
-    public Float getYForX(int x) {
-        return Float.valueOf(5.9f + x);
+    public abstract List<String> getLabels();
+    public abstract List<Float> getValues();
+    public abstract OnChartValueSelectedListener getOnChartValueSelectedListener();
+
+    public List<BarEntry> listToDataPoints(List<Float> valuesList)  {
+        List<BarEntry> dataPoints = new ArrayList<>();
+        for (int i = 0; i < valuesList.size(); i++) {
+            dataPoints.add(new BarEntry(getValues().get(i), i));
+        }
+
+        return dataPoints;
     }
 }

@@ -12,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import org.citruscircuits.scout_viewer_2016_android.Constants;
+import org.citruscircuits.scout_viewer_2016_android.DefenseDetailsActivity;
 import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
+import org.citruscircuits.scout_viewer_2016_android.MatchesActivity;
 import org.citruscircuits.scout_viewer_2016_android.MultitypeRankingsSectionAdapter;
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.RankingsActivity;
@@ -29,6 +31,7 @@ import java.util.List;
  */
 public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     private String[][] fieldsToDisplay = {
+            {"matches"},
             {"calculatedData.firstPickAbility"},
             {"calculatedData.numAutoPoints",
                     "calculatedData.highShotAccuracyAuto",
@@ -41,10 +44,24 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
                     "calculatedData.avgHighShotsTele",
                     "calculatedData.avgLowShotsTele",
                     "calculatedData.avgGroundIntakes"},
-            {},
+            {"calculatedData.avgSuccessfulTimesCrossedDefenses.a.pc",
+                    "calculatedData.avgSuccessfulTimesCrossedDefenses.a.cdf",
+                    "calculatedData.avgSuccessfulTimesCrossedDefenses.b.mt",
+                    "calculatedData.avgSuccessfulTimesCrossedDefenses.b.rp",
+                    "calculatedData.avgSuccessfulTimesCrossedDefenses.c.db",
+                    "calculatedData.avgSuccessfulTimesCrossedDefenses.c.sp",
+                    "calculatedData.avgSuccessfulTimesCrossedDefenses.d.rw",
+                    "calculatedData.avgSuccessfulTimesCrossedDefenses.d.rt",
+                    "calculatedData.avgSuccessfulTimesCrossedDefenses.e.lb"},
             {"calculatedData.siegeConsistency"},
             {"calculatedData.disabledPercentage",
                     "calculatedData.incapacitatedPercentage"},
+            {"calculatedData.RScoreDrivingAbility",
+                    "calculatedData.RScoreSpeed",
+                    "calculatedData.RScoreTorque",
+                    "calculatedData.RScoreEvasion",
+                    "calculatedData.RScoreDefense",
+                    "calculatedData.RScoreBallControl"},
             {"pitLowBarCapability",
                     "pitPotentialLowBarCapability",
                     "pitPotentialMidlineBallCapability",
@@ -55,7 +72,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
                     "pitOrganization",
                     "pitNotes"}};
 
-    private String[] sectionTitles = {"High Level", "Auto", "Teleop", "Defenses", "Siege", "Status", "Pit"};
+    private String[] sectionTitles = {"High Level", "Auto", "Teleop", "Defenses", "Siege", "Status", "Super", "Pit"};
 
     private String[] shouldDisplayAsPercentage = {
             "calculatedData.highShotAccuracyTele",
@@ -80,6 +97,33 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
 
     private String[] shouldDisplayAsLongText = {
             "pitNotes"
+    };
+
+    private String[] shouldDisplayAsFurtherInformation = {
+            "matches"
+    };
+
+    private String[] notClickableFields = {
+            "pitLowBarCapability",
+            "pitPotentialLowBarCapability",
+            "pitPotentialMidlineBallCapability",
+            "pitDriveBaseWidth",
+            "pitDriveBaseLength",
+            "pitBumperHeight",
+            "pitPotentialShotBlockerCapability",
+            "pitOrganization"
+    };
+
+    private String[] createListOnClick = {
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.a.pc",
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.a.cdf",
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.b.mt",
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.b.rp",
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.c.db",
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.c.sp",
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.d.rw",
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.d.rt",
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.e.lb"
     };
 
     Integer teamNumber;
@@ -115,6 +159,38 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     }
 
     @Override
+    public String[] getFurtherInformationFields() {
+        return shouldDisplayAsFurtherInformation;
+    }
+
+    @Override
+    public String[] getNotClickableFields() {
+        return notClickableFields;
+    }
+
+    @Override
+    public String[] getNonDefaultClickResponseFields() {
+        return createListOnClick;
+    }
+
+    @Override
+    public void handleNonDefaultClick(int section, int row) {
+        String key = (String)getRowItem(section, row);
+        if (key == "matches") {
+            Intent teamMatchesIntent = new Intent(context, MatchesActivity.class);
+            teamMatchesIntent.putExtra("teamNumber", teamNumber);
+            context.startActivity(teamMatchesIntent);
+        } else {
+            Intent rankingsActivityIntent = new Intent(context, DefenseDetailsActivity.class);
+            String defenseKey = (String)getRowItem(section, row);
+            String[] splitDefenseKey = defenseKey.split("\\.");
+            rankingsActivityIntent.putExtra("defense", splitDefenseKey[splitDefenseKey.length - 2] + "." + splitDefenseKey[splitDefenseKey.length - 1]);
+            rankingsActivityIntent.putExtra("teamNumber", teamNumber);
+            context.startActivity(rankingsActivityIntent);
+        }
+    }
+
+    @Override
     public String getUpdatedAction() {
         return Constants.TEAMS_UPDATED_ACTION;
     }
@@ -129,5 +205,11 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
         List<Object> teams = new ArrayList<>();
         teams.addAll(FirebaseLists.teamsList.getValues());
         return teams;
+    }
+
+    @Override
+    public boolean isOtherTypeOfView(int section, int row) {
+        return (Arrays.asList(shouldDisplayAsLongText).contains(getRowItem(section, row)) ||
+                Arrays.asList(shouldDisplayAsFurtherInformation).contains(getRowItem(section, row)));
     }
 }

@@ -21,11 +21,11 @@ public class CalculatedTeamInMatchData extends Object {
     public Float RScoreEvasion;
     public Float RScoreDefense;
     public Float RScoreBallControl;
+    public Float RScoreDrivingAbility;
     public Float citrusDPR;
     public Float driverAbility;
     public Float firstPickAbility;
     public Map<String, Float> secondPickAbility;
-    public Float overallSecondPickability;
+    public Float overallSecondPickAbility;
     public Float scoreContribution;
-
 }

@@ -21,7 +21,7 @@ import java.util.List;
  * Created by colinunger on 2/4/16.
  */
 public class MatchDetailsTeamCellAdapter extends BaseAdapter {
-    private String[] fields = {"calculatedData.actualSeed", "calculatedData.firstPickAbility", "calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele", "calculatedData.citrusDPR", "calculatedData.driverAbility"};
+    private String[] fields = {"calculatedData.actualSeed", "calculatedData.firstPickAbility", "calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele", "calculatedData.citrusDPR", "calculatedData.RScoreDrivingAbility"};
     private Integer teamNumber;
 
     private Context context;
@@ -79,5 +79,10 @@ public class MatchDetailsTeamCellAdapter extends BaseAdapter {
     @Override
     public boolean isEnabled(int position) {
         return false;
+    }
+
+    public void setTeamNumber(Integer teamNumber) {
+        this.teamNumber = teamNumber;
+        notifyDataSetChanged();
     }
 }

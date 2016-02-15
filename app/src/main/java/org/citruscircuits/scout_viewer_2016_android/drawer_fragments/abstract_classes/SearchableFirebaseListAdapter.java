@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 
 import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.Utils;
+import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public abstract class SearchableFirebaseListAdapter<T> extends BaseAdapter {
     Comparator<T> filterComparator;
     public Context context;
     private BroadcastReceiver broadcastReceiver;
+    private BroadcastReceiver starReceiver;
 
     public SearchableFirebaseListAdapter(Context context, Comparator<T> filterComparator) {
         this.filterComparator = filterComparator;
@@ -40,6 +42,14 @@ public abstract class SearchableFirebaseListAdapter<T> extends BaseAdapter {
             }
         };
         LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter(getBroadcastAction()));
+
+        starReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                notifyDataSetChanged();
+            }
+        };
+        LocalBroadcastManager.getInstance(context).registerReceiver(starReceiver, new IntentFilter(Constants.STARS_MODIFIED_ACTION));
     }
 
     public void searchWithTextInScope(String searchString, String scope) {
@@ -47,6 +57,13 @@ public abstract class SearchableFirebaseListAdapter<T> extends BaseAdapter {
         this.selectedScope = scope;
         filterValues();
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        filterValues();
+
+        super.notifyDataSetChanged();
     }
 
     public void filterValues() {

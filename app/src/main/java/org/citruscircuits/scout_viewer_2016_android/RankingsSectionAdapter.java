@@ -1,6 +1,10 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,14 @@ public abstract class RankingsSectionAdapter extends SectionAdapter {
 
     public RankingsSectionAdapter(Context context) {
         this.context = context;
+
+
+//        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                notifyDataSetChanged();
+//            }
+//        }, new IntentFilter(Constants.TEAMS_UPDATED_ACTION));
     }
 
     @Override

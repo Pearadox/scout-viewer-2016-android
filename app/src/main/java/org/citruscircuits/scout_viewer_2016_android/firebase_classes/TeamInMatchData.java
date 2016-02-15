@@ -10,6 +10,7 @@ import java.util.Map;
 public class TeamInMatchData extends Object {
 	public Integer teamNumber;
 	public Integer matchNumber;
+	public CalculatedTeamInMatchData calculatedData;
 
 	public String scoutName;
 

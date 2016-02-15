@@ -81,6 +81,7 @@ public class PhotoSync extends Service {
                     String selectedImageURLString = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString()).selectedImageUrl;
                     if (!selectedImageURLString.equals(teamImageURLs.get(teamNumber))) {
                         teamImageURLs.put(teamNumber, selectedImageURLString);
+                        Log.e("test", "STARTING ASYNC TASK for team " + teamNumber.toString());
                         PhotoAsyncTask photoAsyncTask = new PhotoAsyncTask();
                         photoAsyncTask.execute(teamNumber, selectedImageURLString);
                     }
@@ -122,9 +123,10 @@ public class PhotoSync extends Service {
     private class PhotoAsyncTask extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] params) {
+            String selectedImageURLString = (String)params[1];
+
             try {
-                Log.e("test", "Starting thread for team " + params[0].toString());
-                String selectedImageURLString = (String)params[1];
+//                Log.e("test", "Starting thread for team " + params[0].toString());
                 URL url = new URL(selectedImageURLString);
 //                URL url = new URL("https://dl.dropboxusercontent.com/u/63662632/1678.jpeg");
                 InputStream in = new BufferedInputStream(url.openStream());
@@ -134,8 +136,9 @@ public class PhotoSync extends Service {
                 in.close();
                 saveTeamImage(getApplicationContext(), (Integer)params[0], image, selectedImageURLString);
             } catch (MalformedURLException e) {
-                Log.e("error", "Exception: " + e.getMessage());
-                deleteTeamImage(getApplicationContext(), (Integer)params[0]);
+                Log.e("test", "Trying to delete image file for team " + ((Integer)params[0]).toString());
+//                Log.e("error", "Exception: " + e.getMessage());
+                deleteTeamImage(getApplicationContext(), (Integer)params[0], selectedImageURLString);
             } catch (IOException ioe) {
                 Log.e("error", "IO Exception: " + ioe.getMessage());
             }
@@ -159,9 +162,11 @@ public class PhotoSync extends Service {
         return stringKeyMap;
     }
 
-    public void deleteTeamImage(Context context, Integer teamNumber) {
+    public void deleteTeamImage(Context context, Integer teamNumber, String selectedImageURLString) {
         File file = new File(context.getFilesDir(), "image_" + teamNumber.toString());
-        Log.e("test", "The file deleted: " + file.delete());
+        file.delete();
+        completedTeamImageURLs.put(teamNumber, selectedImageURLString);
+        saveToSharedPreferences();
     }
 
 }

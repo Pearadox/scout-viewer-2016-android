@@ -1,5 +1,7 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
+import android.graphics.Color;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +10,7 @@ import java.util.Map;
  */
 public class Constants {
     public static final String ROOT_FIREBASE_PATH = "https://1678-dev2-2016.firebaseio.com/";
-    public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Second Pick", "Super Data"};
+    public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Second Pick", "Super Data"};
     public static final String MATCHES_PATH = ROOT_FIREBASE_PATH + "Matches";
     public static final String TEAMS_PATH = ROOT_FIREBASE_PATH + "Teams";
     public static final String TEAM_IN_MATCH_DATAS_PATH = ROOT_FIREBASE_PATH + "TeamInMatchDatas";
@@ -17,8 +19,11 @@ public class Constants {
     public static final String TEAM_IN_MATCH_DATAS_UPDATED_ACTION = "org.citruscircuits.scout_viewer_2016_android.teaminmatchdatasupdated";
     public static final String NEW_TEAM_PHOTO_ACTION = "org.citruscircuits.scout_viewer_2016_android.newteamphoto";
     public static final String NEW_MATCH_PLAYED_ACTION = "org.citruscircuits.scout_viewer_2016_android.newmatchplayed";
+    public static final String STARS_MODIFIED_ACTION = "org.citruscircuits.scout_viewer_2016_android.starsmodified";
     public static final String[] MATCH_SCOPES = {"Match", "Team"};
     public static final String[] TEAM_SCOPES = {"Team"};
+    public static final int STAR_COLOR = Color.argb(255, 255, 255, 204);
+    public static final int TEAM_NUMBER = 1678;
     public static final Map<String, String> KEYS_TO_TITLES = new HashMap<String, String> () {
         {
             put("calculatedData.avgHighShotsAuto", "Avg. Auto High Shots");
@@ -55,6 +60,12 @@ public class Constants {
             put("calculatedData.avgEvasion", "Avg. Evasion");
             put("calculatedData.avgDefense", "Avg. Defense");
             put("calculatedData.avgBallControl", "Avg. Ball Control");
+            put("calculatedData.RScoreTorque", "Torque");
+            put("calculatedData.RScoreSpeed", "Speed");
+            put("calculatedData.RScoreEvasion", "Evasion");
+            put("calculatedData.RScoreDefense", "Defense");
+            put("calculatedData.RScoreBallControl", "Ball Control");
+            put("calculatedData.RScoreDrivingAbility", "Driving Ability");
             put("calculatedData.disfunctionalPercentage", "Disfunctional");
             put("calculatedData.reachPercentage", "Reach");
             put("calculatedData.disabledPercentage", "Disabled");
@@ -167,6 +178,27 @@ public class Constants {
             put("numBallsKnockedOffMidlineAuto", "Knocked Off Mid.");
             put("numBallsKnockedOffMidlineAuto", "Knocked Off Mid.");
             put("calculatedData.citrusDPR", "Citrus DPR");
+            put("calculatedData.overallSecondPickAbility", "Overall Second Pick Ability");
+            put("cdf", "Cheval de Frise");
+            put("pc", "Portcullis");
+            put("mt", "Moat");
+            put("rp", "Ramparts");
+            put("db", "Drawbridge");
+            put("sp", "Sally Port");
+            put("rt", "Rough Terrain");
+            put("rw", "Rock Wall");
+            put("lb", "Low Bar");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.a.pc", "Avg. PC Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.a.cdf", "Avg. CDF Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.b.mt", "Avg. MT Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.b.rp", "Avg. RP Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.c.db", "Avg. DB Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.c.sp", "Avg. SP Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.d.rw", "Avg. RW Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.d.rt", "Avg. RT Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.e.lb", "Avg. LB Cross");
+            put("teamNumber", "Team Number");
+            put("matchNumber", "Match Number");
         }
 
     };

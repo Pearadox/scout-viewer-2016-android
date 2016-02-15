@@ -41,8 +41,8 @@ public class TeamInMatchDetailsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_listview);
-        teamNumber = getIntent().getIntExtra("teamNumber", 1678);
-        matchNumber = getIntent().getIntExtra("matchNumber", 1);
+        teamNumber = getIntent().getIntExtra("team", 1678);
+        matchNumber = getIntent().getIntExtra("match", 1);
 
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
         teamDetailsHeaderListView.setAdapter(new TeamInMatchDetailsSectionAdapter(this, teamNumber, matchNumber));

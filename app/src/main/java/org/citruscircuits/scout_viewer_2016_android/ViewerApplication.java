@@ -17,9 +17,11 @@ import org.citruscircuits.scout_viewer_2016_android.services.PhotoSync;
 import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,33 +31,17 @@ public class ViewerApplication extends Application {
 
 //    PhotoSync photoSync;
     Integer lastMatch = -1;
-    private static List<Integer> starredMatches = new ArrayList<>();
-    private static SharedPreferences sharedPreferences = null;
+
+    public static SharedPreferences sharedPreferences = null;
+    public static Context appContext = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        appContext = getApplicationContext();
         Firebase.setAndroidContext(this);
         Firebase.getDefaultConfig().setPersistenceEnabled(true);
-
-        sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        String jsonStarredMatchesAsString = sharedPreferences.getString("starredMatches", "[]");
-        try {
-            JSONArray jsonStarredMatches = new JSONArray(jsonStarredMatchesAsString);
-            for (int i = 0; i < jsonStarredMatches.length(); i++) {
-                Log.e("test", "Adding match " + jsonStarredMatches.get(i).toString() + " to starred matches");
-                starredMatches.add((Integer) jsonStarredMatches.get(i));
-            }
-        } catch (JSONException jsone) {
-            Log.e("test", "JSON ERROR: " + jsone.getMessage());
-        }
-
-//        new FirebaseList<>("https://1678-dev3-2016.firebaseio.com/", new FirebaseList.FirebaseUpdatedCallback() {
-//            @Override
-//            public void execute() {
-//                Log.e("test", "GOT THE COMPETITION!");
-//            }
-//        }, Competition.class);
 
         FirebaseLists.matchesList = new FirebaseList<>(Constants.MATCHES_PATH, new FirebaseList.FirebaseUpdatedCallback() {
             @Override
@@ -81,33 +67,48 @@ public class ViewerApplication extends Application {
 
 
 
+        restoreFromSharedPreferences();
         startService(new Intent(this, StarManager.class));
         startService(new Intent(this, PhotoSync.class));
     }
 
-    public static void addStarredMatch(Integer matchNumber) {
-        if (!starredMatches.contains(matchNumber)) {
-            starredMatches.add(matchNumber);
-            Collections.sort(starredMatches);
-            JSONArray jsonObject = new JSONArray(starredMatches);
-            sharedPreferences.edit().putString("starredMatches", jsonObject.toString()).commit();
+    public void restoreFromSharedPreferences() {
+        sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        String jsonImportantMatchesAsString = sharedPreferences.getString("importantMatches", "[]");
+        String jsonStarredTeamsAsString = sharedPreferences.getString("starredTeams", "[]");
+        String jsonMatchesAddedByTeamAsString = sharedPreferences.getString("matchesAddedByTeam", "{}");
+
+        try {
+            StarManager.importantMatches = jsonArrayToIntegerList(new JSONArray(jsonImportantMatchesAsString));
+            StarManager.starredTeams = jsonArrayToIntegerList(new JSONArray(jsonStarredTeamsAsString));
+        } catch(JSONException jsone) {
+            Log.e("test", "ERROR: " + jsone.getMessage());
+        }
+
+        try {
+            JSONObject jsonMatchesAddedByTeam = new JSONObject(jsonMatchesAddedByTeamAsString);
+            StarManager.matchesAddedByTeam = new HashMap<>();
+            for (int i = 0; i < jsonMatchesAddedByTeam.length(); i++) {
+                String key = (String)jsonMatchesAddedByTeam.names().get(i);
+                Integer teamNumber = Integer.parseInt(key);
+                List<Integer> matchesAdded = jsonArrayToIntegerList(jsonMatchesAddedByTeam.getJSONArray(key));
+                StarManager.matchesAddedByTeam.put(teamNumber, matchesAdded);
+            }
+        } catch (JSONException jsone) {
+            Log.e("test", "JSON ERROR: " + jsone.getMessage());
         }
     }
 
-    public static void removeStarredMatch(Integer matchNumber) {
-        if (starredMatches.contains(matchNumber)) {
-            starredMatches.remove(matchNumber);
-            Collections.sort(starredMatches);
-            JSONArray jsonObject = new JSONArray(starredMatches);
-            sharedPreferences.edit().putString("starredMatches", jsonObject.toString()).commit();
+    public List<Integer> jsonArrayToIntegerList(JSONArray jsonArray) {
+        List<Integer> list = new ArrayList<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                list.add((Integer)jsonArray.get(i));
+            }
+        } catch (JSONException jsone) {
+            Log.e("test", "JSON ERROR: " + jsone.getMessage());
         }
-    }
 
-    public static boolean isStarredMatch(Integer matchNumber) {
-        return starredMatches.contains(matchNumber);
-    }
-
-    public static List<Integer> getStarredMatches() {
-        return new ArrayList<>(starredMatches);
+        return list;
     }
 }

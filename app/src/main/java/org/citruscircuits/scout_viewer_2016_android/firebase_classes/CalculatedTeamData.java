@@ -36,6 +36,7 @@ public class CalculatedTeamData extends Object{
 	public Float incapacitatedPercentage;
 	public Float scalePercentage;
 	public Float challengePercentage;
+	public Map<String, Map<String, Float>> avgSuccessfulTimesCrossedDefenses;
 	public Map<String, Map<String, Float>> avgSuccessfulTimesCrossedDefensesAuto;
 	public Map<String, Map<String, Float>> avgSuccessfulTimesCrossedDefensesTele;
 	public Map<String, Map<String, Float>> avgFailedTimesCrossedDefensesAuto;
@@ -68,6 +69,8 @@ public class CalculatedTeamData extends Object{
 	public Float RScoreEvasion;
 	public Float RScoreDefense;
 	public Float RScoreBallControl;
+	public Float RScoreDrivingAbility;
 	public Float overallSecondPickAbility;
 	public Float breachPercentage;
+	public Float blockingAbility;
 }

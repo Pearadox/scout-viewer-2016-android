@@ -10,6 +10,7 @@ import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.TeamInMatchData;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -85,7 +87,7 @@ public class Utils {
     }
 
     public static Integer getLastMatchPlayed() {
-        Integer lastMatch = -1;
+        Integer lastMatch = 0;
         for (Match match : FirebaseLists.matchesList.getValues()) {
             if(match.redScore > -1 || match.blueScore > -1) {
                 lastMatch = match.number;
@@ -102,5 +104,25 @@ public class Utils {
             spannableString.setSpan(new BackgroundColorSpan(Color.GREEN), fullString.indexOf(toHighlight), fullString.indexOf(toHighlight) + toHighlight.length(), 0);
         }
         return spannableString;
+    }
+
+    public static List<TeamInMatchData> getTeamInMatchDatasForTeamNumber(Integer teamNumber) {
+        List<TeamInMatchData> teamInMatchDatas = new ArrayList<>();
+        for (TeamInMatchData teamInMatchData : FirebaseLists.teamInMatchDataList.getValues()) {
+            if (teamInMatchData.teamNumber.equals(teamNumber)) {
+                teamInMatchDatas.add(teamInMatchData);
+            }
+        }
+
+        return teamInMatchDatas;
+    }
+
+    public static List<Integer> getMatchNumbersForTeamNumber(Integer teamNumber) {
+        List<Integer> matchNumbers = new ArrayList<>();
+        for (TeamInMatchData teamInMatchData : getTeamInMatchDatasForTeamNumber(teamNumber)) {
+            matchNumbers.add(teamInMatchData.matchNumber);
+        }
+
+        return matchNumbers;
     }
 }

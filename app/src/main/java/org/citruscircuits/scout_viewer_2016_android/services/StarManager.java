@@ -7,13 +7,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.RemoteViews;
 
 import com.firebase.client.ValueEventListener;
@@ -25,6 +25,8 @@ import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,17 +42,15 @@ public class StarManager extends Service {
     private NotificationManager mNM;
     private Map<String, ValueEventListener> valueEventListeners = new HashMap<>();
     private Integer currentMatchNumber;
-    private Integer nextStarredMatch;
+    private Integer nextImportantMatch;
+    public static List<Integer> importantMatches = new ArrayList<>();
+    public static List<Integer> starredTeams = new ArrayList<>();
+    public static Map<Integer, List<Integer>> matchesAddedByTeam = new HashMap<>();
 
     public class StarBinder extends Binder {
         StarManager getService() {
             return StarManager.this;
         }
-    }
-
-    @Override
-    public void onCreate() {
-
     }
 
     @Override
@@ -65,17 +65,23 @@ public class StarManager extends Service {
             @Override
             public void onReceive(Context context, Intent intent) {
                 currentMatchNumber = Utils.getLastMatchPlayed();
-                nextStarredMatch = getNextStarredMatch();
+                nextImportantMatch = getNextImportantMatch();
                 notifyOfNewMatchIfNeeded();
             }
         }, new IntentFilter(Constants.MATCHES_UPDATED_ACTION));
 
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                currentMatchNumber = Utils.getLastMatchPlayed();
+                nextImportantMatch = getNextImportantMatch();
+                notifyOfNewMatchIfNeeded();
+            }
+        }, new IntentFilter(Constants.STARS_MODIFIED_ACTION));
+
         return START_STICKY;
     }
 
-    @Override
-    public void onDestroy() {
-    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -84,10 +90,120 @@ public class StarManager extends Service {
 
     private final IBinder mBinder = new StarBinder();
 
+
+
+    public void notifyOfNewMatchIfNeeded() {
+        if (FirebaseLists.matchesList.getKeys().contains(nextImportantMatch.toString())) {
+            if (nextImportantMatch - currentMatchNumber <= 3) {
+                Match match = FirebaseLists.matchesList.getFirebaseObjectByKey(nextImportantMatch.toString());
+
+                notifyOfNewMatchPlayed(match, nextImportantMatch - currentMatchNumber - 1);
+            }
+        }
+    }
+
+    public Integer getNextImportantMatch() {
+        Integer nextImportantMatch = 0;
+
+        for (Integer matchNumber : getImportantMatches()) {
+            if (matchNumber > currentMatchNumber) {
+                nextImportantMatch = matchNumber;
+                break;
+            }
+        }
+
+        return nextImportantMatch;
+    }
+
+    public static void addImportantMatch(Integer matchNumber) {
+        if (!importantMatches.contains(matchNumber)) {
+            importantMatches.add(matchNumber);
+            Collections.sort(importantMatches);
+            saveToSharedPreferences();
+        }
+    }
+
+    public static void removeImportantMatch(Integer matchNumber) {
+        if (importantMatches.contains(matchNumber)) {
+            importantMatches.remove(matchNumber);
+            Collections.sort(importantMatches);
+            for (List<Integer> matchesAdded : matchesAddedByTeam.values()) {
+                matchesAdded.remove(matchNumber);
+            }
+            saveToSharedPreferences();
+        }
+    }
+
+    public static void addStarredTeam(Integer teamNumber) {
+        if (!starredTeams.contains(teamNumber)) {
+            starredTeams.add(teamNumber);
+            matchesAddedByTeam.put(teamNumber, getNonImportantMatchesForTeam(teamNumber));
+            for (Integer matchNumber : Utils.getMatchNumbersForTeamNumber(teamNumber)) {
+                addImportantMatch(matchNumber);
+            }
+            saveToSharedPreferences();
+        }
+    }
+
+    public static void removeStarredTeam(Integer teamNumber) {
+        if (starredTeams.contains(teamNumber)) {
+            starredTeams.remove(teamNumber);
+            Collections.sort(starredTeams);
+            List<Integer> matchesAdded = new ArrayList<>(matchesAddedByTeam.get(teamNumber));
+            for (Integer matchNumber : matchesAdded) {
+                removeImportantMatch(matchNumber);
+            }
+            saveToSharedPreferences();
+        }
+    }
+
+    public static boolean isStarredTeam(Integer teamNumber) {
+        return starredTeams.contains(teamNumber);
+    }
+
+    public static boolean isImportantMatch(Integer matchNumber) {
+        return getImportantMatches().contains(matchNumber);
+    }
+
+    public static List<Integer> getImportantMatches() {
+        return new ArrayList<>(importantMatches);
+    }
+
+    private static List<Integer> getNonImportantMatchesForTeam(Integer teamNumber) {
+        List<Integer> nonStarredMatches = new ArrayList<>();
+        for (Integer matchNumber : Utils.getMatchNumbersForTeamNumber(teamNumber)) {
+            if (!importantMatches.contains(matchNumber)) {
+                nonStarredMatches.add(matchNumber);
+            }
+        }
+
+        return nonStarredMatches;
+    }
+
+    public static void saveToSharedPreferences() {
+        LocalBroadcastManager.getInstance(ViewerApplication.appContext).sendBroadcast(new Intent(Constants.STARS_MODIFIED_ACTION));
+        JSONArray starredTeamsJSON = new JSONArray(starredTeams);
+        JSONArray importantMatchesJSON = new JSONArray(importantMatches);
+        Map<String, List<Integer>> tempMap = new HashMap<>();
+        for (Integer key : matchesAddedByTeam.keySet()) {
+            tempMap.put(key.toString(), matchesAddedByTeam.get(key));
+        }
+        JSONObject matchesAddedByTeamJSON = new JSONObject(tempMap);
+        ViewerApplication.sharedPreferences.edit().putString("starredTeams", starredTeamsJSON.toString()).commit();
+        ViewerApplication.sharedPreferences.edit().putString("importantMatches", importantMatchesJSON.toString()).commit();
+        ViewerApplication.sharedPreferences.edit().putString("matchesAddedByTeam", matchesAddedByTeamJSON.toString()).commit();
+    }
+
     public void notifyOfNewMatchPlayed(Match match, Integer matchesFromNow) {
         RemoteViews notificationRemoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.match_notification);
 
-        notificationRemoteViews.setTextViewText(R.id.matchNotificationTitleTextView, "Don't miss Q" + match.number + ", starting in " + matchesFromNow.toString() + " matches!");
+        if (matchesFromNow.equals(0)) {
+            notificationRemoteViews.setTextViewText(R.id.matchNotificationTitleTextView, "Don't miss Q" + match.number + ", starting now!");
+        } else if (matchesFromNow.equals(1)) {
+            notificationRemoteViews.setTextViewText(R.id.matchNotificationTitleTextView, "Don't miss Q" + match.number + ", starting in " + matchesFromNow.toString() + " match!");
+        } else {
+            notificationRemoteViews.setTextViewText(R.id.matchNotificationTitleTextView, "Don't miss Q" + match.number + ", starting in " + matchesFromNow.toString() + " matches!");
+        }
         notificationRemoteViews.setTextViewText(R.id.matchNumber, match.number.toString());
 
         List<Integer> teams = new ArrayList<>();
@@ -97,6 +213,9 @@ public class StarManager extends Service {
         int[] teamTextViewIDs = {R.id.teamOne, R.id.teamTwo, R.id.teamThree, R.id.teamFour, R.id.teamFive, R.id.teamSix};
         for (int i = 0; i < 6; i++) {
             notificationRemoteViews.setTextViewText(teamTextViewIDs[i], teams.get(i).toString());
+            if (teams.get(i).equals(Constants.TEAM_NUMBER)) {
+                notificationRemoteViews.setTextColor(teamTextViewIDs[i], Color.GREEN);
+            }
         }
 
         notificationRemoteViews.setTextViewText(R.id.redScore, (match.redScore >= 0) ? match.redScore + "" : "???");
@@ -127,27 +246,5 @@ public class StarManager extends Service {
         mNotificationManager.notify(mId, mBuilder.build());
     }
 
-    public void notifyOfNewMatchIfNeeded() {
-        if (FirebaseLists.matchesList.getKeys().contains(nextStarredMatch.toString())) {
-            if (nextStarredMatch - currentMatchNumber <= 3) {
-                Match match = FirebaseLists.matchesList.getFirebaseObjectByKey(nextStarredMatch.toString());
 
-                notifyOfNewMatchPlayed(match, nextStarredMatch - currentMatchNumber - 1);
-            }
-        }
-    }
-
-    public Integer getNextStarredMatch() {
-        Integer nextStarredMatch = 0;
-
-        List<Integer> starredMatches = ViewerApplication.getStarredMatches();
-        Collections.reverse(starredMatches);
-        for (Integer matchNumber : starredMatches) {
-            if (matchNumber > currentMatchNumber) {
-                nextStarredMatch = matchNumber;
-            }
-        }
-
-        return nextStarredMatch;
-    }
 }
