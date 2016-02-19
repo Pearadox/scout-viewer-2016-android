@@ -94,28 +94,32 @@ public class MatchDetailsActivity extends ActionBarActivity {
         TextView redAlliancePredictedScoreTextView = (TextView)findViewById(R.id.matchDetailsRedAlliancePredictedScore);
         TextView redAllianceWinChanceTextView = (TextView)findViewById(R.id.matchDetailsRedAllianceWinChance);
 
-        redAllianceScoreTextView.setText(match.redScore.toString());
-        redAlliancePredictedScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedRedScore, 0));
-        redAllianceWinChanceTextView.setText(Utils.dataPointToPercentage(match.calculatedData.redWinChance, 0));
+        redAllianceScoreTextView.setText(Utils.getMatchDisplayValue(match, "redScore"));
+        redAlliancePredictedScoreTextView.setText(Utils.getMatchDisplayValue(match, "calculatedData.predictedRedScore"));
+        redAllianceWinChanceTextView.setText(Utils.dataPointToPercentage((Float)Utils.getObjectField(match, "calculatedData.redWinChance"), 0));
 
         TextView blueAllianceScoreTextView = (TextView)findViewById(R.id.matchDetailsBlueAllianceScore);
         TextView blueAlliancePredictedScoreTextView = (TextView)findViewById(R.id.matchDetailsBlueAlliancePredictedScore);
         TextView blueAllianceWinChanceTextView = (TextView)findViewById(R.id.matchDetailsBlueAllianceWinChance);
 
-        blueAllianceScoreTextView.setText(match.blueScore.toString());
-        blueAlliancePredictedScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedBlueScore, 0));
-        blueAllianceWinChanceTextView.setText(Utils.dataPointToPercentage(match.calculatedData.blueWinChance, 0));
+        blueAllianceScoreTextView.setText(Utils.getMatchDisplayValue(match, "blueScore"));
+        blueAlliancePredictedScoreTextView.setText(Utils.getMatchDisplayValue(match, "calculatedData.predictedBlueScore"));
+        blueAllianceWinChanceTextView.setText(Utils.dataPointToPercentage((Float) Utils.getObjectField(match, "calculatedData.redWinChance"), 0));
 
         LinearLayout redOptimalDefensesLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsRedTeamsDefensesLinearLayout);
         redOptimalDefensesLinearLayout.removeAllViews();
-        for (String redOptimalDefense : match.calculatedData.optimalRedDefenses) {
-            redOptimalDefensesLinearLayout.addView(getTeamInMatchDefenseCell(redOptimalDefense, true));
+        if (Utils.getObjectField(match, "calculatedData.optimalRedDefenses") != null) {
+            for (String redOptimalDefense : match.calculatedData.optimalRedDefenses) {
+                redOptimalDefensesLinearLayout.addView(getTeamInMatchDefenseCell(redOptimalDefense, true));
+            }
         }
 
         LinearLayout blueOptimalDefensesLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsBlueTeamsDefensesLinearLayout);
         blueOptimalDefensesLinearLayout.removeAllViews();
-        for (String blueOptimalDefense : match.calculatedData.optimalBlueDefenses) {
-            blueOptimalDefensesLinearLayout.addView(getTeamInMatchDefenseCell(blueOptimalDefense, false));
+        if (Utils.getObjectField(match, "calculatedData.optimalBlueDefenses") != null) {
+            for (String blueOptimalDefense : match.calculatedData.optimalBlueDefenses) {
+                blueOptimalDefensesLinearLayout.addView(getTeamInMatchDefenseCell(blueOptimalDefense, false));
+            }
         }
     }
 

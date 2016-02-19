@@ -79,11 +79,13 @@ public class PhotoSync extends Service {
                 for (String teamNumberString : FirebaseLists.teamsList.getKeys()) {
                     Integer teamNumber = Integer.parseInt(teamNumberString);
                     String selectedImageURLString = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString()).selectedImageUrl;
-                    if (!selectedImageURLString.equals(teamImageURLs.get(teamNumber))) {
-                        teamImageURLs.put(teamNumber, selectedImageURLString);
-                        Log.e("test", "STARTING ASYNC TASK for team " + teamNumber.toString());
-                        PhotoAsyncTask photoAsyncTask = new PhotoAsyncTask();
-                        photoAsyncTask.execute(teamNumber, selectedImageURLString);
+                    if (selectedImageURLString != null) {
+                        if (!selectedImageURLString.equals(teamImageURLs.get(teamNumber))) {
+                            teamImageURLs.put(teamNumber, selectedImageURLString);
+                            Log.e("test", "STARTING ASYNC TASK for team " + teamNumber.toString());
+                            PhotoAsyncTask photoAsyncTask = new PhotoAsyncTask();
+                            photoAsyncTask.execute(teamNumber, selectedImageURLString);
+                        }
                     }
                 }
             }

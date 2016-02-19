@@ -32,7 +32,8 @@ import java.util.List;
 public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     private String[][] fieldsToDisplay = {
             {"matches"},
-            {"calculatedData.firstPickAbility"},
+            {"calculatedData.firstPickAbility",
+                    "calculatedData.overallSecondPickAbility"},
             {"calculatedData.numAutoPoints",
                     "calculatedData.highShotAccuracyAuto",
                     "calculatedData.lowShotAccuracyAuto",
@@ -72,7 +73,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
                     "pitOrganization",
                     "pitNotes"}};
 
-    private String[] sectionTitles = {"High Level", "Auto", "Teleop", "Defenses", "Siege", "Status", "Super", "Pit"};
+    private String[] sectionTitles = {"Matches", "High Level", "Auto", "Teleop", "Defenses", "Siege", "Status", "Super", "Pit"};
 
     private String[] shouldDisplayAsPercentage = {
             "calculatedData.highShotAccuracyTele",
@@ -111,7 +112,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "pitDriveBaseLength",
             "pitBumperHeight",
             "pitPotentialShotBlockerCapability",
-            "pitOrganization"
+            "pitOrganization",
+            "pitNotes"
     };
 
     private String[] createListOnClick = {
@@ -123,7 +125,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "calculatedData.avgSuccessfulTimesCrossedDefenses.c.sp",
             "calculatedData.avgSuccessfulTimesCrossedDefenses.d.rw",
             "calculatedData.avgSuccessfulTimesCrossedDefenses.d.rt",
-            "calculatedData.avgSuccessfulTimesCrossedDefenses.e.lb"
+            "calculatedData.avgSuccessfulTimesCrossedDefenses.e.lb",
+            "matches"
     };
 
     Integer teamNumber;

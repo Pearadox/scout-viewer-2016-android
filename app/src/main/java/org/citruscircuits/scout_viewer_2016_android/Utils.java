@@ -46,39 +46,46 @@ public class Utils {
 
             return modObject;
         } catch (Exception e) {
-            Log.e("test", "The exception is " + e.getMessage());
             return null;
         }
     }
 
-    public static int getRankOfObject(Object o, List<Object> os, String fieldname) {
-        Collections.sort(os, new ObjectFieldComparator(fieldname, true));
+    public static boolean fieldIsNotNull(Object object, String fieldName) {
+        return getObjectField(object, fieldName) != null;
+    }
+
+    public static Integer getRankOfObject(Object o, List<Object> os, String fieldName) {
+        if (Utils.getObjectField(o, fieldName) == null) {
+            return null;
+        }
+        Collections.sort(os, new ObjectFieldComparator(fieldName, true));
         return os.indexOf(o);
     }
 
-    public static Bitmap downloadImage(String urlString) {
-        try {
-            URL url = new URL("https://dl.dropboxusercontent.com/u/63662632/1678.jpeg");
-            Log.e("test", "Input stream is " + url.openStream().toString());
-            InputStream in = new BufferedInputStream(url.openStream());
-            Log.e("test", in.toString());
-            Bitmap image = BitmapFactory.decodeStream(in);
-            in.close();
-            return image;
-        } catch (MalformedURLException e) {
-            Log.e("error", "Exception: " + e.getMessage());
-            return null;
-        } catch (IOException ioe) {
-            Log.e("error", "io Exception: " + ioe.getMessage());
-            return null;
+    public static String dataPointToPercentage(Float dataPoint, int decimalPlaces) {
+        if (dataPoint != null) {
+            return roundDataPoint(dataPoint * 100, decimalPlaces, "??") + "%";
+        } else {
+            return "???";
         }
     }
 
-    public static String dataPointToPercentage(Float dataPoint, int decimalPlaces) {
-        return roundDataPoint(dataPoint * 100, decimalPlaces) + "%";
+    public static String getMatchDisplayValue(Match match, String key) {
+        return roundDataPoint(getObjectField(match, key), 2, "???");
     }
 
-    public static String roundDataPoint(Object dataPoint, int decimalPlaces) {
+    public static String getDisplayValue(Object object, String key) {
+        return roundDataPoint(getObjectField(object, key), 2, "???");
+    }
+
+    public static String roundDataPoint(Object dataPoint, int decimalPlaces, String unkownValue) {
+        if (dataPoint == null) {
+            return unkownValue;
+        }
+        int decimalPointIndex = dataPoint.toString().indexOf(".");
+        if (decimalPointIndex < 0) {
+            return  dataPoint.toString();
+        }
         int substringIndex = dataPoint.toString().indexOf(".") + 1 + decimalPlaces;
         if (decimalPlaces < 1) {
             substringIndex--;
@@ -89,7 +96,7 @@ public class Utils {
     public static Integer getLastMatchPlayed() {
         Integer lastMatch = 0;
         for (Match match : FirebaseLists.matchesList.getValues()) {
-            if(match.redScore > -1 || match.blueScore > -1) {
+            if(match.redScore != null || match.blueScore != null) {
                 lastMatch = match.number;
             }
         }
@@ -109,11 +116,13 @@ public class Utils {
     public static List<TeamInMatchData> getTeamInMatchDatasForTeamNumber(Integer teamNumber) {
         List<TeamInMatchData> teamInMatchDatas = new ArrayList<>();
         for (TeamInMatchData teamInMatchData : FirebaseLists.teamInMatchDataList.getValues()) {
+            Log.e("test", "Team in match data: " + teamInMatchData.teamNumber + teamInMatchData.matchNumber);
             if (teamInMatchData.teamNumber.equals(teamNumber)) {
                 teamInMatchDatas.add(teamInMatchData);
             }
         }
 
+        Collections.sort(teamInMatchDatas, new ObjectFieldComparator("matchNumber", true));
         return teamInMatchDatas;
     }
 

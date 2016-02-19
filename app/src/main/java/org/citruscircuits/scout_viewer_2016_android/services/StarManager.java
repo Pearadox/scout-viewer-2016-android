@@ -41,8 +41,8 @@ public class StarManager extends Service {
 
     private NotificationManager mNM;
     private Map<String, ValueEventListener> valueEventListeners = new HashMap<>();
-    private Integer currentMatchNumber;
-    private Integer nextImportantMatch;
+    private static Integer currentMatchNumber;
+    private static Integer nextImportantMatch;
     public static List<Integer> importantMatches = new ArrayList<>();
     public static List<Integer> starredTeams = new ArrayList<>();
     public static Map<Integer, List<Integer>> matchesAddedByTeam = new HashMap<>();
@@ -194,6 +194,10 @@ public class StarManager extends Service {
         ViewerApplication.sharedPreferences.edit().putString("matchesAddedByTeam", matchesAddedByTeamJSON.toString()).commit();
     }
 
+    public static Integer getCurrentMatchNumber() {
+        return currentMatchNumber;
+    }
+
     public void notifyOfNewMatchPlayed(Match match, Integer matchesFromNow) {
         RemoteViews notificationRemoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.match_notification);
 
@@ -218,8 +222,18 @@ public class StarManager extends Service {
             }
         }
 
-        notificationRemoteViews.setTextViewText(R.id.redScore, (match.redScore >= 0) ? match.redScore + "" : "???");
-        notificationRemoteViews.setTextViewText(R.id.blueScore, (match.blueScore >= 0) ? match.blueScore + "" : "???");
+        if (match.redScore != null || match.blueScore != null) {
+            notificationRemoteViews.setTextViewText(R.id.redScore, (match.redScore != null) ? match.redScore + "" : "???");
+            notificationRemoteViews.setTextViewText(R.id.blueScore, (match.blueScore != null) ? match.blueScore + "" : "???");
+            notificationRemoteViews.setTextColor(R.id.redScore, Color.argb(255, 255, 0, 0));
+            notificationRemoteViews.setTextColor(R.id.blueScore, Color.argb(255, 0, 0, 255));
+        } else {
+            notificationRemoteViews.setTextViewText(R.id.redScore, (Utils.fieldIsNotNull(match, "calculatedData.predictedRedScore")) ? match.redScore + "" : "???");
+            notificationRemoteViews.setTextViewText(R.id.blueScore, (Utils.fieldIsNotNull(match, "calculatedData.predictedBlueScore")) ? match.blueScore + "" : "???");
+            notificationRemoteViews.setTextColor(R.id.redScore, Color.argb(75, 255, 0, 0));
+            notificationRemoteViews.setTextColor(R.id.blueScore, Color.argb(75, 0, 0, 255));
+        }
+
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(getApplicationContext())

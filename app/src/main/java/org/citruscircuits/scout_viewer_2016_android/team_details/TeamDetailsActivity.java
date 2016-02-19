@@ -25,6 +25,7 @@ import com.applidium.headerlistview.HeaderListView;
 import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
 import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
@@ -98,7 +99,6 @@ public class TeamDetailsActivity extends ActionBarActivity {
 
     public void reload() {
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
-//        teamDetailsHeaderListView.setAdapter(new TeamDetailsSectionAdapter(this, teamNumber));
         View teamDetailsHeaderView = teamDetailsHeaderListView.getChildAt(0);
         if (StarManager.isStarredTeam(teamNumber)) {
             teamDetailsHeaderView.setBackgroundColor(Constants.STAR_COLOR);
@@ -109,23 +109,17 @@ public class TeamDetailsActivity extends ActionBarActivity {
         Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
 
         TextView teamDetailsTeamNumberTextView = (TextView)teamDetailsHeaderView.findViewById(R.id.teamDetailsTeamNumberTextView);
-        teamDetailsTeamNumberTextView.setText(team.number.toString());
+        teamDetailsTeamNumberTextView.setText(Utils.getDisplayValue(team, "number"));
         teamDetailsTeamNumberTextView.setOnLongClickListener(new StarLongClickListener());
 
         TextView teamDetailsTeamNameTextView = (TextView)teamDetailsHeaderView.findViewById(R.id.teamDetailsTeamNameTextView);
-        teamDetailsTeamNameTextView.setText(team.name.toString());
+        teamDetailsTeamNameTextView.setText(Utils.getDisplayValue(team, "name"));
 
         TextView teamDetailsSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsSeeding);
-        teamDetailsSeedingTextView.setText(team.calculatedData.actualSeed.toString());
-
-//        TextView teamDetailsSeedingRPsTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsSeedingRPs);
-//        teamDetailsSeedingRPsTextView.setText(team.calculatedData.numRPs.toString());
+        teamDetailsSeedingTextView.setText(Utils.getDisplayValue(team, "actualSeed"));
 
         TextView teamDetailsPredictedSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeeding);
-        teamDetailsPredictedSeedingTextView.setText(team.calculatedData.predictedSeed.toString());
-
-//        TextView teamDetailsPredictedSeedingRPsTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeeding);
-//        teamDetailsPredictedSeedingRPsTextView.setText(team.calculatedData.predictedNumRPs.toString());
+        teamDetailsPredictedSeedingTextView.setText(Utils.getDisplayValue(team, "predictedSeed"));
     }
 
     public void reloadTeamImage() {

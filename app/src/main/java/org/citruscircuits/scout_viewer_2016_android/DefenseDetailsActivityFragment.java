@@ -128,7 +128,7 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
             }
 
             TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-            valueTextView.setText(Utils.roundDataPoint(Utils.getObjectField(team, value), 2));
+//            valueTextView.setText(Utils.roundDataPoint(Utils.getObjectField(team, value), 2));
 
             return rowView;
         }

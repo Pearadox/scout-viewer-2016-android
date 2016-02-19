@@ -29,9 +29,6 @@ import java.util.List;
  */
 public class ViewerApplication extends Application {
 
-//    PhotoSync photoSync;
-    Integer lastMatch = -1;
-
     public static SharedPreferences sharedPreferences = null;
     public static Context appContext = null;
 

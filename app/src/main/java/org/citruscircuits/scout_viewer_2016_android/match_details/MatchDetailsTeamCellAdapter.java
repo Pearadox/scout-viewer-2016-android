@@ -56,24 +56,25 @@ public class MatchDetailsTeamCellAdapter extends BaseAdapter {
         }
 
         TextView rankingTextView = (TextView)rowView.findViewById(R.id.rankingTextView);
-        rankingTextView.setText(getRankOfRow(position) + "");
+        rankingTextView.setText(getRankTextOfRow(position));
 
         TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
         teamNumberTextView.setText(Constants.KEYS_TO_TITLES.get(getItem(position)));
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-        valueTextView.setText(Utils.getObjectField(FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString()), (String)getItem(position)).toString());
+        Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
+        valueTextView.setText(Utils.getDisplayValue(team, (String)getItem(position)));
 
         return rowView;
     }
 
-    public int getRankOfRow(int position) {
+    public String getRankTextOfRow(int position) {
         String fieldName = (String)getItem(position);
         Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
         List<Object> teams = new ArrayList<>();
         teams.addAll(FirebaseLists.teamsList.getValues());
-        int rank = Utils.getRankOfObject(team, teams, fieldName);
-        return rank;
+        Integer rank = Utils.getRankOfObject(team, teams, fieldName);
+        return (rank != null) ? rank.toString() : "?";
     };
 
     @Override

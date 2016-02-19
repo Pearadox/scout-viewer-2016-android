@@ -12,8 +12,8 @@ public class FieldRankingsSectionAdapter extends RankingsSectionAdapter {
     }
 
     @Override
-    public int getRankOfRowInSection(int section, int row) {
-        return 0;
+    public String getRankTextOfRowInSection(int section, int row) {
+        return null;
     }
 
     @Override

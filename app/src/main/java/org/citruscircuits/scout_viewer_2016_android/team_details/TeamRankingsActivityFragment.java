@@ -15,6 +15,7 @@ public class TeamRankingsActivityFragment extends TeamRankingsFragment {
         super.onCreate(savedInstanceState);
         field = getArguments().getString("field");
 
+        getActivity().setTitle(field);
         setListAdapter(new TeamRankingsActivityAdapter(getActivity().getApplicationContext(), field));
     }
 

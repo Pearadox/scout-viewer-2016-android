@@ -80,7 +80,7 @@ public class MainActivity extends ActionBarActivity
         };
 
 //        firebaseRef.authWithCustomToken("qVIARBnAD93iykeZSGG8mWOwGegminXUUGF2q0ee", authResultHandler);
-//        firebaseRef.authWithPassword("1678programming@gmail.com", "Squeezecrush1", authResultHandler);
+        firebaseRef.authWithPassword("1678programming@gmail.com", "Squeezecrush1", authResultHandler);
     }
 
     @Override

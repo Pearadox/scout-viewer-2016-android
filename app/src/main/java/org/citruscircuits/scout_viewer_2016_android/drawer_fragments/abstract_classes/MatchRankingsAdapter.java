@@ -74,4 +74,9 @@ public abstract class MatchRankingsAdapter extends RankingsAdapter<Match> {
     public void respondToClick(String valueTitle) {
         // Do nothing right now...
     }
+
+    @Override
+    public List<Object> getOtherValuesForRanking() {
+        return new ArrayList<Object>(FirebaseLists.matchesList.getValues());
+    }
 }

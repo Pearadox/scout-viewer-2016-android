@@ -25,8 +25,7 @@ public class ObjectFieldComparator<T extends Comparable> implements Comparator {
             T value2 = (T) Utils.getObjectField(o2, field);
             return ((isNotReversed) ? 1 : -1) * value1.compareTo(value2);
         } catch (NullPointerException npe) {
-            Log.e("Test", "NULL");
-            return -1;
+            return 0;
         }
     }
 }

@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by citruscircuits on 1/16/16.
  */
 public class Constants {
-    public static final String ROOT_FIREBASE_PATH = "https://1678-dev2-2016.firebaseio.com/";
+    public static final String ROOT_FIREBASE_PATH = "https://1678-dev-2016.firebaseio.com/";
     public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Second Pick", "Super Data"};
     public static final String MATCHES_PATH = ROOT_FIREBASE_PATH + "Matches";
     public static final String TEAMS_PATH = ROOT_FIREBASE_PATH + "Teams";
@@ -199,7 +199,87 @@ public class Constants {
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.e.lb", "Avg. LB Cross");
             put("teamNumber", "Team Number");
             put("matchNumber", "Match Number");
+            put("matches", "Matches");
         }
+    };
 
+    public static final Map<String, String> DATA_TO_GRAPH = new HashMap<String, String> () {
+        {
+            put("calculatedData.avgHighShotsAuto", "numHighShotsMadeAuto");
+            put("calculatedData.avgLowShotsAuto", "numLowShotsMadeAuto");
+            put("calculatedData.avgHighShotsTele", "numHighShotsMadeTele");
+            put("calculatedData.avgLowShotsTele", "numLowShotsMadeTele");
+            put("calculatedData.firstPickAbility", "calculatedData.firstPickAbility");
+            put("calculatedData.highShotAccuracyAuto", "calculatedData.highShotAccuracyAuto");
+            put("calculatedData.lowShotAccuracyAuto", "calculatedData.lowShotAccuracyAuto");
+            put("calculatedData.highShotAccuracyTele", "calculatedData.highShotAccuracyTele");
+            put("calculatedData.lowShotAccuracyTele", "calculatedData.lowShotAccuracyTele");
+            put("calculatedData.avgGroundIntakes", "numGroundIntakesTele");
+            put("calculatedData.avgHighShotsTele", "numHighShotsMadeTele");
+            put("calculatedData.avgLowShotsTele", "numLowShotsMadeTele");
+            put("calculatedData.avgShotsBlocked", "numShotsBlockedTele");
+            put("calculatedData.avgHighShotsAuto", "numHighShotsMadeAuto");
+            put("calculatedData.avgLowShotsAuto", "numLowShotsAuto");
+            put("calculatedData.avgMidlineBallsIntakedAuto", "calculatedData.numBallsIntakedOffMidlineAuto");
+            put("calculatedData.avgBallsKnockedOffMidlineAuto", "numBallsKnockedOffMidlineAuto");
+            put("calculatedData.avgTorque", "rankTorque");
+            put("calculatedData.avgSpeed", "rankSpeed");
+            put("calculatedData.avgEvasion", "rankEvasion");
+            put("calculatedData.avgDefense", "rankDefense");
+            put("calculatedData.avgBallControl", "rankBallControl");
+            put("calculatedData.RScoreTorque", "calculatedData.RScoreTorque");
+            put("calculatedData.RScoreSpeed", "calculatedData.RScoreSpeed");
+            put("calculatedData.RScoreEvasion", "calculatedData.RScoreEvasion");
+            put("calculatedData.RScoreDefense", "calculatedData.RScoreDefense");
+            put("calculatedData.RScoreBallControl", "calculatedData.RScoreBallControl");
+            put("calculatedData.RScoreDrivingAbility", "calculatedData.RScoreDrivingAbility");
+            put("calculatedData.reachPercentage", "didReachAuto");
+            put("calculatedData.disabledPercentage", "didGetDisabled");
+            put("calculatedData.incapacitatedPercentage", "didGetIncapacitated");
+            put("calculatedData.scalePercentage", "didScaleTele");
+            put("calculatedData.challengePercentage", "didChallengeTele");
+            put("calculatedData.siegePower", "calculatedData.siegePower");
+            put("calculatedData.siegeConsistency", "calculatedData.siegeConsistency");
+            put("calculatedData.siegeAbility", "calculatedData.siegeAbility");
+            put("calculatedData.numAutoPoints", "calculatedData.numAutoPoints");
+            put("calculatedData.numScaleAndChallengePoints", "calculatedData.numScaleAndChallengePoints");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.a.pc", "timesSuccessfulCrossedDefensesAuto.a.pc");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.a.cdf", "timesSuccessfulCrossedDefensesAuto.a.cdf");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.b.mt", "timesSuccessfulCrossedDefensesAuto.b.mt");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.b.rp", "timesSuccessfulCrossedDefensesAuto.b.rp");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.c.db", "timesSuccessfulCrossedDefensesAuto.c.db");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.c.sp", "timesSuccessfulCrossedDefensesAuto.c.sp");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.d.rw", "timesSuccessfulCrossedDefensesAuto.d.rw");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.d.rt", "timesSuccessfulCrossedDefensesAuto.d.rt");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.e.lb", "timesSuccessfulCrossedDefensesAuto.e.lb");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.a.pc", "timesFailedCrossedDefensesAuto.a.pc");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.a.cdf", "timesFailedCrossedDefensesAuto.a.cdf");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.b.mt", "timesFailedCrossedDefensesAuto.b.mt");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.b.rp", "timesFailedCrossedDefensesAuto.b.rp");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.c.db", "timesFailedCrossedDefensesAuto.c.db");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.c.sp", "timesFailedCrossedDefensesAuto.c.sp");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.d.rw", "timesFailedCrossedDefensesAuto.d.rw");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.d.rt", "timesFailedCrossedDefensesAuto.d.rt");
+            put("calculatedData.avgFailedTimesCrossedDefensesAuto.e.lb", "timesFailedCrossedDefensesAuto.e.lb");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.a.pc", "timesSuccessfulCrossedDefensesTele.a.pc");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.a.cdf", "timesSuccessfulCrossedDefensesTele.a.cdf");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.b.mt", "timesSuccessfulCrossedDefensesTele.b.mt");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.b.rp", "timesSuccessfulCrossedDefensesTele.b.rp");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.c.db", "timesSuccessfulCrossedDefensesTele.c.db");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.c.sp", "timesSuccessfulCrossedDefensesTele.c.sp");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.d.rw", "timesSuccessfulCrossedDefensesTele.d.rw");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.d.rt", "timesSuccessfulCrossedDefensesTele.d.rt");
+            put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.e.lb", "timesSuccessfulCrossedDefensesTele.e.lb");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.a.pc", "timesFailedCrossedDefensesTele.a.pc");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.a.cdf", "timesFailedCrossedDefensesTele.a.cdf");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.b.mt", "timesFailedCrossedDefensesTele.b.mt");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.b.rp", "timesFailedCrossedDefensesTele.b.rp");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.c.db", "timesFailedCrossedDefensesTele.c.db");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.c.sp", "timesFailedCrossedDefensesTele.c.sp");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.d.rw", "timesFailedCrossedDefensesTele.d.rw");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.d.rt", "timesFailedCrossedDefensesTele.d.rt");
+            put("calculatedData.avgFailedTimesCrossedDefensesTele.e.lb", "timesFailedCrossedDefensesTele.e.lb");
+            put("calculatedData.overallSecondPickAbility", "calculatedData.overallSecondPickAbility");
+        }
     };
 }

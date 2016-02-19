@@ -66,11 +66,14 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     }
 
     @Override
-    public int getRankOfRowInSection(int section, int row) {
+    public String getRankTextOfRowInSection(int section, int row) {
         String fieldName = (String)getRowItem(section, row);
         Object object = getObject();
-        int rank = Utils.getRankOfObject(object, getObjectList(), fieldName);
-        return rank;
+        Integer rank = Utils.getRankOfObject(object, getObjectList(), fieldName);
+        if (rank == null) {
+            return "?";
+        }
+        return rank.toString();
     }
 
     @Override
@@ -80,27 +83,27 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
 
     @Override
     public String getValueOfRowInSection(int section, int row) {
-        //TODO: REWRITE THIS CODE
         String fieldKey = (String)getRowItem(section, row);
 //        if (FirebaseLists.teamsList.getKeys().contains(teamNumber.toString())) {
-        if (Utils.getObjectField(getObject(), fieldKey).getClass().equals(String.class)) {
-            return (String)Utils.getObjectField(getObject(), fieldKey);
-        } else if (Utils.getObjectField(getObject(), fieldKey).getClass().equals(Boolean.class)) {
-            return ((Boolean)Utils.getObjectField(getObject(), fieldKey)) ? "Yes" : "No";
-        } else if (Utils.getObjectField(getObject(), fieldKey).getClass().equals(Integer.class)) {
-            return Utils.getObjectField(getObject(), fieldKey).toString();
-        } else if (Arrays.asList(getPercentageFields()).contains(fieldKey)) {
-            Float value = (Float)Utils.getObjectField(getObject(), fieldKey);
-            return Utils.dataPointToPercentage(value, 2);
-        } else {
-            Float value = (Float)Utils.getObjectField(getObject(), fieldKey);
-            return Utils.roundDataPoint(value, 2);
-        }
+//        if (Utils.getObjectField(getObject(), fieldKey).getClass().equals(String.class)) {
+//            return (String)Utils.getObjectField(getObject(), fieldKey);
+//        } else if (Utils.getObjectField(getObject(), fieldKey).getClass().equals(Boolean.class)) {
+//            return ((Boolean)Utils.getObjectField(getObject(), fieldKey)) ? "Yes" : "No";
+//        } else if (Utils.getObjectField(getObject(), fieldKey).getClass().equals(Integer.class)) {
+//            return Utils.getObjectField(getObject(), fieldKey).toString();
+//        } else if (Arrays.asList(getPercentageFields()).contains(fieldKey)) {
+//            Float value = (Float)Utils.getObjectField(getObject(), fieldKey);
+//            return Utils.dataPointToPercentage(value, 2);
+//        } else {
+//            Float value = (Float)Utils.getObjectField(getObject(), fieldKey);
+////            return Utils.roundDataPoint(value, 2);
+//        }
 
 //            return Utils.getObjectField(FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString()), (String)getRowItem(section, row)).toString();
 //        } else {
 //            return "";
 //        }
+        return Utils.getDisplayValue(getObject(), fieldKey);
     }
 
     @Override
@@ -150,7 +153,7 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
             if (respondsNormallyToClick(section, row)) {
                 Intent rankingsActivityIntent = new Intent(context, TeamRankingsActivity.class);
                 rankingsActivityIntent.putExtra("team", ((Team)getObject()).number);
-                rankingsActivityIntent.putExtra("field", (String) getRowItem(section, row));
+                rankingsActivityIntent.putExtra("field", Constants.DATA_TO_GRAPH.get(getRowItem(section, row)));
 
                 context.startActivity(rankingsActivityIntent);
             } else {

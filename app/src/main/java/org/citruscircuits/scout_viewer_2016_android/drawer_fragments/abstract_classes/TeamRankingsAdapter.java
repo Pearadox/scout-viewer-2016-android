@@ -9,6 +9,7 @@ import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,5 +64,10 @@ public abstract class TeamRankingsAdapter extends RankingsAdapter<Team> {
         teamDetailsViewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         context.startActivity(teamDetailsViewIntent);
+    }
+
+    @Override
+    public List<Object> getOtherValuesForRanking() {
+        return new ArrayList<Object>(FirebaseLists.teamsList.getValues());
     }
 }

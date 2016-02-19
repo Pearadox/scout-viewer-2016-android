@@ -102,16 +102,16 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
         TextView redScoreTextView = (TextView) rowView.findViewById(R.id.redScore);
         TextView blueScoreTextView = (TextView) rowView.findViewById(R.id.blueScore);
 
-        if (match.redScore > 0 || match.blueScore > 0) {
-            redScoreTextView.setText((match.redScore >= 0) ? match.redScore.toString() : "???");
-            blueScoreTextView.setText((match.blueScore >= 0) ? match.blueScore.toString() : "???");
+        if (match.redScore != null || match.blueScore != null) {
+            redScoreTextView.setText((match.redScore != null) ? match.redScore.toString() : "???");
+            blueScoreTextView.setText((match.blueScore != null) ? match.blueScore.toString() : "???");
             redScoreTextView.setTextColor(Color.argb(255, 255, 0, 0));
             blueScoreTextView.setTextColor(Color.argb(255, 0, 0, 255));
         } else {
-            redScoreTextView.setText(match.calculatedData.predictedRedScore.toString());
-            blueScoreTextView.setText(match.calculatedData.predictedBlueScore.toString());
             redScoreTextView.setTextColor(Color.argb(75, 255, 0, 0));
             blueScoreTextView.setTextColor(Color.argb(75, 0, 0, 255));
+            redScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedRedScore")) ? match.calculatedData.predictedRedScore.toString() : "???");
+            blueScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedBlueScore")) ? match.calculatedData.predictedBlueScore.toString() : "???");
         }
 
         rowView.setOnLongClickListener(new StarLongClickListener());

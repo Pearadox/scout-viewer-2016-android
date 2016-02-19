@@ -74,7 +74,7 @@ public abstract class RankingsAdapter<T> extends SearchableFirebaseListAdapter<T
         }
 
         TextView rankingTextView = (TextView)rowView.findViewById(R.id.rankingTextView);
-        rankingTextView.setText(filteredValues.indexOf(value) + 1 + "");
+        rankingTextView.setText(getRankText(value));
 
         TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
         if (searchString.length() > 0) {
@@ -84,7 +84,7 @@ public abstract class RankingsAdapter<T> extends SearchableFirebaseListAdapter<T
         }
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-        valueTextView.setText(Utils.roundDataPoint(getRankCellDataPoint(value), 2));
+        valueTextView.setText(Utils.roundDataPoint(getRankCellDataPoint(value), 2, "?"));
 
         rowView.setOnLongClickListener(new StarLongClickListener());
         rowView.setOnClickListener(new RankClickListener());
@@ -134,4 +134,15 @@ public abstract class RankingsAdapter<T> extends SearchableFirebaseListAdapter<T
             respondToClick(rankingCellTitleTextView.getText().toString());
         }
     }
+
+    public String getRankText(T value) {
+        Integer rank =  Utils.getRankOfObject(value, getOtherValuesForRanking(), rankFieldName);
+        if (rank != null) {
+            return filteredValues.indexOf(value) + 1 + "";
+        } else {
+            return "?";
+        }
+    }
+
+    public abstract List<Object> getOtherValuesForRanking();
 }

@@ -65,30 +65,21 @@ public abstract class GraphFragment extends Fragment {
         left.setDrawAxisLine(false);
         left.setDrawGridLines(false);
         left.setDrawZeroLine(true); // draw a zero line
-        left.setZeroLineColor(Color.GRAY);
-        left.setZeroLineWidth(0.7f);
+        left.setZeroLineColor(Color.DKGRAY);
+        left.setZeroLineWidth(1.0f);
         barChart.getAxisRight().setEnabled(false);
         barChart.getLegend().setEnabled(false);
         barChart.setDoubleTapToZoomEnabled(false);
-//        barChart.setHighlightPerTapEnabled(false);
         barChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
 
         BarDataSet dataSet = new BarDataSet(listToDataPoints(getValues()), "");
-//        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-//        barChart.getAxisLeft().setEnabled(false);
-//        barChart.getAxisRight().setEnabled(false);
-//        barChart.setDrawGridBackground(false);
-//        barChart.setDrawMarkerViews(false);
 
-        // use the interface ILineDataSet
         List<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataSet);
 
         BarData data = new BarData(getLabels(), dataSets);
         barChart.setData(data);
-//        barChart.setDescription("");
-//        barChart.getLegend().setEnabled(false);
-        barChart.invalidate(); // refresh
+        barChart.invalidate();
     }
 
     public abstract List<String> getLabels();
@@ -98,7 +89,10 @@ public abstract class GraphFragment extends Fragment {
     public List<BarEntry> listToDataPoints(List<Float> valuesList)  {
         List<BarEntry> dataPoints = new ArrayList<>();
         for (int i = 0; i < valuesList.size(); i++) {
-            dataPoints.add(new BarEntry(getValues().get(i), i));
+            if (getValues().get(i) != null) {
+//            Float value = (getValues().get(i) != null) ? getValues().get(i) : 0.7f;
+                dataPoints.add(new BarEntry(getValues().get(i), i));
+            }
         }
 
         return dataPoints;

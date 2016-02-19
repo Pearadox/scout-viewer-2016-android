@@ -6,6 +6,7 @@ import android.os.Bundle;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesAdapter;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesFragment;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 
 /**
  * Created by citruscircuits on 1/17/16.
@@ -29,7 +30,7 @@ public class UpcomingMatchesFragment extends MatchesFragment {
 
         @Override
         public boolean secondaryFilter(Match value) {
-            return value.redScore == -1 && value.blueScore == -1;
+            return value.number > StarManager.getCurrentMatchNumber();
         }
 
         @Override

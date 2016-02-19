@@ -73,4 +73,5 @@ public class CalculatedTeamData extends Object{
 	public Float overallSecondPickAbility;
 	public Float breachPercentage;
 	public Float blockingAbility;
+	public Float teleopShotAbility;
 }

@@ -28,4 +28,6 @@ public class CalculatedTeamInMatchData extends Object {
     public Map<String, Float> secondPickAbility;
     public Float overallSecondPickAbility;
     public Float scoreContribution;
+    public Integer numBallsIntakedOffMidlineAuto;
+    public Float siegeConsistency;
 }

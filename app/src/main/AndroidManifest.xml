@@ -35,6 +35,8 @@
         <activity
             android:name=".DefenseDetailsActivity"
             android:label="@string/title_activity_team_in_match_details" />
+        <activity android:name=".MatchesActivity"
+            android:label="@string/title_activity_matches"/>
         <service android:name=".services.StarManager"/>
         <service android:name=".services.PhotoSync"/>
     </application>

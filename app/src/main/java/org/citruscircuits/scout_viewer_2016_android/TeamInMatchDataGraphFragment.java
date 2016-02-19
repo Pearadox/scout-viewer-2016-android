@@ -49,7 +49,7 @@ public class TeamInMatchDataGraphFragment extends GraphFragment {
     @Override
     public List<Float> getValues() {
         List<Float> dataValues = new ArrayList<>();
-        for (TeamInMatchData teamInMatchData : Utils.getTeamInMatchDatasForTeamNumber(teamNumber)) {
+        for (TeamInMatchData teamInMatchData : Utils.getTeamInMatchDatasForTeamNumber(teamNumber).subList(0, 2)) {
             dataValues.add(((Float) Utils.getObjectField(teamInMatchData, field)));
         }
 
