@@ -30,7 +30,7 @@ public class RecentMatchesFragment extends MatchesFragment {
 
         @Override
         public boolean secondaryFilter(Match value) {
-            return value.number < StarManager.getCurrentMatchNumber();
+            return value.number <= StarManager.getCurrentMatchNumber();
         }
 
         @Override

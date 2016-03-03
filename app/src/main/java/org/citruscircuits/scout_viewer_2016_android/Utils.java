@@ -96,7 +96,7 @@ public class Utils {
     public static Integer getLastMatchPlayed() {
         Integer lastMatch = 0;
         for (Match match : FirebaseLists.matchesList.getValues()) {
-            if(match.redScore != null || match.blueScore != null) {
+            if((match.redScore != null) || (match.blueScore != null)) {
                 lastMatch = match.number;
             }
         }
