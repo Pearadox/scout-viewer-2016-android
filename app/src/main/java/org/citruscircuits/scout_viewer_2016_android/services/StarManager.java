@@ -75,7 +75,10 @@ public class StarManager extends Service {
             public void onReceive(Context context, Intent intent) {
                 currentMatchNumber = Utils.getLastMatchPlayed();
                 nextImportantMatch = getNextImportantMatch();
-                notifyOfNewMatchIfNeeded();
+                Log.i("KJFDE", "THING!" + intent.getBooleanExtra("notify", false));
+                if (intent.getBooleanExtra("notify", false)) {
+                    notifyOfNewMatchIfNeeded();
+                }
             }
         }, new IntentFilter(Constants.STARS_MODIFIED_ACTION));
 
@@ -94,7 +97,10 @@ public class StarManager extends Service {
 
     public void notifyOfNewMatchIfNeeded() {
         if (FirebaseLists.matchesList.getKeys().contains(nextImportantMatch.toString())) {
-            if (nextImportantMatch - currentMatchNumber <= 3) {
+            Log.i("nextImportantMatch", Integer.toString(nextImportantMatch));
+            Log.i("currentMatchNumber", Integer.toString(currentMatchNumber));
+            if ((nextImportantMatch - currentMatchNumber) <= 3) {
+                Log.i("asldfn", "dasfn");
                 Match match = FirebaseLists.matchesList.getFirebaseObjectByKey(nextImportantMatch.toString());
 
                 notifyOfNewMatchPlayed(match, nextImportantMatch - currentMatchNumber - 1);
@@ -103,7 +109,7 @@ public class StarManager extends Service {
     }
 
     public Integer getNextImportantMatch() {
-        Integer nextImportantMatch = 0;
+        Integer nextImportantMatch = -1;
 
         for (Integer matchNumber : getImportantMatches()) {
             if (matchNumber > currentMatchNumber) {
@@ -114,23 +120,48 @@ public class StarManager extends Service {
 
         return nextImportantMatch;
     }
-
-    public static void addImportantMatch(Integer matchNumber) {
+    public static void addImportantMatchWithoutPreferences(Integer matchNumber) {
         if (!importantMatches.contains(matchNumber)) {
             importantMatches.add(matchNumber);
             Collections.sort(importantMatches);
-            saveToSharedPreferences();
         }
     }
-
-    public static void removeImportantMatch(Integer matchNumber) {
+    public static void removeImportantMatchWithoutPreferences(Integer matchNumber) {
         if (importantMatches.contains(matchNumber)) {
             importantMatches.remove(matchNumber);
             Collections.sort(importantMatches);
             for (List<Integer> matchesAdded : matchesAddedByTeam.values()) {
                 matchesAdded.remove(matchNumber);
             }
-            saveToSharedPreferences();
+        }
+    }
+
+    public static void addImportantMatch(Integer matchNumber) {
+        if (!importantMatches.contains(matchNumber)) {
+            addImportantMatchWithoutPreferences(matchNumber);
+            Log.i("matchNum", Integer.toString(matchNumber));
+            Log.i("nextImportantMatch", Integer.toString(nextImportantMatch));
+            final boolean notify = (((matchNumber < nextImportantMatch) || (nextImportantMatch == -1)));
+            Log.i("notify", Boolean.toString(notify));
+            new Thread() {
+                @Override
+                public void run() {
+                    saveToSharedPreferences(notify);
+                }
+            }.start();
+        }
+    }
+
+    public static void removeImportantMatch(Integer matchNumber) {
+        if (importantMatches.contains(matchNumber)) {
+            removeImportantMatchWithoutPreferences(matchNumber);
+            final boolean notify = ((matchNumber < nextImportantMatch) || (nextImportantMatch == -1));
+            new Thread() {
+                @Override
+                public void run() {
+                    saveToSharedPreferences(notify);
+                }
+            }.start();
         }
     }
 
@@ -138,10 +169,20 @@ public class StarManager extends Service {
         if (!starredTeams.contains(teamNumber)) {
             starredTeams.add(teamNumber);
             matchesAddedByTeam.put(teamNumber, getNonImportantMatchesForTeam(teamNumber));
+            int firstMatchNum = -1;
             for (Integer matchNumber : Utils.getMatchNumbersForTeamNumber(teamNumber)) {
-                addImportantMatch(matchNumber);
+                if ((matchNumber < firstMatchNum) || (firstMatchNum == -1)) {
+                    firstMatchNum = matchNumber;
+                }
+                addImportantMatchWithoutPreferences(matchNumber);
             }
-            saveToSharedPreferences();
+            final boolean notify = ((firstMatchNum < nextImportantMatch) || (nextImportantMatch == -1));
+            new Thread() {
+                @Override
+                public void run() {
+                    saveToSharedPreferences(notify);
+                }
+            }.start();
         }
     }
 
@@ -150,10 +191,20 @@ public class StarManager extends Service {
             starredTeams.remove(teamNumber);
             Collections.sort(starredTeams);
             List<Integer> matchesAdded = new ArrayList<>(matchesAddedByTeam.get(teamNumber));
+            int firstMatchNum = -1;
             for (Integer matchNumber : matchesAdded) {
-                removeImportantMatch(matchNumber);
+                if ((matchNumber < firstMatchNum) || (firstMatchNum == -1)) {
+                    firstMatchNum = matchNumber;
+                }
+                removeImportantMatchWithoutPreferences(matchNumber);
             }
-            saveToSharedPreferences();
+            final boolean notify = ((firstMatchNum < nextImportantMatch) || (nextImportantMatch == -1));
+            new Thread() {
+                @Override
+                public void run() {
+                    saveToSharedPreferences(notify);
+                }
+            }.start();
         }
     }
 
@@ -180,8 +231,8 @@ public class StarManager extends Service {
         return nonStarredMatches;
     }
 
-    public static void saveToSharedPreferences() {
-        LocalBroadcastManager.getInstance(ViewerApplication.appContext).sendBroadcast(new Intent(Constants.STARS_MODIFIED_ACTION));
+    public static void saveToSharedPreferences(boolean notify) {
+        LocalBroadcastManager.getInstance(ViewerApplication.appContext).sendBroadcast(new Intent(Constants.STARS_MODIFIED_ACTION).putExtra("notify", notify));
         JSONArray starredTeamsJSON = new JSONArray(starredTeams);
         JSONArray importantMatchesJSON = new JSONArray(importantMatches);
         Map<String, List<Integer>> tempMap = new HashMap<>();
