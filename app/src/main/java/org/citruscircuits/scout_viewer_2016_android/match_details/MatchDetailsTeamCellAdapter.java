@@ -1,6 +1,7 @@
 package org.citruscircuits.scout_viewer_2016_android.match_details;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.RankingsAdapter;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
+import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +67,14 @@ public class MatchDetailsTeamCellAdapter extends BaseAdapter {
         Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
         valueTextView.setText(Utils.getDisplayValue(team, (String)getItem(position)));
 
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent matchDetailsTeamCellClickedIntent = new Intent(context, TeamDetailsActivity.class);
+                matchDetailsTeamCellClickedIntent.putExtra("teamNumber", teamNumber);
+                context.startActivity(matchDetailsTeamCellClickedIntent);
+            }
+        });
         return rowView;
     }
 
