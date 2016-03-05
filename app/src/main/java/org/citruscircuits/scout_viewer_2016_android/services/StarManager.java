@@ -141,7 +141,7 @@ public class StarManager extends Service {
             addImportantMatchWithoutPreferences(matchNumber);
             Log.i("matchNum", Integer.toString(matchNumber));
             Log.i("nextImportantMatch", Integer.toString(nextImportantMatch));
-            final boolean notify = (((matchNumber < nextImportantMatch) || (nextImportantMatch == -1)));
+            final boolean notify = ((matchNumber < nextImportantMatch) || (nextImportantMatch == -1));
             Log.i("notify", Boolean.toString(notify));
             new Thread() {
                 @Override
@@ -155,7 +155,10 @@ public class StarManager extends Service {
     public static void removeImportantMatch(Integer matchNumber) {
         if (importantMatches.contains(matchNumber)) {
             removeImportantMatchWithoutPreferences(matchNumber);
-            final boolean notify = ((matchNumber < nextImportantMatch) || (nextImportantMatch == -1));
+            Log.i("matchNum", Integer.toString(matchNumber));
+            Log.i("nextImportantMatch", Integer.toString(nextImportantMatch));
+            final boolean notify = (matchNumber <= nextImportantMatch);
+            Log.i("notify", Boolean.toString(notify));
             new Thread() {
                 @Override
                 public void run() {
@@ -198,7 +201,7 @@ public class StarManager extends Service {
                 }
                 removeImportantMatchWithoutPreferences(matchNumber);
             }
-            final boolean notify = ((firstMatchNum < nextImportantMatch) || (nextImportantMatch == -1));
+            final boolean notify = (firstMatchNum <= nextImportantMatch);
             new Thread() {
                 @Override
                 public void run() {

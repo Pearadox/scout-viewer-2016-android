@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity
 
             @Override
             public void onAuthenticationError(FirebaseError firebaseError) {
-
+                Log.e("FireBase error", "Failed to auth");
             }
         };
 
