@@ -37,6 +37,8 @@ public class CalculatedTeamData extends Object{
 	public Float scalePercentage;
 	public Float challengePercentage;
 	public Float autoAbility;
+	public Float sdAutoAbility;
+	public Map<String, Float> predictedSuccessfulCrossingsForDefenseTele;
 	public Map<String, Float> avgSuccessfulTimesCrossedDefenses;
 	public Map<String, Float> avgSuccessfulTimesCrossedDefensesAuto;
 	public Map<String, Float> avgSuccessfulTimesCrossedDefensesTele;
@@ -58,10 +60,13 @@ public class CalculatedTeamData extends Object{
 	public Float sdShotsBlocked;
 	public Float sdMidlineBallsIntakedAuto;
 	public Float sdBallsKnockedOffMidlineAuto;
-	public Map<String, Map<String, Float>> sdSuccessfulDefenseCrossesAuto;
-	public Map<String, Map<String, Float>> sdSuccessfulDefenseCrossesTele;
-	public Map<String, Map<String, Float>> sdFailedDefenseCrossesAuto;
-	public Map<String, Map<String, Float>> sdFailedDefenseCrossesTele;
+	public Float sdTeleopShotAbility;
+	public Float sdSiegeAbility;
+	public Integer actualNumRPs;
+	public Map<String, Float> sdSuccessfulDefenseCrossesAuto;
+	public Map<String, Float> sdSuccessfulDefenseCrossesTele;
+	public Map<String, Float> sdFailedDefenseCrossesAuto;
+	public Map<String, Float> sdFailedDefenseCrossesTele;
 	public Integer actualSeed;
     public Integer predictedSeed;
 	public Float predictedNumRPs;

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -84,6 +85,12 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     @Override
     public String getValueOfRowInSection(int section, int row) {
         String fieldKey = (String)getRowItem(section, row);
+        Object object = getObject();
+        Log.i("SADILHF", fieldKey);
+        Log.i("IUFSSE", object.toString());
+        if (new ArrayList<>(Arrays.asList(getPercentageFields())).contains(fieldKey)) {
+            return Utils.dataPointToPercentage((Float)Utils.getObjectField(getObject(), fieldKey), 1);
+        }
 //        if (FirebaseLists.teamsList.getKeys().contains(teamNumber.toString())) {
 //        if (Utils.getObjectField(getObject(), fieldKey).getClass().equals(String.class)) {
 //            return (String)Utils.getObjectField(getObject(), fieldKey);
@@ -103,7 +110,7 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
 //        } else {
 //            return "";
 //        }
-        return Utils.getDisplayValue(getObject(), fieldKey);
+        return Utils.getDisplayValue(object, fieldKey);
     }
 
     @Override
