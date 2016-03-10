@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_cl
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 import org.citruscircuits.scout_viewer_2016_android.team_details.TeamRankingsActivity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -35,6 +37,7 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
         String defense = getArguments().getString("defense");
 
         setListAdapter(new DefenseDetailsActivityFragment.DefenseDetailsFragmentAdapter(getActivity().getApplicationContext(), teamNumber, defense));
+        Log.i("SDJKFN", "HERE!");
     }
 
     @Override
@@ -118,6 +121,14 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
             Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
 
             TextView rankingTextView = (TextView)rowView.findViewById(R.id.rankingTextView);
+            Log.i("NKJSD", filteredValues.indexOf(value) + 1 + "");
+            int rank;
+            try {
+                rank = Utils.getRankOfObject(team, new ArrayList<Object>(FirebaseLists.teamsList.getValues()), value);
+            }catch (NullPointerException npe) {
+                rank = -1;
+            }
+            Log.i("ZIN", Integer.toString(rank));
             rankingTextView.setText(filteredValues.indexOf(value) + 1 + "");
 
             TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
@@ -128,13 +139,21 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
             }
 
             TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-//            valueTextView.setText(Utils.roundDataPoint(Utils.getObjectField(team, value), 2));
+            valueTextView.setText(Utils.getDisplayValue(team, value));
 
             return rowView;
         }
 
         public String[] getFieldsToDisplayForDefense(String defense) {
-            return new String [] {"calculatedData.avgSuccessfulTimesCrossedDefensesAuto." + defense};
+            return new String [] {"calculatedData.avgSuccessfulTimesCrossedDefensesAuto." + defense,
+                "calculatedData.avgFailedTimesCrossedDefensesAuto." + defense,
+                "calculatedData.avgSuccessfulTimesCrossedDefensesTele." + defense,
+                "calculatedData.avgFailedTimesCrossedDefensesTele." + defense,
+                "timesSuccessfulCrossedDefensesTele." + defense,
+                "timesFailedCrossedDefensesTele." + defense,
+                "timesSuccessfulCrossedDefensesAuto." + defense,
+                "timesFailedCrossedDefensesAuto." + defense,
+                "calculatedData.avgSuccessfulTimesCrossedDefenses." + defense};
         }
     }
 
