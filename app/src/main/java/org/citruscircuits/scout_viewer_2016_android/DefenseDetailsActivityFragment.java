@@ -122,9 +122,10 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
 
             TextView rankingTextView = (TextView)rowView.findViewById(R.id.rankingTextView);
             Log.i("NKJSD", filteredValues.indexOf(value) + 1 + "");
+            Log.i("BHG", value);
             int rank;
             try {
-                rank = Utils.getRankOfObject(team, new ArrayList<Object>(FirebaseLists.teamsList.getValues()), value);
+                rank = Utils.getRankOfObject(team.calculatedData, new ArrayList<Object>(FirebaseLists.teamsList.getValues()), value);
             }catch (NullPointerException npe) {
                 rank = -1;
             }
@@ -149,10 +150,6 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
                 "calculatedData.avgFailedTimesCrossedDefensesAuto." + defense,
                 "calculatedData.avgSuccessfulTimesCrossedDefensesTele." + defense,
                 "calculatedData.avgFailedTimesCrossedDefensesTele." + defense,
-                "timesSuccessfulCrossedDefensesTele." + defense,
-                "timesFailedCrossedDefensesTele." + defense,
-                "timesSuccessfulCrossedDefensesAuto." + defense,
-                "timesFailedCrossedDefensesAuto." + defense,
                 "calculatedData.avgSuccessfulTimesCrossedDefenses." + defense};
         }
     }
