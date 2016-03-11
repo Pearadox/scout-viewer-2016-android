@@ -181,7 +181,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
         String key = (String)getRowItem(section, row);
         if (key == "matches") {
             Intent teamMatchesIntent = new Intent(context, MatchesActivity.class);
-            teamMatchesIntent.putExtra("teamNumber", teamNumber);
+            teamMatchesIntent.putExtra("teamNumber", teamNumber).putExtra("field", "matches");
             context.startActivity(teamMatchesIntent);
         } else {
             Intent rankingsActivityIntent = new Intent(context, DefenseDetailsActivity.class);

@@ -123,14 +123,14 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
             TextView rankingTextView = (TextView)rowView.findViewById(R.id.rankingTextView);
             Log.i("NKJSD", filteredValues.indexOf(value) + 1 + "");
             Log.i("BHG", value);
-            int rank;
+            String rank;
             try {
-                rank = Utils.getRankOfObject(team.calculatedData, new ArrayList<Object>(FirebaseLists.teamsList.getValues()), value);
-            }catch (NullPointerException npe) {
-                rank = -1;
+                rank = Integer.toString(Utils.getRankOfObject(team.calculatedData, new ArrayList<Object>(FirebaseLists.teamsList.getValues()), value));
+            } catch (NullPointerException |NumberFormatException ne) {
+                rank = "?";
             }
-            Log.i("ZIN", Integer.toString(rank));
-            rankingTextView.setText(filteredValues.indexOf(value) + 1 + "");
+            Log.i("ZIN", rank);
+            rankingTextView.setText(rank);
 
             TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
             if (searchString.length() > 0) {
