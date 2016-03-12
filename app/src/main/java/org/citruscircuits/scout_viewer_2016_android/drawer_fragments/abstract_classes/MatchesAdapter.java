@@ -110,8 +110,10 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
         } else {
             redScoreTextView.setTextColor(Color.argb(75, 255, 0, 0));
             blueScoreTextView.setTextColor(Color.argb(75, 0, 0, 255));
-            redScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedRedScore")) ? match.calculatedData.predictedRedScore.toString() : "???");
-            blueScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedBlueScore")) ? match.calculatedData.predictedBlueScore.toString() : "???");
+            redScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedRedScore, 2, "???"));
+            blueScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedBlueScore, 2, "???"));
+            /*redScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedRedScore")) ? match.calculatedData.predictedRedScore.toString() : "???");
+            blueScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedBlueScore")) ? match.calculatedData.predictedBlueScore.toString() : "???");*/
         }
 
         rowView.setOnLongClickListener(new StarLongClickListener());
