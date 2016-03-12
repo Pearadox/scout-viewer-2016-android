@@ -98,7 +98,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "pitDriveBaseLength",
             "pitBumperHeight",
             "pitPotentialShotBlockerCapability",
-            "pitOrganization"
+            "pitOrganization",
     };
 
     private String[] shouldDisplayAsLongText = {
@@ -106,7 +106,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     };
 
     private String[] shouldDisplayAsFurtherInformation = {
-            "matches"
+            "matches",
+            "calculatedData.secondPickAbility"
     };
 
     private String[] notClickableFields = {

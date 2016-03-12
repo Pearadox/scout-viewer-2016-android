@@ -69,6 +69,7 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     @Override
     public String getRankTextOfRowInSection(int section, int row) {
         String fieldName = (String)getRowItem(section, row);
+        Log.i("DFA", fieldName);
         Object object = getObject();
         Integer rank = Utils.getRankOfObject(object, getObjectList(), fieldName);
         if (rank == null) {
