@@ -82,4 +82,11 @@ public class CalculatedTeamData extends Object{
 	public Float breachPercentage;
 	public Float blockingAbility;
 	public Float teleopShotAbility;
+	public Float twoBallAutoAccuracy;
+	public Float avgHighShotsAttemptedTele;
+	public Map<String, Float> crossingsSuccessRateForDefenseAuto;
+	public Float twoBallAutoTriedPercentage;
+	public Map<String, Float> crossingsSuccessRateForDefenseTele;
+	public Float avgDrivingAbility;
+	public Float avgLowShotsAttemptedTele;
 }

@@ -42,6 +42,7 @@ public class Constants {
             put("pitOrganization", "Pit Organization");
             put("pitNumberOfWheels", "Num. Wheels");
             put("calculatedData.firstPickAbility", "First Pick Ability");
+            put("calculatedData.secondPickAbility", "Second Pick Ability");
             put("calculatedData.driverAbility", "Driver Ability");
             put("calculatedData.highShotAccuracyAuto", "Auto High Shot Acc.");
             put("calculatedData.lowShotAccuracyAuto", "Auto Low Shot Acc.");
@@ -117,6 +118,8 @@ public class Constants {
             put("calculatedData.avgFailedTimesCrossedDefensesTele.rw", "Avg. Tele RW Fails");
             put("calculatedData.avgFailedTimesCrossedDefensesTele.rt", "Avg. Tele RT Fails");
             put("calculatedData.avgFailedTimesCrossedDefensesTele.lb", "Avg. Tele LB Fails");
+            put("calculatedData.twoBallAutoAccuracy", "Two Ball Auto Accuracy");
+            put("calculatedData.twoBallAutoAttemptedPercentage", "Two Ball Auto Attempted");
             put("didGetIncapacitated", "Incapacitated?");
             put("didGetDisabled", "Disabled?");
             put("rankTorque", "Torque");

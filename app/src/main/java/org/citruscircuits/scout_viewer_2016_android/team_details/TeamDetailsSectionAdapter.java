@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,13 +35,16 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     private String[][] fieldsToDisplay = {
             {"matches"},
             {"calculatedData.firstPickAbility",
-                    "calculatedData.overallSecondPickAbility"},
+                    "calculatedData.overallSecondPickAbility",
+                    "calculatedData.secondPickAbility"},
             {"calculatedData.numAutoPoints",
                     "calculatedData.highShotAccuracyAuto",
                     "calculatedData.lowShotAccuracyAuto",
                     "calculatedData.avgMidlineBallsIntakedAuto",
                     "calculatedData.avgBallsKnockedOffMidlineAuto",
-                    "calculatedData.avgHighShotsAuto"},
+                    "calculatedData.avgHighShotsAuto",
+                    "calculatedData.twoBallAutoAccuracy",
+                    "calculatedData.twoBallAutoAttemptedPercentage"},
             {"calculatedData.highShotAccuracyTele",
                     "calculatedData.lowShotAccuracyTele",
                     "calculatedData.avgHighShotsTele",
@@ -126,7 +131,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "calculatedData.avgSuccessfulTimesCrossedDefenses.rw",
             "calculatedData.avgSuccessfulTimesCrossedDefenses.rt",
             "calculatedData.avgSuccessfulTimesCrossedDefenses.lb",
-            "matches"
+            "matches",
+            "calculatedData.secondPickAbility"
     };
 
     Integer teamNumber;
@@ -183,6 +189,10 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             Intent teamMatchesIntent = new Intent(context, MatchesActivity.class);
             teamMatchesIntent.putExtra("teamNumber", teamNumber).putExtra("field", "matches");
             context.startActivity(teamMatchesIntent);
+        } else if (key.equals("calculatedData.secondPickAbility")) {
+            Intent secondPickIntent = new Intent(context, SecondPickAbilityActivity.class);
+            secondPickIntent.putExtra("field", "calculatedData.secondPickAbility");
+            context.startActivity(secondPickIntent);
         } else {
             Intent rankingsActivityIntent = new Intent(context, DefenseDetailsActivity.class);
             String defenseKey = (String)getRowItem(section, row);

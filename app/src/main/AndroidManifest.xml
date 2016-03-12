@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.citruscircuits.scout_viewer_2016_android">
+    package="org.citruscircuits.scout_viewer_2016_android" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -10,10 +10,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,17 +28,22 @@
             android:label="@string/title_activity_match_details" />
         <activity
             android:name=".team_details.TeamRankingsActivity"
-            android:label="@string/title_activity_team_rankings"/>
+            android:label="@string/title_activity_team_rankings" />
         <activity
             android:name=".match_details.TeamInMatchDetailsActivity"
             android:label="@string/title_activity_team_in_match_details" />
         <activity
             android:name=".DefenseDetailsActivity"
             android:label="@string/title_activity_team_in_match_details" />
-        <activity android:name=".MatchesActivity"
-            android:label="@string/title_activity_matches"/>
-        <service android:name=".services.StarManager"/>
-        <service android:name=".services.PhotoSync"/>
+        <activity
+            android:name=".MatchesActivity"
+            android:label="@string/title_activity_matches" />
+
+        <service android:name=".services.StarManager" />
+        <service android:name=".services.PhotoSync" />
+
+        <activity android:name=".team_details.SecondPickAbilityActivity" >
+        </activity>
     </application>
 
 </manifest>

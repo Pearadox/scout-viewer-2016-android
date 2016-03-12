@@ -30,4 +30,17 @@ public class CalculatedTeamInMatchData extends Object {
     public Float scoreContribution;
     public Integer numBallsIntakedOffMidlineAuto;
     public Float siegeConsistency;
+    public Integer highShotsAttemptedTele;
+    public Integer lowShotsAttemptedTele;
+    public Float teleopShotAbility;
+    public Map<String, Float> crossingsForDefensePercentageAuto;
+    public Map<String, Float> crossingsForDefensePercentageTele;
+    public Map<String, Integer> numTimesFailedCrossedDefensesTele;
+    public Map<String, Integer> numTimesSuccesfulCrossedDefensesTele;
+    public Map<String, Integer> numTimesSuccesfulCrossedDefensesAuto;
+    public Map<String, Integer> numTimesFailedCrossedDefensesAuto;
+    public Map<String, Integer> crossingTimeForDefenseAuto;
+    public Map<String, Integer> crossingTimeForDefenseTele;
+    public Float drivingAbility;
+    public Float autoAbility;
 }

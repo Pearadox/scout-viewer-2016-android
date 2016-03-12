@@ -125,7 +125,7 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
             Log.i("BHG", value);
             String rank;
             try {
-                rank = Integer.toString(Utils.getRankOfObject(team.calculatedData, new ArrayList<Object>(FirebaseLists.teamsList.getValues()), value));
+                rank = Integer.toString(Utils.getRankOfObject(team, new ArrayList<Object>(FirebaseLists.teamsList.getValues()), value));
             } catch (NullPointerException |NumberFormatException ne) {
                 rank = "?";
             }
