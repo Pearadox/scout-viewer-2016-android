@@ -116,10 +116,10 @@ public class TeamDetailsActivity extends ActionBarActivity {
         teamDetailsTeamNameTextView.setText(Utils.getDisplayValue(team, "name"));
 
         TextView teamDetailsSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsSeeding);
-        teamDetailsSeedingTextView.setText(Utils.getDisplayValue(team, "actualSeed"));
+        teamDetailsSeedingTextView.setText(Utils.roundDataPoint(team.calculatedData.actualSeed, 2, "???"));
 
         TextView teamDetailsPredictedSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeeding);
-        teamDetailsPredictedSeedingTextView.setText(Utils.getDisplayValue(team, "predictedSeed"));
+        teamDetailsPredictedSeedingTextView.setText(Utils.roundDataPoint(team.calculatedData.predictedSeed, 2, "???"));
     }
 
     public void reloadTeamImage() {

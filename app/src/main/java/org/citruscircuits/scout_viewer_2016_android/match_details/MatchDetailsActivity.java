@@ -104,7 +104,7 @@ public class MatchDetailsActivity extends ActionBarActivity {
 
         blueAllianceScoreTextView.setText(Utils.getMatchDisplayValue(match, "blueScore"));
         blueAlliancePredictedScoreTextView.setText(Utils.getMatchDisplayValue(match, "calculatedData.predictedBlueScore"));
-        blueAllianceWinChanceTextView.setText(Utils.dataPointToPercentage((Float) Utils.getObjectField(match, "calculatedData.redWinChance"), 0));
+        blueAllianceWinChanceTextView.setText(Utils.dataPointToPercentage((Float) Utils.getObjectField(match, "calculatedData.blueWinChance"), 0));
 
         LinearLayout redOptimalDefensesLinearLayout = (LinearLayout)findViewById(R.id.matchDetailsRedTeamsDefensesLinearLayout);
         redOptimalDefensesLinearLayout.removeAllViews();
