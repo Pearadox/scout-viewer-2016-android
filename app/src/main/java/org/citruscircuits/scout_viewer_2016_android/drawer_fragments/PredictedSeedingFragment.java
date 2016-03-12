@@ -24,7 +24,7 @@ public class PredictedSeedingFragment extends TeamRankingsFragment {
     public static class PredictedSeedingAdapter extends TeamRankingsAdapter {
 
         public PredictedSeedingAdapter(Context context) {
-            super(context, "calculatedData.predictedSeed", "calculatedData.predictedNumRPs", false);
+            super(context, "calculatedData.predictedSeed", "calculatedData.predictedNumRPs", true);
         }
     }
 }
