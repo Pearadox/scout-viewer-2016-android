@@ -17,6 +17,7 @@ import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ import java.util.List;
  */
 public class MatchDetailsTeamCellAdapter extends BaseAdapter {
     private String[] fields = {"calculatedData.actualSeed", "calculatedData.firstPickAbility", "calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele", "calculatedData.citrusDPR", "calculatedData.RScoreDrivingAbility"};
+    private String[] fieldsToDisplayAsPercentages = {"calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele"};
     private Integer teamNumber;
 
     private Context context;
@@ -65,7 +67,11 @@ public class MatchDetailsTeamCellAdapter extends BaseAdapter {
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
         Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
-        valueTextView.setText(Utils.getDisplayValue(team, (String)getItem(position)));
+        if (Arrays.asList(fieldsToDisplayAsPercentages).contains(getItem(position))) {
+            valueTextView.setText(Utils.dataPointToPercentage((Float)Utils.getObjectField(team, (String)getItem(position)), 0));
+        } else {
+            valueTextView.setText(Utils.getDisplayValue(team, (String) getItem(position)));
+        }
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
