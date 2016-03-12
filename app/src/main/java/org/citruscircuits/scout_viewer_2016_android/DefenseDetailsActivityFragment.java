@@ -150,7 +150,16 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
                 "calculatedData.avgFailedTimesCrossedDefensesAuto." + defense,
                 "calculatedData.avgSuccessfulTimesCrossedDefensesTele." + defense,
                 "calculatedData.avgFailedTimesCrossedDefensesTele." + defense,
-                "calculatedData.avgSuccessfulTimesCrossedDefenses." + defense};
+                "calculatedData.avgSuccessfulTimesCrossedDefenses." + defense,
+                "calculatedData.avgTimeForDefenseCrossAuto." + defense,
+                "calculatedData.avgTimeForDefenseCrossTele." + defense,
+                "calculatedData.predictedSuccessfulCrossingsForDefenseTele." + defense,
+                "calculatedData.crossingsSuccessRateForDefenseAuto." + defense,
+                "calculatedData.crossingsSuccessRateForDefenseTele." + defense,
+                "calculatedData.sdSuccessfulDefenseCrossesAuto." + defense,
+                "calculatedData.sdSuccessfulDefenseCrossesTele." + defense,
+                "calculatedData.sdFailedDefenseCrossesAuto." + defense,
+                "calculatedData.sdFailedDefenseCrossesTele." + defense,};
         }
     }
 

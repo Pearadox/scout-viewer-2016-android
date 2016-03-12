@@ -200,6 +200,95 @@ public class Constants {
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.rw", "Avg. RW Cross");
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.rt", "Avg. RT Cross");
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.lb", "Avg. LB Cross");
+            put("calculatedData.avgTimeForDefenseCrossAuto.pc", "Avg. Time PC Auto");
+            put("calculatedData.avgTimeForDefenseCrossAuto.cdf", "Avg. Time CDF Auto");
+            put("calculatedData.avgTimeForDefenseCrossAuto.mt", "Avg. Time MT Auto");
+            put("calculatedData.avgTimeForDefenseCrossAuto.rp", "Avg. Time RP Auto");
+            put("calculatedData.avgTimeForDefenseCrossAuto.db", "Avg. Time DB Auto");
+            put("calculatedData.avgTimeForDefenseCrossAuto.sp", "Avg. Time SP Auto");
+            put("calculatedData.avgTimeForDefenseCrossAuto.rw", "Avg. Time RW Auto");
+            put("calculatedData.avgTimeForDefenseCrossAuto.rt", "Avg. Time RT Auto");
+            put("calculatedData.avgTimeForDefenseCrossAuto.lb", "Avg. Time LB Auto");
+
+            put("calculatedData.avgTimeForDefenseCrossTele.pc", "Avg. Time PC Tele");
+            put("calculatedData.avgTimeForDefenseCrossTele.cdf", "Avg. Time CDF Tele");
+            put("calculatedData.avgTimeForDefenseCrossTele.mt", "Avg. Time MT Tele");
+            put("calculatedData.avgTimeForDefenseCrossTele.rp", "Avg. Time RP Tele");
+            put("calculatedData.avgTimeForDefenseCrossTele.db", "Avg. Time DB Tele");
+            put("calculatedData.avgTimeForDefenseCrossTele.sp", "Avg. Time SP Tele");
+            put("calculatedData.avgTimeForDefenseCrossTele.rw", "Avg. Time RW Tele");
+            put("calculatedData.avgTimeForDefenseCrossTele.rt", "Avg. Time RT Tele");
+            put("calculatedData.avgTimeForDefenseCrossTele.lb", "Avg. Time LB Tele");
+
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.pc", "Predicted Cross PC Tele");
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.cdf", "Predicted Cross CDF Tele");
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.mt", "Predicted Cross MT Tele");
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.rp", "Predicted Cross RP Tele");
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.db", "Predicted Cross DB Tele");
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.sp", "Predicted Cross SP Tele");
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.rw", "Predicted Cross RW Tele");
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.rt", "Predicted Cross RT Tele");
+            put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.lb", "Predicted Cross LB Tele");
+
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.pc", "Success Rate PC Auto");
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.cdf", "Success Rate CDF Auto");
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.mt", "Success Rate MT Auto");
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.rp", "Success Rate RP Auto");
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.db", "Success Rate DB Auto");
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.sp", "Success Rate SP Auto");
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.rw", "Success Rate RW Auto");
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.rt", "Success Rate RT Auto");
+            put("calculatedData.crossingsSuccessRateForDefenseAuto.lb", "Success Rate LB Auto");
+
+            put("calculatedData.crossingsSuccessRateForDefenseTele.pc", "Success Rate PC Tele");
+            put("calculatedData.crossingsSuccessRateForDefenseTele.cdf", "Success Rate CDF Tele");
+            put("calculatedData.crossingsSuccessRateForDefenseTele.mt", "Success Rate MT TelRPe");
+            put("calculatedData.crossingsSuccessRateForDefenseTele.rp", "Success Rate RP Tele");
+            put("calculatedData.crossingsSuccessRateForDefenseTele.db", "Success Rate DB Tele");
+            put("calculatedData.crossingsSuccessRateForDefenseTele.sp", "Success Rate SP Tele");
+            put("calculatedData.crossingsSuccessRateForDefenseTele.rw", "Success Rate RW Tele");
+            put("calculatedData.crossingsSuccessRateForDefenseTele.rt", "Success Rate RT Tele");
+            put("calculatedData.crossingsSuccessRateForDefenseTele.lb", "Success Rate LB Tele");
+
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.pc", "Successes PC Auto");
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.cdf", "Successes CDF Auto");
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.mt", "Successes MT Auto");
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.rp", "Successes RP Auto");
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.db", "Successes DB Auto");
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.sp", "Successes SP Auto");
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.rw", "Successes RW Auto");
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.rt", "Successes RT Auto");
+            put("calculatedData.sdSuccessfulDefenseCrossesAuto.lb", "Successes LB Auto");
+
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.pc", "Successes PC Tele");
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.cdf", "Successes CDF Tele");
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.mt", "Successes MT Tele");
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.rp", "Successes RP Tele");
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.db", "Successes DB Tele");
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.sp", "Successes SP Tele");
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.rw", "Successes RW Tele");
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.rt", "Successes RT Tele");
+            put("calculatedData.sdSuccessfulDefenseCrossesTele.lb", "Successes LB Tele");
+
+            put("calculatedData.sdFailedDefenseCrossesAuto.pc", "Fails PC Auto");
+            put("calculatedData.sdFailedDefenseCrossesAuto.cdf", "Fails CDF Auto");
+            put("calculatedData.sdFailedDefenseCrossesAuto.mt", "Fails MT Auto");
+            put("calculatedData.sdFailedDefenseCrossesAuto.rp", "Fails RP Auto");
+            put("calculatedData.sdFailedDefenseCrossesAuto.db", "Fails DB Auto");
+            put("calculatedData.sdFailedDefenseCrossesAuto.sp", "Fails SP Auto");
+            put("calculatedData.sdFailedDefenseCrossesAuto.rw", "Fails RW Auto");
+            put("calculatedData.sdFailedDefenseCrossesAuto.rt", "Fails RT Auto");
+            put("calculatedData.sdFailedDefenseCrossesAuto.lb", "Fails LB Auto");
+
+            put("calculatedData.sdFailedDefenseCrossesTele.pc", "Fails PC Tele");
+            put("calculatedData.sdFailedDefenseCrossesTele.cdf", "Fails CDF Tele");
+            put("calculatedData.sdFailedDefenseCrossesTele.mt", "Fails MT Tele");
+            put("calculatedData.sdFailedDefenseCrossesTele.rp", "Fails RP Tele");
+            put("calculatedData.sdFailedDefenseCrossesTele.db", "Fails DB Tele");
+            put("calculatedData.sdFailedDefenseCrossesTele.sp", "Fails SP Tele");
+            put("calculatedData.sdFailedDefenseCrossesTele.rw", "Fails RW Tele");
+            put("calculatedData.sdFailedDefenseCrossesTele.rt", "Fails RT Tele");
+            put("calculatedData.sdFailedDefenseCrossesTele.lb", "Fails LB Tele");
             put("teamNumber", "Team Number");
             put("matchNumber", "Match Number");
             put("matches", "Matches");
