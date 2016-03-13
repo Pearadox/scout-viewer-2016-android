@@ -121,7 +121,7 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
             Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
 
             TextView rankingTextView = (TextView)rowView.findViewById(R.id.rankingTextView);
-            Log.i("NKJSD", filteredValues.indexOf(value) + 1 + "");
+            /*Log.i("NKJSD", filteredValues.indexOf(value) + 1 + "");
             Log.i("BHG", value);
             String rank;
             try {
@@ -129,8 +129,8 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
             } catch (NullPointerException |NumberFormatException ne) {
                 rank = "?";
             }
-            Log.i("ZIN", rank);
-            rankingTextView.setText(rank);
+            Log.i("ZIN", rank);*/
+            rankingTextView.setText("");
 
             TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
             if (searchString.length() > 0) {

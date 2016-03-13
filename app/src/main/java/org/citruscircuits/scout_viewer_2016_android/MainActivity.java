@@ -17,6 +17,7 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.OverallSecondPickFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.StarredMatchesFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.TeamScheduleFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.FirstPickAbilityFragment;
@@ -119,9 +120,12 @@ public class MainActivity extends ActionBarActivity
                 fragment = new FirstPickAbilityFragment();
                 break;
             case 8:
-                fragment = new SecondPickAbilityFragment();
+                fragment = new OverallSecondPickFragment();
                 break;
             case 9:
+                fragment = new SecondPickAbilityFragment();
+                break;
+            case 10:
                 fragment = new SuperAbilityFragment();
                 break;
         }

@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class Constants {
     public static final String ROOT_FIREBASE_PATH = "https://1678-scouting-2016.firebaseio.com/";
-    public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Second Pick", "Super Data"};
+    public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Overall Second Pick", "Second Pick", "Super Data"};
     public static final String MATCHES_PATH = ROOT_FIREBASE_PATH + "Matches";
     public static final String TEAMS_PATH = ROOT_FIREBASE_PATH + "Teams";
     public static final String TEAM_IN_MATCH_DATAS_PATH = ROOT_FIREBASE_PATH + "TeamInMatchDatas";
@@ -200,6 +200,7 @@ public class Constants {
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.rw", "Avg. RW Cross");
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.rt", "Avg. RT Cross");
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.lb", "Avg. LB Cross");
+
             put("calculatedData.avgTimeForDefenseCrossAuto.pc", "Avg. Time PC Auto");
             put("calculatedData.avgTimeForDefenseCrossAuto.cdf", "Avg. Time CDF Auto");
             put("calculatedData.avgTimeForDefenseCrossAuto.mt", "Avg. Time MT Auto");
