@@ -193,7 +193,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             context.startActivity(teamMatchesIntent);
         } else if (key.equals("calculatedData.secondPickAbility")) {
             Intent secondPickIntent = new Intent(context, SecondPickAbilityActivity.class);
-            secondPickIntent.putExtra("field", "calculatedData.secondPickAbility");
+            secondPickIntent.putExtra("field", "calculatedData.secondPickAbility").putExtra("teamNumber", teamNumber);
             context.startActivity(secondPickIntent);
         } else {
             Intent rankingsActivityIntent = new Intent(context, DefenseDetailsActivity.class);
