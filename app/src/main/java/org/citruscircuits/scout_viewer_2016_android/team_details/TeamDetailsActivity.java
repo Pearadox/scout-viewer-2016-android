@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -53,6 +57,7 @@ public class TeamDetailsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_listview);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);
         Log.e("test", "Team number is " + teamNumber);
 
@@ -125,10 +130,17 @@ public class TeamDetailsActivity extends ActionBarActivity {
     public void reloadTeamImage() {
         try {
             File file = new File(getApplicationContext().getFilesDir(), "image_" + teamNumber.toString());
-            bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+            Bitmap tmpBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(1.2f, 1.2f);
+            bitmap = Bitmap.createBitmap(tmpBitmap, 0, 0,tmpBitmap.getWidth(), tmpBitmap.getHeight(), matrix, true);
+
             ImageView imageView = new ImageView(getApplicationContext());
+            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            imageView.setLayoutParams(imageParams);
             imageView.setImageBitmap(bitmap);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             headerPhotoLinearLayout.addView(imageView, params);
         } catch (Exception e) {
             Log.e("test", "ERROR: " + e.getMessage());
