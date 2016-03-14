@@ -2,13 +2,207 @@ package org.citruscircuits.scout_viewer_2016_android;
 
 import android.graphics.Color;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by citruscircuits on 1/16/16.
  */
 public class Constants {
+    //static means run on class load.  We declare our lists here so we can edit them before 'making them final'
+    static {
+        List<String> defenseEndings = new ArrayList<>(Arrays.asList("pc", "cdf", "mt", "rp", "db", "sp", "rw", "rt", "lb"));
+        Map<String, String> initialKeysToTitlesMap = new HashMap<String, String> () {
+            {
+                put("calculatedData.avgHighShotsAuto", "Avg. Auto High Shots");
+                put("calculatedData.avgLowShotsAuto", "Avg. Auto Low Shots");
+                put("calculatedData.avgHighShotsTele", "Avg. Tele High Shots");
+                put("calculatedData.avgLowShotsTele", "Avg. Tele Low Shots");
+                put("pitFrontBumperWidth", "Bumper Width");
+                put("pitLowBarCapability", "Can Low Bar?");
+                put("pitPotentialLowBarCapability", "Could Low Bar?");
+                put("pitPotentialMidlineBallCapability", "Could Midline?");
+                put("pitDriveBaseWidth", "Base Width");
+                put("pitDriveBaseLength", "Base Length");
+                put("pitBumperHeight", "Bumper Height");
+                put("pitPotentialShotBlockerCapability", "Could Block?");
+                put("pitNotes", "Notes");
+                put("pitOrganization", "Pit Organization");
+                put("pitNumberOfWheels", "Num. Wheels");
+                put("calculatedData.firstPickAbility", "First Pick Ability");
+                put("calculatedData.secondPickAbility", "Second Pick Ability");
+                put("calculatedData.driverAbility", "Driver Ability");
+                put("calculatedData.highShotAccuracyAuto", "Auto High Shot Acc.");
+                put("calculatedData.lowShotAccuracyAuto", "Auto Low Shot Acc.");
+                put("calculatedData.highShotAccuracyTele", "Tele High Shot Acc.");
+                put("calculatedData.lowShotAccuracyTele", "Tele Low Shot Acc.");
+                put("calculatedData.avgGroundIntakes", "Avg. Ground Intakes");
+                put("calculatedData.avgHighShotsTele", "Avg. Tele High");
+                put("calculatedData.avgLowShotsTele", "Avg. Tele Low");
+                put("calculatedData.avgShotsBlocked", "Avg. Shots Blocked");
+                put("calculatedData.avgHighShotsAuto", "Avg. Auto High");
+                put("calculatedData.avgLowShotsAuto", "Avg. Auto Low");
+                put("calculatedData.avgMidlineBallsIntakedAuto", "Avg. Mid. Balls");
+                put("calculatedData.avgBallsKnockedOffMidlineAuto", "Avg. Mid. Knocked");
+                put("calculatedData.avgTorque", "Avg. Torque");
+                put("calculatedData.avgSpeed", "Avg. Speed");
+                put("calculatedData.avgEvasion", "Avg. Evasion");
+                put("calculatedData.avgDefense", "Avg. Defense");
+                put("calculatedData.avgBallControl", "Avg. Ball Control");
+                put("calculatedData.RScoreTorque", "Torque");
+                put("calculatedData.RScoreSpeed", "Speed");
+                put("calculatedData.RScoreEvasion", "Evasion");
+                put("calculatedData.RScoreDefense", "Defense");
+                put("calculatedData.RScoreBallControl", "Ball Control");
+                put("calculatedData.RScoreDrivingAbility", "Driving Ability");
+                put("calculatedData.disfunctionalPercentage", "Disfunctional");
+                put("calculatedData.reachPercentage", "Reach");
+                put("calculatedData.disabledPercentage", "Disabled");
+                put("calculatedData.incapacitatedPercentage", "Incapacitated");
+                put("calculatedData.scalePercentage", "Scale");
+                put("calculatedData.challengePercentage", "Challenge");
+                put("calculatedData.siegePower", "Siege Power");
+                put("calculatedData.siegeConsistency", "Siege Consistency");
+                put("calculatedData.siegeAbility", "Siege Ability");
+                put("calculatedData.predictedNumRPs", "Predicted RPs");
+                put("calculatedData.actualNumRPs", "Num. RPs");
+                put("calculatedData.numAutoPoints", "Num. Auto Pts.");
+                put("calculatedData.numScaleAndChallengePoints", "Num. S&C Pts.");
+                put("calculatedData.predictedSeed", "Predicted Seed");
+                put("calculatedData.actualSeed", "Seed");
+                put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.DEFENSE", "Avg. Auto DEFENSE Cross");
+                put("calculatedData.avgFailedTimesCrossedDefensesAuto.DEFENSE", "Avg. Auto DEFENSE Fails");
+                put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.DEFENSE", "Avg. Tele DEFENSE Cross");
+                put("calculatedData.avgFailedTimesCrossedDefensesTele.DEFENSE", "Avg. Tele DEFENSE Fails");
+                put("calculatedData.twoBallAutoAccuracy", "Two Ball Auto Accuracy");
+                put("calculatedData.twoBallAutoAttemptedPercentage", "Two Ball Auto Attempted");
+                put("didGetIncapacitated", "Incapacitated?");
+                put("didGetDisabled", "Disabled?");
+                put("rankTorque", "Torque");
+                put("rankSpeed", "Speed");
+                put("rankEvasion", "Evasion");
+                put("rankDefense", "Defense");
+                put("rankBallControl", "Ball Control");
+                put("ballsIntakedAuto", "Mid. Balls Int.");
+                put("numHighShotsMadeAuto", "Auto High Shots");
+                put("numLowShotsMadeAuto", "Auto Low Shots");
+                put("numHighShotsMissedAuto", "Auto High Misses");
+                put("numLowShotsMissedAuto", "Auto Low Misses");
+                put("didReachAuto", "Reach?");
+                put("numHighShotsMadeTele", "Tele High Shots");
+                put("numLowShotsMadeTele", "Tele Low Shots");
+                put("numHighShotsMissedTele", "Tele High Misses");
+                put("numLowShotsMissedTele", "Tele Low Misses");
+                put("numGroundIntakesTele", "Tele Ground Intakes");
+                put("numShotsBlockedTele", "Shots Blocked");
+                put("didScaleTele", "Scale?");
+                put("didChallengeTele", "Challenge?");
+                put("timesSuccessfulCrossedDefensesTele.DEFENSE", "Tele DEFENSE Cross");
+                put("timesFailedCrossedDefensesTele.DEFENSE", "Tele DEFENSE Fail");
+                put("timesSuccessfulCrossedDefensesAuto.DEFENSE", "Auto DEFENSE Cross");
+                put("timesFailedCrossedDefensesAuto.DEFENSE", "Auto DEFENSE Fail");
+                put("superNotes", "Notes");
+                put("numBallsKnockedOffMidlineAuto", "Knocked Off Mid.");
+                put("numBallsKnockedOffMidlineAuto", "Knocked Off Mid.");
+                put("calculatedData.citrusDPR", "Citrus DPR");
+                put("calculatedData.overallSecondPickAbility", "Overall Second Pick Ability");
+                put("cdf", "Cheval de Frise");
+                put("pc", "Portcullis");
+                put("mt", "Moat");
+                put("rp", "Ramparts");
+                put("db", "Drawbridge");
+                put("sp", "Sally Port");
+                put("rt", "Rough Terrain");
+                put("rw", "Rock Wall");
+                put("lb", "Low Bar");
+                put("calculatedData.avgSuccessfulTimesCrossedDefenses.DEFENSE", "Avg. DEFENSE Cross");
+                put("calculatedData.avgTimeForDefenseCrossAuto.DEFENSE", "Avg. Time DEFENSE Auto");
+                put("calculatedData.avgTimeForDefenseCrossTele.DEFENSE", "Avg. Time DEFENSE Tele");
+                put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.DEFENSE", "Predicted Cross DEFENSE Tele");
+                put("calculatedData.crossingsSuccessRateForDefenseAuto.DEFENSE", "Success Rate DEFENSE Auto");
+                put("calculatedData.crossingsSuccessRateForDefenseTele.DEFENSE", "Success Rate DEFENSE Tele");
+                put("calculatedData.sdSuccessfulDefenseCrossesAuto.DEFENSE", "Successes DEFENSE Auto");
+                put("calculatedData.sdSuccessfulDefenseCrossesTele.DEFENSE", "Successes DEFENSE Tele");
+                put("calculatedData.sdFailedDefenseCrossesAuto.DEFENSE", "Fails DEFENSE Auto");
+                put("calculatedData.sdFailedDefenseCrossesTele.DEFENSE", "Fails DEFENSE Tele");
+                put("teamNumber", "Team Number");
+                put("matchNumber", "Match Number");
+                put("matches", "Matches");
+            }
+        };
+        Map<String, String> initialDatasToGraphMap = new HashMap<String, String> () {
+            {
+                put("calculatedData.actualNumRPs", "calculatedData.numRPs");
+                put("calculatedData.avgHighShotsAuto", "numHighShotsMadeAuto");
+                put("calculatedData.avgLowShotsAuto", "numLowShotsMadeAuto");
+                put("calculatedData.avgHighShotsTele", "numHighShotsMadeTele");
+                put("calculatedData.avgLowShotsTele", "numLowShotsMadeTele");
+                put("calculatedData.firstPickAbility", "calculatedData.firstPickAbility");
+                put("calculatedData.highShotAccuracyAuto", "calculatedData.highShotAccuracyAuto");
+                put("calculatedData.lowShotAccuracyAuto", "calculatedData.lowShotAccuracyAuto");
+                put("calculatedData.highShotAccuracyTele", "calculatedData.highShotAccuracyTele");
+                put("calculatedData.lowShotAccuracyTele", "calculatedData.lowShotAccuracyTele");
+                put("calculatedData.avgGroundIntakes", "numGroundIntakesTele");
+                put("calculatedData.avgHighShotsTele", "numHighShotsMadeTele");
+                put("calculatedData.avgLowShotsTele", "numLowShotsMadeTele");
+                put("calculatedData.avgShotsBlocked", "numShotsBlockedTele");
+                put("calculatedData.avgHighShotsAuto", "numHighShotsMadeAuto");
+                put("calculatedData.avgLowShotsAuto", "numLowShotsAuto");
+                put("calculatedData.avgMidlineBallsIntakedAuto", "calculatedData.numBallsIntakedOffMidlineAuto");
+                put("calculatedData.avgBallsKnockedOffMidlineAuto", "numBallsKnockedOffMidlineAuto");
+                put("calculatedData.avgTorque", "rankTorque");
+                put("calculatedData.avgSpeed", "rankSpeed");
+                put("calculatedData.avgEvasion", "rankEvasion");
+                put("calculatedData.avgDefense", "rankDefense");
+                put("calculatedData.avgBallControl", "rankBallControl");
+                put("calculatedData.RScoreTorque", "rankTorque");
+                put("calculatedData.RScoreSpeed", "rankSpeed");
+                put("calculatedData.RScoreEvasion", "rankEvasion");
+                put("calculatedData.RScoreDefense", "rankDefense");
+                put("calculatedData.RScoreBallControl", "rankBallControl");
+                put("calculatedData.RScoreDrivingAbility", "calculatedData.drivingAbility");
+                put("calculatedData.reachPercentage", "didReachAuto");
+                put("calculatedData.disabledPercentage", "didGetDisabled");
+                put("calculatedData.incapacitatedPercentage", "didGetIncapacitated");
+                put("calculatedData.scalePercentage", "didScaleTele");
+                put("calculatedData.challengePercentage", "didChallengeTele");
+                put("calculatedData.siegePower", "calculatedData.siegePower");
+                put("calculatedData.siegeConsistency", "calculatedData.siegeConsistency");
+                put("calculatedData.siegeAbility", "calculatedData.siegeAbility");
+                put("calculatedData.numAutoPoints", "calculatedData.numAutoPoints");
+                put("calculatedData.numScaleAndChallengePoints", "calculatedData.numScaleAndChallengePoints");
+                put("calculatedData.avgSuccessfulTimesCrossedDefensesAuto.DEFENSE", "timesSuccessfulCrossedDefensesAuto.DEFENSE");
+                put("calculatedData.avgFailedTimesCrossedDefensesAuto.DEFENSE", "timesFailedCrossedDefensesAuto.DEFENSE");
+                put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.DEFENSE", "timesSuccessfulCrossedDefensesTele.DEFENSE");
+                put("calculatedData.avgFailedTimesCrossedDefensesTele.DEFENSE", "timesFailedCrossedDefensesTele.DEFENSE");
+                put("calculatedData.overallSecondPickAbility", "calculatedData.overallSecondPickAbility");
+            }
+        };
+        //replace all 'DEFENSE's with the correct defenses
+        Map<String, String> modifiableKeysToTitlesMap = new HashMap<>(initialKeysToTitlesMap);
+        for (Map.Entry<String, String> entry : initialKeysToTitlesMap.entrySet()) {
+            if (entry.getKey().endsWith(".DEFENSE")) {
+                modifiableKeysToTitlesMap.remove(entry.getKey());
+                for (String defense : defenseEndings) {
+                    modifiableKeysToTitlesMap.put(entry.getKey().replaceAll("DEFENSE", defense), entry.getValue().replaceAll("DEFENSE", defense.toUpperCase()));
+                }
+            }
+        }
+        KEYS_TO_TITLES = modifiableKeysToTitlesMap;
+        Map<String, String> modifiableDatasToGraphMap = new HashMap<>(initialDatasToGraphMap);
+        for (Map.Entry<String, String> entry : initialDatasToGraphMap.entrySet()) {
+            if (entry.getKey().endsWith(".DEFENSE")) {
+                modifiableDatasToGraphMap.remove(entry.getKey());
+                for (String defense : defenseEndings) {
+                    modifiableDatasToGraphMap.put(entry.getKey().replaceAll("DEFENSE", defense), entry.getValue().replaceAll("DEFENSE", defense));
+                }
+            }
+        }
+        DATA_TO_GRAPH = modifiableKeysToTitlesMap;
+    }
     public static final String ROOT_FIREBASE_PATH = "https://1678-scouting-2016.firebaseio.com/";
     public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Overall Second Pick", "Second Pick", "Super Data"};
     public static final String MATCHES_PATH = ROOT_FIREBASE_PATH + "Matches";
@@ -24,7 +218,7 @@ public class Constants {
     public static final String[] TEAM_SCOPES = {"Team"};
     public static final int STAR_COLOR = Color.argb(255, 255, 255, 204);
     public static final int TEAM_NUMBER = 1678;
-    public static final Map<String, String> KEYS_TO_TITLES = new HashMap<String, String> () {
+    public static final Map<String, String> KEYS_TO_TITLES;/* = new HashMap<String, String> () {
         {
             put("calculatedData.avgHighShotsAuto", "Avg. Auto High Shots");
             put("calculatedData.avgLowShotsAuto", "Avg. Auto Low Shots");
@@ -191,7 +385,7 @@ public class Constants {
             put("rt", "Rough Terrain");
             put("rw", "Rock Wall");
             put("lb", "Low Bar");
-            put("calculatedData.avgSuccessfulTimesCrossedDefenses.pc", "Avg. PC Cross");
+            put("calculatedData.avgSuccessfulTimesCrossedDefenses.DEFENSE", "Avg. DEFENSE Cross");
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.cdf", "Avg. CDF Cross");
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.mt", "Avg. MT Cross");
             put("calculatedData.avgSuccessfulTimesCrossedDefenses.rp", "Avg. RP Cross");
@@ -294,10 +488,11 @@ public class Constants {
             put("matchNumber", "Match Number");
             put("matches", "Matches");
         }
-    };
+    };*/
 
-    public static final Map<String, String> DATA_TO_GRAPH = new HashMap<String, String> () {
+    public static final Map<String, String> DATA_TO_GRAPH;/* = new HashMap<String, String> () {
         {
+            put("calculatedData.actualNumRPs", "calculatedData.numRPs");
             put("calculatedData.avgHighShotsAuto", "numHighShotsMadeAuto");
             put("calculatedData.avgLowShotsAuto", "numLowShotsMadeAuto");
             put("calculatedData.avgHighShotsTele", "numHighShotsMadeTele");
@@ -320,12 +515,12 @@ public class Constants {
             put("calculatedData.avgEvasion", "rankEvasion");
             put("calculatedData.avgDefense", "rankDefense");
             put("calculatedData.avgBallControl", "rankBallControl");
-            put("calculatedData.RScoreTorque", "calculatedData.RScoreTorque");
-            put("calculatedData.RScoreSpeed", "calculatedData.RScoreSpeed");
-            put("calculatedData.RScoreEvasion", "calculatedData.RScoreEvasion");
-            put("calculatedData.RScoreDefense", "calculatedData.RScoreDefense");
-            put("calculatedData.RScoreBallControl", "calculatedData.RScoreBallControl");
-            put("calculatedData.RScoreDrivingAbility", "calculatedData.RScoreDrivingAbility");
+            put("calculatedData.RScoreTorque", "rankTorque");
+            put("calculatedData.RScoreSpeed", "rankSpeed");
+            put("calculatedData.RScoreEvasion", "rankEvasion");
+            put("calculatedData.RScoreDefense", "rankDefense");
+            put("calculatedData.RScoreBallControl", "rankBallControl");
+            put("calculatedData.RScoreDrivingAbility", "calculatedData.drivingAbility");
             put("calculatedData.reachPercentage", "didReachAuto");
             put("calculatedData.disabledPercentage", "didGetDisabled");
             put("calculatedData.incapacitatedPercentage", "didGetIncapacitated");
@@ -374,5 +569,5 @@ public class Constants {
             put("calculatedData.avgFailedTimesCrossedDefensesTele.lb", "timesFailedCrossedDefensesTele.lb");
             put("calculatedData.overallSecondPickAbility", "calculatedData.overallSecondPickAbility");
         }
-    };
+    };*/
 }

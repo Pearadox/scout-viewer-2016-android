@@ -2,6 +2,7 @@ package org.citruscircuits.scout_viewer_2016_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -27,6 +28,7 @@ public class TeamInMatchDataGraphFragment extends GraphFragment {
 
         teamNumber = getArguments().getInt("team", 0);
         field = getArguments().getString("field");
+        Log.i("SKDJNFIWNEUINDS", field);
     }
 
     @Override
@@ -49,8 +51,15 @@ public class TeamInMatchDataGraphFragment extends GraphFragment {
     @Override
     public List<Float> getValues() {
         List<Float> dataValues = new ArrayList<>();
-        for (TeamInMatchData teamInMatchData : Utils.getTeamInMatchDatasForTeamNumber(teamNumber).subList(0, 2)) {
-            dataValues.add(((Float) Utils.getObjectField(teamInMatchData, field)));
+        for (TeamInMatchData teamInMatchData : Utils.getTeamInMatchDatasForTeamNumber(teamNumber)) {
+            Object value =  Utils.getObjectField(teamInMatchData, field);
+            if (value instanceof Integer) {
+                dataValues.add(((Integer) value).floatValue());
+            } else if (value instanceof Boolean) {
+                dataValues.add((Boolean)value ? 1f : 0f);
+            } else {
+                dataValues.add((Float) value);
+            }
         }
 
         return dataValues;
