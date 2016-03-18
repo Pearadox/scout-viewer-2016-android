@@ -75,7 +75,6 @@ public class StarManager extends Service {
             public void onReceive(Context context, Intent intent) {
                 currentMatchNumber = Utils.getLastMatchPlayed();
                 nextImportantMatch = getNextImportantMatch();
-                Log.i("KJFDE", "THING!" + intent.getBooleanExtra("notify", false));
                 if (intent.getBooleanExtra("notify", false)) {
                     notifyOfNewMatchIfNeeded();
                 }
@@ -97,10 +96,7 @@ public class StarManager extends Service {
 
     public void notifyOfNewMatchIfNeeded() {
         if (FirebaseLists.matchesList.getKeys().contains(nextImportantMatch.toString())) {
-            Log.i("nextImportantMatch", Integer.toString(nextImportantMatch));
-            Log.i("currentMatchNumber", Integer.toString(currentMatchNumber));
             if ((nextImportantMatch - currentMatchNumber) <= 3) {
-                Log.i("asldfn", "dasfn");
                 Match match = FirebaseLists.matchesList.getFirebaseObjectByKey(nextImportantMatch.toString());
 
                 notifyOfNewMatchPlayed(match, nextImportantMatch - currentMatchNumber - 1);
@@ -139,10 +135,7 @@ public class StarManager extends Service {
     public static void addImportantMatch(Integer matchNumber) {
         if (!importantMatches.contains(matchNumber)) {
             addImportantMatchWithoutPreferences(matchNumber);
-            Log.i("matchNum", Integer.toString(matchNumber));
-            Log.i("nextImportantMatch", Integer.toString(nextImportantMatch));
             final boolean notify = ((matchNumber < nextImportantMatch) || (nextImportantMatch == -1));
-            Log.i("notify", Boolean.toString(notify));
             new Thread() {
                 @Override
                 public void run() {
@@ -155,10 +148,7 @@ public class StarManager extends Service {
     public static void removeImportantMatch(Integer matchNumber) {
         if (importantMatches.contains(matchNumber)) {
             removeImportantMatchWithoutPreferences(matchNumber);
-            Log.i("matchNum", Integer.toString(matchNumber));
-            Log.i("nextImportantMatch", Integer.toString(nextImportantMatch));
             final boolean notify = (matchNumber <= nextImportantMatch);
-            Log.i("notify", Boolean.toString(notify));
             new Thread() {
                 @Override
                 public void run() {
@@ -253,6 +243,7 @@ public class StarManager extends Service {
     }
 
     public void notifyOfNewMatchPlayed(Match match, Integer matchesFromNow) {
+        Log.i("NOTIFICATION", "NOW!");
         RemoteViews notificationRemoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.match_notification);
 
         if (matchesFromNow.equals(0)) {

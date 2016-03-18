@@ -71,11 +71,11 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
         String fieldName = (String)getRowItem(section, row);
         Log.i("DFA", fieldName);
         Object object = getObject();
-        Integer rank = Utils.getRankOfObject(object, getObjectList(), fieldName);
+        Integer rank = Utils.getRankOfObject(object, getObjectList(), fieldName, false);
         if (rank == null) {
             return "?";
         }
-        return rank.toString();
+        return (++rank).toString();
     }
 
     @Override
@@ -87,8 +87,6 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     public String getValueOfRowInSection(int section, int row) {
         String fieldKey = (String)getRowItem(section, row);
         Object object = getObject();
-        Log.i("SADILHF", fieldKey);
-        Log.i("IUFSSE", object.toString());
         if (new ArrayList<>(Arrays.asList(getPercentageFields())).contains(fieldKey)) {
             return Utils.dataPointToPercentage((Float)Utils.getObjectField(getObject(), fieldKey), 1);
         }
@@ -175,6 +173,7 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
         return isClickable(section, row);
     }
 
+    public String[] getReversedRankingsFields() {return null;}
     public abstract String[][] getFieldsToDisplay();
     public abstract String[] getSectionTitles();
     public abstract String[] getUnrankedFields();

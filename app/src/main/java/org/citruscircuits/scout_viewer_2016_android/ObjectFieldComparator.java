@@ -3,6 +3,7 @@ package org.citruscircuits.scout_viewer_2016_android;
 import android.util.Log;
 
 import org.citruscircuits.scout_viewer_2016_android.Utils;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 
 import java.util.Comparator;
 

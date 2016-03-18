@@ -55,11 +55,19 @@ public class Utils {
     }
 
     public static Integer getRankOfObject(Object o, List<Object> os, String fieldName) {
+        return getRankOfObject(o, os, fieldName, true);
+    }
+
+    public static Integer getRankOfObject(Object o, List<Object> os, String fieldName, boolean isReversed) {
         if (Utils.getObjectField(o, fieldName) == null) {
             return null;
         }
-        Collections.sort(os, new ObjectFieldComparator(fieldName, true));
-        return os.indexOf(o);
+        try {
+            Collections.sort(os, new ObjectFieldComparator(fieldName, isReversed));
+            return os.indexOf(o);
+        } catch (IllegalArgumentException iae) {
+            return null;
+        }
     }
 
     public static String dataPointToPercentage(Float dataPoint, int decimalPlaces) {
@@ -116,7 +124,6 @@ public class Utils {
     public static List<TeamInMatchData> getTeamInMatchDatasForTeamNumber(Integer teamNumber) {
         List<TeamInMatchData> teamInMatchDatas = new ArrayList<>();
         for (TeamInMatchData teamInMatchData : FirebaseLists.teamInMatchDataList.getValues()) {
-            Log.e("test", "Team in match data: " + teamInMatchData.teamNumber + teamInMatchData.matchNumber);
             if (teamInMatchData.teamNumber.equals(teamNumber)) {
                 teamInMatchDatas.add(teamInMatchData);
             }

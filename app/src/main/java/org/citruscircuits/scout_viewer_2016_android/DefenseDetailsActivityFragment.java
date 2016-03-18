@@ -48,10 +48,13 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
+        String field = Constants.DATA_TO_GRAPH.get(getListAdapter().getItem(position - l.getHeaderViewsCount()));
+        if (field == null) {
+            return;
+        }
         Intent rankingsActivityIntent = new Intent(getActivity().getApplicationContext(), TeamRankingsActivity.class);
         rankingsActivityIntent.putExtra("team", teamNumber);
-        rankingsActivityIntent.putExtra("field", (String)getListAdapter().getItem(position - l.getHeaderViewsCount()));
+        rankingsActivityIntent.putExtra("field", field);
 
 //        rankingsActivityIntent.putExtra("teamNumber", teamNumber);
         rankingsActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -130,7 +133,17 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
                 rank = "?";
             }
             Log.i("ZIN", rank);*/
-            rankingTextView.setText("");
+            String rank;
+            List<Object> teams = new ArrayList<>();
+            Log.i("BHG", value);
+            teams.addAll(FirebaseLists.teamsList.getValues());
+            try {
+                rank = Integer.toString(Utils.getRankOfObject(team, teams, value));
+            }
+            catch (NullPointerException|NumberFormatException ne) {
+                rank = "?";
+            }
+            rankingTextView.setText(rank);
 
             TextView teamNumberTextView = (TextView)rowView.findViewById(R.id.teamNumberTextView);
             if (searchString.length() > 0) {
