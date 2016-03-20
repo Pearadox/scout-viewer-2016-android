@@ -228,4 +228,15 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
         return (Arrays.asList(shouldDisplayAsLongText).contains(getRowItem(section, row)) ||
                 Arrays.asList(shouldDisplayAsFurtherInformation).contains(getRowItem(section, row)));
     }
+
+    @Override
+    public boolean onRowItemLongClick (AdapterView<?> parent, View view, int section, int row, long id) {
+        Log.i("test", "HERE!");
+        if (!isUnranked(section, row)) {
+            Intent intent = new Intent(context, TeamRankingsActivity.class);
+            intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row));
+            context.startActivity(intent);
+        }
+        return true;
+    }
 }

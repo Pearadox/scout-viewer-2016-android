@@ -24,7 +24,7 @@ import java.util.List;
  * Created by colinunger on 2/4/16.
  */
 public class MatchDetailsTeamCellAdapter extends BaseAdapter {
-    private String[] fields = {"calculatedData.actualSeed", "calculatedData.firstPickAbility", "calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele", "calculatedData.citrusDPR", "calculatedData.RScoreDrivingAbility"};
+    private String[] fields = {"calculatedData.actualSeed", "calculatedData.firstPickAbility", "calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele", "calculatedData.RScoreDrivingAbility"};
     private String[] fieldsToDisplayAsPercentages = {"calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele"};
     private Integer teamNumber;
 

@@ -1,5 +1,6 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
+import android.os.Vibrator;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -47,6 +48,14 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        if (v.hasVibrator()) {
+            Log.i("Can Vibrate", "YES");
+        } else {
+            Log.i("Can Vibrate", "NO");
+        }
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);

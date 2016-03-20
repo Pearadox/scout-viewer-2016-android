@@ -304,6 +304,4 @@ public class StarManager extends Service {
                 (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(mId, mBuilder.build());
     }
-
-
 }

@@ -1,12 +1,14 @@
 package com.applidium.headerlistview;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 
-public abstract class SectionAdapter extends BaseAdapter implements OnItemClickListener {
+public abstract class SectionAdapter extends BaseAdapter implements OnItemClickListener, OnItemLongClickListener {
 
     private int mCount = -1;
 
@@ -62,6 +64,16 @@ public abstract class SectionAdapter extends BaseAdapter implements OnItemClickL
 
     public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id) {
 
+    }
+
+    @Override
+    public boolean onItemLongClick (AdapterView<?> parent, View view, int position, long id) {
+        Log.i("JSIDFES", "IUNSFE");
+        return onRowItemLongClick(parent, view, getSection(position), getRowInSection(position), id);
+    }
+
+    public boolean onRowItemLongClick(AdapterView<?> parent, View view, int section, int row, long id) {
+        return false;
     }
 
     @Override

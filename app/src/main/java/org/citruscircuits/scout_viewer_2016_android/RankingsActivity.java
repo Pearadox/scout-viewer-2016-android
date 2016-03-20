@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-public abstract class RankingsActivity extends ActionBarActivity {
+public class RankingsActivity extends ActionBarActivity {
     private boolean isShowingGraph;
 
     private Integer teamNumber;
@@ -28,6 +28,8 @@ public abstract class RankingsActivity extends ActionBarActivity {
         fragmentManager.beginTransaction().replace(R.id.rankingsLinearLayout, fragment, "").commit();
     }
 
-    public abstract Fragment getFragment();
+    public Fragment getFragment() {
+        return null;
+    };
 
 }

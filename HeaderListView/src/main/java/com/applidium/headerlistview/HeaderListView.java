@@ -55,6 +55,12 @@ public class HeaderListView extends RelativeLayout {
                 }
             }
         });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return mAdapter != null && mAdapter.onItemLongClick(parent, view, position - getListView().getHeaderViewsCount(), id);
+            }
+        });
         addView(mListView);
 
         mHeader = new RelativeLayout(getContext());

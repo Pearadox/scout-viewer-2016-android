@@ -157,7 +157,7 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id) {
         if(isClickable(section, row)) {
             if (respondsNormallyToClick(section, row)) {
-                Intent rankingsActivityIntent = new Intent(context, TeamRankingsActivity.class);
+                Intent rankingsActivityIntent = new Intent(context, RankingsActivity.class);
                 rankingsActivityIntent.putExtra("team", ((Team)getObject()).number);
                 rankingsActivityIntent.putExtra("field", Constants.DATA_TO_GRAPH.get(getRowItem(section, row)));
 
