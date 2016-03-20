@@ -26,6 +26,7 @@ import org.citruscircuits.scout_viewer_2016_android.Utils;
 import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -66,7 +67,16 @@ public class StarManager extends Service {
             public void onReceive(Context context, Intent intent) {
                 currentMatchNumber = Utils.getLastMatchPlayed();
                 nextImportantMatch = getNextImportantMatch();
-                notifyOfNewMatchIfNeeded();
+                Match previousValue;
+                try {
+                    previousValue = (Match)Utils.deserializeJsonObject(new Match(), new JSONObject(intent.getStringExtra("previousValue")));
+                } catch (IllegalAccessException|JSONException|NullPointerException e) {
+                    Log.i("Previous Value", "Failed to deserialize");
+                    return;
+                }
+                if (previousValue.number == currentMatchNumber) {
+                    notifyOfNewMatchIfNeeded(previousValue);
+                }
             }
         }, new IntentFilter(Constants.MATCHES_UPDATED_ACTION));
 
@@ -76,7 +86,7 @@ public class StarManager extends Service {
                 currentMatchNumber = Utils.getLastMatchPlayed();
                 nextImportantMatch = getNextImportantMatch();
                 if (intent.getBooleanExtra("notify", false)) {
-                    notifyOfNewMatchIfNeeded();
+                    notifyOfNewMatchIfNeeded(null);
                 }
             }
         }, new IntentFilter(Constants.STARS_MODIFIED_ACTION));
@@ -94,12 +104,19 @@ public class StarManager extends Service {
 
 
 
-    public void notifyOfNewMatchIfNeeded() {
+    public void notifyOfNewMatchIfNeeded(Match previousMatch) {
         if (FirebaseLists.matchesList.getKeys().contains(nextImportantMatch.toString())) {
-            if ((nextImportantMatch - currentMatchNumber) <= 3) {
-                Match match = FirebaseLists.matchesList.getFirebaseObjectByKey(nextImportantMatch.toString());
+            //we only notify if scores were both null and now are not both null
+            Boolean isNewChange;
+            if (previousMatch != null) {
+                isNewChange = ((previousMatch.redScore == null) && (previousMatch.blueScore == null));
+            } else {
+                isNewChange = true;
+            }
+            if (((nextImportantMatch - currentMatchNumber) <= 3) && isNewChange) {
+                Match nextMatch = FirebaseLists.matchesList.getFirebaseObjectByKey(nextImportantMatch.toString());
 
-                notifyOfNewMatchPlayed(match, nextImportantMatch - currentMatchNumber - 1);
+                notifyOfNewMatchPlayed(nextMatch, nextImportantMatch - currentMatchNumber - 1);
             }
         }
     }

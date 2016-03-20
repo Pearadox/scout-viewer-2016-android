@@ -20,7 +20,7 @@ public class RankingsActivity extends ActionBarActivity {
 
         Fragment fragment = new TeamInMatchDataGraphFragment();
         Bundle argumentsBundle = new Bundle();
-        argumentsBundle.putString("field", getIntent().getStringExtra("field"));
+        argumentsBundle.putString("field", Constants.DATA_TO_GRAPH.get(getIntent().getStringExtra("field")));
         argumentsBundle.putInt("team", getIntent().getIntExtra("team", 0));
         fragment.setArguments(argumentsBundle);
 

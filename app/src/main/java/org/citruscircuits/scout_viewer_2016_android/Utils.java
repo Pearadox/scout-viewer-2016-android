@@ -9,12 +9,19 @@ import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.CalculatedMatchData;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.CalculatedTeamData;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.CalculatedTeamInMatchData;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.TeamInMatchData;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -140,5 +147,55 @@ public class Utils {
         }
 
         return matchNumbers;
+    }
+
+
+
+    public static JSONObject serializeClass(Object object) throws IllegalAccessException, JSONException {
+        JSONObject data = new JSONObject();
+        for (Field field : object.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                if ((field.getType().isAssignableFrom(CalculatedMatchData.class)) || (field.getType().isAssignableFrom(CalculatedTeamData.class))
+                        || ((field.getType().isAssignableFrom(CalculatedTeamInMatchData.class)))) {
+                    data.put(field.getName(), serializeClass(field.get(object)));
+                } else if (field.getType().isAssignableFrom(List.class)) {
+                    JSONArray array = new JSONArray();
+                    List list = (List) field.get(object);
+                    for (int i = 0; i < list.size(); i++) {
+                        array.put(list.get(i));
+                    }
+                    data.put(field.getName(), array);
+                } else {
+                    data.put(field.getName(), field.get(object));
+                }
+            } catch (NullPointerException npe) {
+                continue;
+            }
+        }
+        return data;
+    }
+    public static Object deserializeJsonObject(Object object, JSONObject data) throws IllegalAccessException {
+        for (Field field : object.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                if ((field.getType().isAssignableFrom(CalculatedMatchData.class)) || (field.getType().isAssignableFrom(CalculatedTeamData.class))
+                        || ((field.getType().isAssignableFrom(CalculatedTeamInMatchData.class)))) {
+                    field.set(object, deserializeJsonObject(field.get(object), data.getJSONObject(field.getName())));
+                } else if (field.getType().isAssignableFrom(List.class)) {
+                    List<Object> array = new ArrayList<>();
+                    JSONArray dataArray = data.getJSONArray(field.getName());
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        array.add(dataArray.get(i));
+                    }
+                    field.set(object, array);
+                } else {
+                    field.set(object, data.get(field.getName()));
+                }
+            } catch (JSONException|NullPointerException e) {
+                continue;
+            }
+        }
+        return object;
     }
 }

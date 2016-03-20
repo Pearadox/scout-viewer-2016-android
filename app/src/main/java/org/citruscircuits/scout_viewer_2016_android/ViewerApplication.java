@@ -42,22 +42,25 @@ public class ViewerApplication extends Application {
 
         FirebaseLists.matchesList = new FirebaseList<>(Constants.MATCHES_PATH, new FirebaseList.FirebaseUpdatedCallback() {
             @Override
-            public void execute() {
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.MATCHES_UPDATED_ACTION));
+            public void execute(String key, String previousValue) {
+                Log.i("MATCHES", key);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.MATCHES_UPDATED_ACTION).putExtra("key", key).putExtra("previousValue", previousValue));
             }
         }, Match.class);
 
         FirebaseLists.teamsList = new FirebaseList<>(Constants.TEAMS_PATH, new FirebaseList.FirebaseUpdatedCallback() {
             @Override
-            public void execute() {
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.TEAMS_UPDATED_ACTION));
+            public void execute(String key, String previousValue) {
+                Log.i("TEAMS", key);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.TEAMS_UPDATED_ACTION).putExtra("key", key));
             }
         }, Team.class);
 
         FirebaseLists.teamInMatchDataList = new FirebaseList<>(Constants.TEAM_IN_MATCH_DATAS_PATH, new FirebaseList.FirebaseUpdatedCallback() {
             @Override
-            public void execute() {
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.TEAM_IN_MATCH_DATAS_UPDATED_ACTION));
+            public void execute(String key, String previousValue) {
+                Log.i("TEAMS_IN_MATCHES", key);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.TEAM_IN_MATCH_DATAS_UPDATED_ACTION).putExtra("key", key));
             }
         }, TeamInMatchData.class);
 

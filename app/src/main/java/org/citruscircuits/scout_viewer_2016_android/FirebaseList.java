@@ -9,6 +9,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class FirebaseList<T> {
                     }
                 }
 
-                firebaseUpdatedCallback.execute();
+                firebaseUpdatedCallback.execute(key, null);
             }
 
             @Override
@@ -56,9 +58,17 @@ public class FirebaseList<T> {
                 T newModel = dataSnapshot.getValue(firebaseClass);
                 int index = keys.indexOf(key);
 
+                String previousValue;
+                try {
+                    previousValue = Utils.serializeClass(values.get(index)).toString();
+                    Log.i("Previous Value", previousValue);
+                } catch (JSONException | IllegalAccessException e) {
+                    previousValue = null;
+                    Log.i("Previous Value", "Failed to serialize");
+                }
                 values.set(index, newModel);
 
-                firebaseUpdatedCallback.execute();
+                firebaseUpdatedCallback.execute(key, previousValue);
             }
 
             @Override
@@ -66,10 +76,19 @@ public class FirebaseList<T> {
                 String key = dataSnapshot.getKey();
                 int index = keys.indexOf(key);
 
+                String previousValue;
+                try {
+                    previousValue = Utils.serializeClass(values.get(index)).toString();
+                    Log.i("Previous Value", previousValue);
+                } catch (JSONException | IllegalAccessException e) {
+                    previousValue = null;
+                    Log.i("Previous Value", "Failed to serialize");
+                }
+
                 keys.remove(index);
                 values.remove(index);
 
-                firebaseUpdatedCallback.execute();
+                firebaseUpdatedCallback.execute(key, previousValue);
             }
 
             @Override
@@ -77,6 +96,17 @@ public class FirebaseList<T> {
                 String key = dataSnapshot.getKey();
                 T newModel = dataSnapshot.getValue(firebaseClass);
                 int index = keys.indexOf(key);
+
+                String previousValue;
+                try {
+                    previousValue = Utils.serializeClass(values.get(index)).toString();
+                    Log.i("Previous Value", previousValue);
+                } catch (JSONException | IllegalAccessException e) {
+                    previousValue = null;
+                    Log.i("Previous Value", "Failed to serialize");
+                }
+
+
                 values.remove(index);
                 keys.remove(index);
                 if (s == null) {
@@ -94,7 +124,7 @@ public class FirebaseList<T> {
                     }
                 }
 
-                firebaseUpdatedCallback.execute();
+                firebaseUpdatedCallback.execute(key, previousValue);
             }
 
             @Override
@@ -105,7 +135,7 @@ public class FirebaseList<T> {
     }
 
     public interface FirebaseUpdatedCallback {
-        void execute();
+        void execute(String key, String previousValue);
     }
 
     public T getFirebaseObjectByKey(String key) {

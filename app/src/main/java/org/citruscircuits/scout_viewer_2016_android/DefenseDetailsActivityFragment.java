@@ -48,11 +48,11 @@ public class DefenseDetailsActivityFragment extends SearchableListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        String field = Constants.DATA_TO_GRAPH.get(getListAdapter().getItem(position - l.getHeaderViewsCount()));
+        String field = (String)getListAdapter().getItem(position - l.getHeaderViewsCount());
         if (field == null) {
             return;
         }
-        Intent rankingsActivityIntent = new Intent(getActivity().getApplicationContext(), TeamRankingsActivity.class);
+        Intent rankingsActivityIntent = new Intent(getActivity().getApplicationContext(), RankingsActivity.class);
         rankingsActivityIntent.putExtra("team", teamNumber);
         rankingsActivityIntent.putExtra("field", field);
 
