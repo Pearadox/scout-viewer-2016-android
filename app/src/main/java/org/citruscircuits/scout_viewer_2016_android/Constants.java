@@ -149,10 +149,10 @@ public class Constants {
                 put("calculatedData.predictedSuccessfulCrossingsForDefenseTele.DEFENSE", "Predicted Cross DEFENSE Tele");
                 put("calculatedData.crossingsSuccessRateForDefenseAuto.DEFENSE", "Success Rate DEFENSE Auto");
                 put("calculatedData.crossingsSuccessRateForDefenseTele.DEFENSE", "Success Rate DEFENSE Tele");
-                put("calculatedData.sdSuccessfulDefenseCrossesAuto.DEFENSE", "Successes DEFENSE Auto");
-                put("calculatedData.sdSuccessfulDefenseCrossesTele.DEFENSE", "Successes DEFENSE Tele");
-                put("calculatedData.sdFailedDefenseCrossesAuto.DEFENSE", "Fails DEFENSE Auto");
-                put("calculatedData.sdFailedDefenseCrossesTele.DEFENSE", "Fails DEFENSE Tele");
+                put("calculatedData.sdSuccessfulDefenseCrossesAuto.DEFENSE", "SD. Success DEFENSE Auto");
+                put("calculatedData.sdSuccessfulDefenseCrossesTele.DEFENSE", "SD. Success DEFENSE Tele");
+                put("calculatedData.sdFailedDefenseCrossesAuto.DEFENSE", "SD. Fail DEFENSE Auto");
+                put("calculatedData.sdFailedDefenseCrossesTele.DEFENSE", "SD. Fail DEFENSE Tele");
                 put("teamNumber", "Team Number");
                 put("matchNumber", "Match Number");
                 put("matches", "Matches");
