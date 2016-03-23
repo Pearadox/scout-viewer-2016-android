@@ -290,8 +290,8 @@ public class StarManager extends Service {
             notificationRemoteViews.setTextColor(R.id.redScore, Color.argb(255, 255, 0, 0));
             notificationRemoteViews.setTextColor(R.id.blueScore, Color.argb(255, 0, 0, 255));
         } else {
-            notificationRemoteViews.setTextViewText(R.id.redScore, (Utils.fieldIsNotNull(match, "calculatedData.predictedRedScore")) ? match.redScore + "" : "???");
-            notificationRemoteViews.setTextViewText(R.id.blueScore, (Utils.fieldIsNotNull(match, "calculatedData.predictedBlueScore")) ? match.blueScore + "" : "???");
+            notificationRemoteViews.setTextViewText(R.id.redScore, Utils.roundDataPoint(match.calculatedData.predictedRedScore, 2, "???"));
+            notificationRemoteViews.setTextViewText(R.id.blueScore, Utils.roundDataPoint(match.calculatedData.predictedBlueScore, 2, "???"));
             notificationRemoteViews.setTextColor(R.id.redScore, Color.argb(75, 255, 0, 0));
             notificationRemoteViews.setTextColor(R.id.blueScore, Color.argb(75, 0, 0, 255));
         }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,10 +111,11 @@ public abstract class MatchesAdapter extends SearchableFirebaseListAdapter<Match
         } else {
             redScoreTextView.setTextColor(Color.argb(75, 255, 0, 0));
             blueScoreTextView.setTextColor(Color.argb(75, 0, 0, 255));
-            redScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedRedScore, 2, "???"));
-            blueScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedBlueScore, 2, "???"));
-            /*redScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedRedScore")) ? match.calculatedData.predictedRedScore.toString() : "???");
-            blueScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedBlueScore")) ? match.calculatedData.predictedBlueScore.toString() : "???");*/
+            Log.i("PSDFON", match.number.toString());
+            /*redScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedRedScore, 2, "???"));
+            blueScoreTextView.setText(Utils.roundDataPoint(match.calculatedData.predictedBlueScore, 2, "???"));*/
+            redScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedRedScore")) ? Utils.roundDataPoint(match.calculatedData.predictedRedScore, 2, "???") : "???");
+            blueScoreTextView.setText((Utils.fieldIsNotNull(match, "calculatedData.predictedBlueScore")) ? Utils.roundDataPoint(match.calculatedData.predictedBlueScore, 2, "???") : "???");
         }
 
         rowView.setOnLongClickListener(new StarLongClickListener());

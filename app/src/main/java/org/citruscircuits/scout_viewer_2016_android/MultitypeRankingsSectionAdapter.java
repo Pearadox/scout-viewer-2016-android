@@ -173,7 +173,6 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
         return isClickable(section, row);
     }
 
-    public String[] getReversedRankingsFields() {return null;}
     public abstract String[][] getFieldsToDisplay();
     public abstract String[] getSectionTitles();
     public abstract String[] getUnrankedFields();

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class Constants {
     public static final String ROOT_FIREBASE_PATH = "https://1678-dev2-2016.firebaseio.com/";
-    public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Overall Second Pick", "Second Pick", "Super Data"};
+    public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Overall Second Pick", "Super Data"};
     public static final String MATCHES_PATH = ROOT_FIREBASE_PATH + "Matches";
     public static final String TEAMS_PATH = ROOT_FIREBASE_PATH + "Teams";
     public static final String TEAM_IN_MATCH_DATAS_PATH = ROOT_FIREBASE_PATH + "TeamInMatchDatas";
@@ -29,6 +29,12 @@ public class Constants {
     public static final int TEAM_NUMBER = 1678;
     public static final Map<String, String> KEYS_TO_TITLES;
     public static final Map<String, String> DATA_TO_GRAPH;
+    public static final Map<String, String> FIREBASE_KEYS = new HashMap<String, String>() {{
+        put("https://1678-dev2-2016.firebaseio.com/", "hL8fStivTbHUXM8A0KXBYPg2cMsl80EcD7vgwJ1u");
+        put("https://1678-dev-2016.firebaseio.com/","j1r2wo3RUPMeUZosxwvVSFEFVcrXuuMAGjk6uPOc");
+        put("https://1678-dev3-2016.firebaseio.com/", "AEduO6VFlZKD4v10eW81u9j3ZNopr5h2R32SPpeq");
+        put("https://1678-scouting-2016.firebaseio.com/", "qVIARBnAD93iykeZSGG8mWOwGegminXUUGF2q0ee");
+    }};
 
 
     //static means run on class load.  We declare our lists here so we can edit them before 'making them final'
@@ -150,6 +156,10 @@ public class Constants {
                 put("teamNumber", "Team Number");
                 put("matchNumber", "Match Number");
                 put("matches", "Matches");
+                put("calculatedData.sdHighShotsAuto", "SD. High Shot Auto");
+                put("calculatedData.sdHighShotsTele", "SD. High Shot Tele");
+                put("calculatedData.sdLowShotsAuto", "SD. Low Shot Auto");
+                put("calculatedData.sdLowShotsTele", "SD. Low Shot Tele");
             }
         };
         Map<String, String> initialDatasToGraphMap = new HashMap<String, String> () {

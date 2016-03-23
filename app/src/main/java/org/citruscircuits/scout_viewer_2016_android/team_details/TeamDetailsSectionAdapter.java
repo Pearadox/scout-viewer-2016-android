@@ -35,9 +35,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     private String[][] fieldsToDisplay = {
             {"matches"},
             {"calculatedData.firstPickAbility",
-                    "calculatedData.overallSecondPickAbility",
-                    "calculatedData.secondPickAbility",
-                    "calculatedData.actualNumRPs"},
+                    "calculatedData.overallSecondPickAbility"},
             {"calculatedData.numAutoPoints",
                     "calculatedData.highShotAccuracyAuto",
                     "calculatedData.lowShotAccuracyAuto",
@@ -45,12 +43,16 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
                     "calculatedData.avgBallsKnockedOffMidlineAuto",
                     "calculatedData.avgHighShotsAuto",
                     "calculatedData.twoBallAutoAccuracy",
-                    "calculatedData.twoBallAutoAttemptedPercentage"},
+                    "calculatedData.twoBallAutoAttemptedPercentage",
+                    "calculatedData.sdHighShotsAuto",
+                    "calculatedData.sdLowShotsAuto"},
             {"calculatedData.highShotAccuracyTele",
                     "calculatedData.lowShotAccuracyTele",
                     "calculatedData.avgHighShotsTele",
                     "calculatedData.avgLowShotsTele",
-                    "calculatedData.avgGroundIntakes"},
+                    "calculatedData.avgGroundIntakes",
+                    "calculatedData.sdHighShotsTele",
+                    "calculatedData.sdLowShotsTele"},
             {"calculatedData.avgSuccessfulTimesCrossedDefenses.pc",
                     "calculatedData.avgSuccessfulTimesCrossedDefenses.cdf",
                     "calculatedData.avgSuccessfulTimesCrossedDefenses.mt",
@@ -107,8 +109,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     };
 
     private String[] shouldDisplayAsFurtherInformation = {
-            "matches",
-            "calculatedData.secondPickAbility"
+            "matches"
     };
 
     private String[] notClickableFields = {
@@ -134,7 +135,25 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "calculatedData.avgSuccessfulTimesCrossedDefenses.rt",
             "calculatedData.avgSuccessfulTimesCrossedDefenses.lb",
             "matches",
-            "calculatedData.secondPickAbility"
+            "calculatedData.firstPickAbility",
+            "calculatedData.overallSecondPickAbility",
+            "calculatedData.twoBallAutoAccuracy",
+            "calculatedData.twoBallAutoAttemptedPercentage",
+            "calculatedData.sdHighShotsTele",
+            "calculatedData.sdLowShotsTele",
+            "calculatedData.sdHighShotsAuto",
+            "calculatedData.sdLowShotsAuto"
+    };
+
+    private String[] rankInsteadOfGraph = {
+            "calculatedData.firstPickAbility",
+            "calculatedData.overallSecondPickAbility",
+            "calculatedData.twoBallAutoAccuracy",
+            "calculatedData.twoBallAutoAttemptedPercentage",
+            "calculatedData.sdHighShotsTele",
+            "calculatedData.sdLowShotsTele",
+            "calculatedData.sdHighShotsAuto",
+            "calculatedData.sdLowShotsAuto"
     };
 
     Integer teamNumber;
@@ -184,6 +203,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
         return createListOnClick;
     }
 
+
     @Override
     public void handleNonDefaultClick(int section, int row) {
         String key = (String)getRowItem(section, row);
@@ -191,10 +211,10 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             Intent teamMatchesIntent = new Intent(context, MatchesActivity.class);
             teamMatchesIntent.putExtra("teamNumber", teamNumber).putExtra("field", "matches");
             context.startActivity(teamMatchesIntent);
-        } else if (key.equals("calculatedData.secondPickAbility")) {
-            Intent secondPickIntent = new Intent(context, SecondPickAbilityActivity.class);
-            secondPickIntent.putExtra("field", "calculatedData.secondPickAbility").putExtra("teamNumber", teamNumber);
-            context.startActivity(secondPickIntent);
+        } else if (Arrays.asList(rankInsteadOfGraph).contains(key)) {
+            Intent intent = new Intent(context, TeamRankingsActivity.class);
+            intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row));
+            context.startActivity(intent);
         } else {
             Intent rankingsActivityIntent = new Intent(context, DefenseDetailsActivity.class);
             String defenseKey = (String)getRowItem(section, row);
@@ -231,7 +251,6 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
 
     @Override
     public boolean onRowItemLongClick (AdapterView<?> parent, View view, int section, int row, long id) {
-        Log.i("test", "HERE!");
         if (!isUnranked(section, row)) {
             Intent intent = new Intent(context, TeamRankingsActivity.class);
             intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row));

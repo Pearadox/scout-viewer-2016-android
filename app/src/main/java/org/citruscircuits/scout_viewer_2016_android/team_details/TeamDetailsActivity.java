@@ -121,10 +121,10 @@ public class TeamDetailsActivity extends ActionBarActivity {
         teamDetailsTeamNameTextView.setText(Utils.getDisplayValue(team, "name"));
 
         TextView teamDetailsSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsSeeding);
-        teamDetailsSeedingTextView.setText(Utils.roundDataPoint(team.calculatedData.actualSeed, 2, "???"));
+        teamDetailsSeedingTextView.setText((Utils.fieldIsNotNull(team, "calculatedData.actualSeed")) ? Utils.roundDataPoint(team.calculatedData.actualSeed, 2, "???") : "???");
 
         TextView teamDetailsPredictedSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeeding);
-        teamDetailsPredictedSeedingTextView.setText(Utils.roundDataPoint(team.calculatedData.predictedSeed, 2, "???"));
+        teamDetailsPredictedSeedingTextView.setText((Utils.fieldIsNotNull(team, "calculatedData.predictedSeed")) ? Utils.roundDataPoint(team.calculatedData.predictedSeed, 2, "???") : "???");
     }
 
     public void reloadTeamImage() {
@@ -133,14 +133,15 @@ public class TeamDetailsActivity extends ActionBarActivity {
             Bitmap tmpBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
 
             Matrix matrix = new Matrix();
-            matrix.postScale(1.2f, 1.2f);
+            matrix.postScale(3f, 3f);
             bitmap = Bitmap.createBitmap(tmpBitmap, 0, 0,tmpBitmap.getWidth(), tmpBitmap.getHeight(), matrix, true);
 
             ImageView imageView = new ImageView(getApplicationContext());
-            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             imageView.setLayoutParams(imageParams);
             imageView.setImageBitmap(bitmap);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            //imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             headerPhotoLinearLayout.addView(imageView, params);
         } catch (Exception e) {
             Log.e("test", "ERROR: " + e.getMessage());
