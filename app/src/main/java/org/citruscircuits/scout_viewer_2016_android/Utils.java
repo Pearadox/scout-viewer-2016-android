@@ -13,6 +13,7 @@ import org.citruscircuits.scout_viewer_2016_android.firebase_classes.CalculatedM
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.CalculatedTeamData;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.CalculatedTeamInMatchData;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.TeamInMatchData;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -175,6 +177,7 @@ public class Utils {
         }
         return data;
     }
+    //not sketchy at all
     public static Object deserializeJsonObject(Object object, JSONObject data) throws IllegalAccessException {
         for (Field field : object.getClass().getDeclaredFields()) {
             field.setAccessible(true);
@@ -197,5 +200,26 @@ public class Utils {
             }
         }
         return object;
+    }
+    //do I use reflection too much? probably
+    //anyway this method is used to display data points that aren't on firebase.  Basically it calls a getter method for the field on the utils class
+    public static Object getViewerObjectField(Object object, String fieldName) {
+        try {
+            Method method = Utils.class.getMethod("get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1), object.getClass());
+            return method.invoke(new Utils(), object);
+        } catch (Exception e) {
+            Log.e("Method error", "Requested viewer object that doesn't exist!");
+            return null;
+        }
+    }
+    //getter method for viewer data point
+    public static Integer getMatchesUntilNextMatchForTeam(Team team) {
+        Integer currentMatch = getLastMatchPlayed();
+        for (Integer matchNumber : getMatchNumbersForTeamNumber(team.number)) {
+            if (matchNumber > currentMatch) {
+                return matchNumber - currentMatch;
+            }
+        }
+        return null;
     }
 }

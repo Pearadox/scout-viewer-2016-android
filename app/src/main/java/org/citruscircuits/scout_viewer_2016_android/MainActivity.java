@@ -49,6 +49,7 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         if (v.hasVibrator()) {

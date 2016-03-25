@@ -74,12 +74,12 @@ public class Constants {
                 put("calculatedData.avgBallsKnockedOffMidlineAuto", "Avg. Mid. Knocked");
                 put("calculatedData.avgTorque", "Avg. Torque");
                 put("calculatedData.avgSpeed", "Avg. Speed");
-                put("calculatedData.avgEvasion", "Avg. Evasion");
+                put("calculatedData.avgAgility", "Avg. Agility");
                 put("calculatedData.avgDefense", "Avg. Defense");
                 put("calculatedData.avgBallControl", "Avg. Ball Control");
                 put("calculatedData.RScoreTorque", "Torque");
                 put("calculatedData.RScoreSpeed", "Speed");
-                put("calculatedData.RScoreEvasion", "Evasion");
+                put("calculatedData.RScoreAgility", "Agility");
                 put("calculatedData.RScoreDefense", "Defense");
                 put("calculatedData.RScoreBallControl", "Ball Control");
                 put("calculatedData.RScoreDrivingAbility", "Driving Ability");
@@ -108,7 +108,7 @@ public class Constants {
                 put("didGetDisabled", "Disabled?");
                 put("rankTorque", "Torque");
                 put("rankSpeed", "Speed");
-                put("rankEvasion", "Evasion");
+                put("rankAgility", "Agility");
                 put("rankDefense", "Defense");
                 put("rankBallControl", "Ball Control");
                 put("ballsIntakedAuto", "Mid. Balls Int.");
@@ -160,6 +160,9 @@ public class Constants {
                 put("calculatedData.sdHighShotsTele", "SD. High Shot Tele");
                 put("calculatedData.sdLowShotsAuto", "SD. Low Shot Auto");
                 put("calculatedData.sdLowShotsTele", "SD. Low Shot Tele");
+                put("VIEWER.matchesUntilNextMatchForTeam", "Matches Until Next Match");
+                put("calculatedData.slowedPercentage.DEFENSE", "DEFENSE Slowed Percentage");
+                put("calculatedData.beachedPercentage.DEFENSE", "DEFENSE Beached Percentage");
             }
         };
         Map<String, String> initialDatasToGraphMap = new HashMap<String, String> () {
@@ -184,12 +187,12 @@ public class Constants {
                 put("calculatedData.avgBallsKnockedOffMidlineAuto", "numBallsKnockedOffMidlineAuto");
                 put("calculatedData.avgTorque", "rankTorque");
                 put("calculatedData.avgSpeed", "rankSpeed");
-                put("calculatedData.avgEvasion", "rankEvasion");
+                put("calculatedData.avgAgility", "rankAgility");
                 put("calculatedData.avgDefense", "rankDefense");
                 put("calculatedData.avgBallControl", "rankBallControl");
                 put("calculatedData.RScoreTorque", "rankTorque");
                 put("calculatedData.RScoreSpeed", "rankSpeed");
-                put("calculatedData.RScoreEvasion", "rankEvasion");
+                put("calculatedData.RScoreAgility", "rankAgility");
                 put("calculatedData.RScoreDefense", "rankDefense");
                 put("calculatedData.RScoreBallControl", "rankBallControl");
                 put("calculatedData.RScoreDrivingAbility", "calculatedData.drivingAbility");
@@ -212,6 +215,8 @@ public class Constants {
                 put("calculatedData.avgTimeForDefenseCrossTele.DEFENSE", "calculatedData.crossingTimeForDefenseTele.DEFENSE");
                 put("calculatedData.crossingsSuccessRateForDefenseAuto.DEFENSE", "calculatedData.crossingsForDefensePercentageAuto.DEFENSE");
                 put("calculatedData.crossingsSuccessRateForDefenseTele.DEFENSE", "calculatedData.crossingsForDefensePercentageTele.DEFENSE");
+                put("calculatedData.slowedPercentage", "calculatedData.slowedPercentage");
+                put("calculatedData.beachedPercentage", "calculatedData.beachedPercentage");
             }
         };
         //replace all 'DEFENSE's with the correct defenses

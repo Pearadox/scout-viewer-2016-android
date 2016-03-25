@@ -27,7 +27,7 @@ public class CalculatedTeamData extends Object{
 	public Float avgBallsKnockedOffMidlineAuto;
 	public Float avgTorque;
 	public Float avgSpeed;
-	public Float avgEvasion;
+	public Float avgAgility;
 	public Float avgDefense;
 	public Float avgBallControl;
 	public Float disfunctionalPercentage;
@@ -74,7 +74,7 @@ public class CalculatedTeamData extends Object{
 	public Float citrusDPR;
 	public Float RScoreTorque;
 	public Float RScoreSpeed;
-	public Float RScoreEvasion;
+	public Float RScoreAgility;
 	public Float RScoreDefense;
 	public Float RScoreBallControl;
 	public Float RScoreDrivingAbility;
@@ -89,4 +89,10 @@ public class CalculatedTeamData extends Object{
 	public Map<String, Float> crossingsSuccessRateForDefenseTele;
 	public Float avgDrivingAbility;
 	public Float avgLowShotsAttemptedTele;
+	public Map<String, Float> avgNumTimesSlowed;
+	public Map<String, Float> avgNumTimesBeached;
+	public Map<String, Float> avgNumTimesUnaffected;
+	public Map<String, Float> slowedPercentage;
+	public Map<String, Float> unaffectedPercentage;
+	public Map<String, Float> beachedPercentage;
 }

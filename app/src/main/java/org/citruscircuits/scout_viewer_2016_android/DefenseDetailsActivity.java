@@ -21,6 +21,7 @@ import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsSect
 import org.citruscircuits.scout_viewer_2016_android.team_details.TeamRankingsActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,6 +56,13 @@ public class DefenseDetailsActivity extends ActionBarActivity {
             super(context);
             this.teamNumber = teamNumber;
             this.defense = defense;
+            String[] overallFields = fieldsToDisplay[0];
+            if (defense.equals("pc") || defense.equals("cdf")) {
+                String[] newOverallFields = Arrays.copyOf(overallFields, overallFields.length + 2);
+                newOverallFields[overallFields.length] = "calculatedData.slowedPercentage.DEFENSE";
+                newOverallFields[overallFields.length+1] = "calculatedData.beachedPercentage.DEFENSE";
+                fieldsToDisplay[0] = newOverallFields;
+            }
             for (int i = 0; i < fieldsToDisplay.length; i++) {
                 for (int j = 0; j < fieldsToDisplay[i].length; j++) {
                     fieldsToDisplay[i][j] = fieldsToDisplay[i][j].replaceAll("DEFENSE", defense);
@@ -94,7 +102,9 @@ public class DefenseDetailsActivity extends ActionBarActivity {
 
 
         private String[] shouldDisplayAsPercentage = {"calculatedData.crossingsSuccessRateForDefenseAuto.DEFENSE",
-                "calculatedData.crossingsSuccessRateForDefenseTele.DEFENSE"};
+                "calculatedData.crossingsSuccessRateForDefenseTele.DEFENSE",
+                "calculatedData.slowedPercentage.DEFENSE",
+                "calculatedData.beachedPercentage.DEFENSE"};
 
 
         private String[] createListOnClick = {"calculatedData.avgSuccessfulTimesCrossedDefenses.DEFENSE",

@@ -69,7 +69,6 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     @Override
     public String getRankTextOfRowInSection(int section, int row) {
         String fieldName = (String)getRowItem(section, row);
-        Log.i("DFA", fieldName);
         Object object = getObject();
         Integer rank = Utils.getRankOfObject(object, getObjectList(), fieldName, false);
         if (rank == null) {
@@ -87,6 +86,13 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     public String getValueOfRowInSection(int section, int row) {
         String fieldKey = (String)getRowItem(section, row);
         Object object = getObject();
+        if (fieldKey.contains("VIEWER.")) {
+            try {
+                return Utils.getViewerObjectField(object, fieldKey.replaceAll("VIEWER.", "")).toString();
+            } catch (NullPointerException npe) {
+                return "???";
+            }
+        }
         if (new ArrayList<>(Arrays.asList(getPercentageFields())).contains(fieldKey)) {
             return Utils.dataPointToPercentage((Float)Utils.getObjectField(getObject(), fieldKey), 1);
         }

@@ -17,11 +17,15 @@ public class TeamInMatchData extends Object {
 	public Boolean didGetIncapacitated;
 	public Boolean didGetDisabled;
 
+	public Integer numTimesUnaffected;
+	public Integer numTimesSlowed;
+	public Integer numTimesBeached;
+
 	public Integer rankTorque;
 	public Integer rankSpeed;
-	public Integer rankEvasion;
 	public Integer rankDefense;
 	public Integer rankBallControl;
+	public Integer rankAgility;
 
 	//Auto
 	public List<Integer> ballsIntakedAuto;

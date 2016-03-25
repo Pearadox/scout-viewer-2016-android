@@ -61,7 +61,6 @@ public class FirebaseList<T> {
                 String previousValue;
                 try {
                     previousValue = Utils.serializeClass(values.get(index)).toString();
-                    Log.i("Previous Value", previousValue);
                 } catch (JSONException | IllegalAccessException e) {
                     previousValue = null;
                     Log.i("Previous Value", "Failed to serialize");
@@ -79,7 +78,6 @@ public class FirebaseList<T> {
                 String previousValue;
                 try {
                     previousValue = Utils.serializeClass(values.get(index)).toString();
-                    Log.i("Previous Value", previousValue);
                 } catch (JSONException | IllegalAccessException e) {
                     previousValue = null;
                     Log.i("Previous Value", "Failed to serialize");
@@ -100,7 +98,6 @@ public class FirebaseList<T> {
                 String previousValue;
                 try {
                     previousValue = Utils.serializeClass(values.get(index)).toString();
-                    Log.i("Previous Value", previousValue);
                 } catch (JSONException | IllegalAccessException e) {
                     previousValue = null;
                     Log.i("Previous Value", "Failed to serialize");

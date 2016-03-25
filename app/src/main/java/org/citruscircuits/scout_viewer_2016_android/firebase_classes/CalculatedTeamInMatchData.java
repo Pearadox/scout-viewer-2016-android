@@ -18,7 +18,7 @@ public class CalculatedTeamInMatchData extends Object {
     public Float numScaleAndChallengePoints;
     public Float RScoreTorque;
     public Float RScoreSpeed;
-    public Float RScoreEvasion;
+    public Float RScoreAgility;
     public Float RScoreDefense;
     public Float RScoreBallControl;
     public Float RScoreDrivingAbility;
@@ -29,7 +29,7 @@ public class CalculatedTeamInMatchData extends Object {
     public Float overallSecondPickAbility;
     public Float scoreContribution;
     public Integer numBallsIntakedOffMidlineAuto;
-    public Float siegeConsistency;
+    public Boolean siegeConsistency;
     public Integer highShotsAttemptedTele;
     public Integer lowShotsAttemptedTele;
     public Float teleopShotAbility;
@@ -43,4 +43,7 @@ public class CalculatedTeamInMatchData extends Object {
     public Map<String, Integer> crossingTimeForDefenseTele;
     public Float drivingAbility;
     public Float autoAbility;
+    public Float slowedPercentage;
+    public Float beachedPercentage;
+    public Float unaffectedPercentage;
 }

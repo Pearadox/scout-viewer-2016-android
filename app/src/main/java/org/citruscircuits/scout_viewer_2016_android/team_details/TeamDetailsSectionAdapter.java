@@ -33,7 +33,8 @@ import java.util.List;
  */
 public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     private String[][] fieldsToDisplay = {
-            {"matches"},
+            {"matches",
+            "VIEWER.matchesUntilNextMatchForTeam"},
             {"calculatedData.firstPickAbility",
                     "calculatedData.overallSecondPickAbility"},
             {"calculatedData.numAutoPoints",
@@ -68,7 +69,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             {"calculatedData.RScoreDrivingAbility",
                     "calculatedData.RScoreSpeed",
                     "calculatedData.RScoreTorque",
-                    "calculatedData.RScoreEvasion",
+                    "calculatedData.RScoreAgility",
                     "calculatedData.RScoreDefense",
                     "calculatedData.RScoreBallControl"},
             {"pitLowBarCapability",
@@ -102,6 +103,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "pitBumperHeight",
             "pitPotentialShotBlockerCapability",
             "pitOrganization",
+            "VIEWER.matchesUntilNextMatchForTeam"
     };
 
     private String[] shouldDisplayAsLongText = {
@@ -121,7 +123,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "pitBumperHeight",
             "pitPotentialShotBlockerCapability",
             "pitOrganization",
-            "pitNotes"
+            "pitNotes",
+            "VIEWER.matchesUntilNextMatchForTeam"
     };
 
     private String[] createListOnClick = {

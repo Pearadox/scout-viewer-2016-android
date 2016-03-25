@@ -28,7 +28,6 @@ public class TeamInMatchDataGraphFragment extends GraphFragment {
 
         teamNumber = getArguments().getInt("team", 0);
         field = getArguments().getString("field");
-        Log.i("SKDJNFIWNEUINDS", field);
     }
 
     @Override

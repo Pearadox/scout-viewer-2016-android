@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,17 +131,23 @@ public class TeamDetailsActivity extends ActionBarActivity {
     public void reloadTeamImage() {
         try {
             File file = new File(getApplicationContext().getFilesDir(), "image_" + teamNumber.toString());
-            Bitmap tmpBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+            //bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
 
+            //make image fit screen, scale it by screen width divided by image width
+            Bitmap tmpBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            Float scale =  (float) metrics.widthPixels / (float)tmpBitmap.getWidth();
+            Log.i("Team Image Scale", scale.toString());
             Matrix matrix = new Matrix();
-            matrix.postScale(3f, 3f);
+            matrix.postScale(scale, scale);
             bitmap = Bitmap.createBitmap(tmpBitmap, 0, 0,tmpBitmap.getWidth(), tmpBitmap.getHeight(), matrix, true);
 
             ImageView imageView = new ImageView(getApplicationContext());
             LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             imageView.setLayoutParams(imageParams);
             imageView.setImageBitmap(bitmap);
-            //imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             headerPhotoLinearLayout.addView(imageView, params);
         } catch (Exception e) {

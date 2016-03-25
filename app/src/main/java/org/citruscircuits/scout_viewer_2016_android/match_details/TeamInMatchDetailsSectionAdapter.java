@@ -48,7 +48,7 @@ public class TeamInMatchDetailsSectionAdapter extends MultitypeRankingsSectionAd
     }, {
             "rankTorque",
             "rankSpeed",
-            "rankEvasion",
+            "rankAgility",
             "rankDefense",
             "rankBallControl",
             "superNotes"
