@@ -135,6 +135,10 @@ public class TeamDetailsActivity extends ActionBarActivity {
 
             //make image fit screen, scale it by screen width divided by image width
             Bitmap tmpBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+            if (tmpBitmap == null) {
+                Log.e("Picture Error", "Failed to parse bitmap from file");
+                return;
+            }
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
             Float scale =  (float) metrics.widthPixels / (float)tmpBitmap.getWidth();

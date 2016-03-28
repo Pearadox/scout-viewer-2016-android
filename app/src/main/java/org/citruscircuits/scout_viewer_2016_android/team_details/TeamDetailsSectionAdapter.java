@@ -72,14 +72,9 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
                     "calculatedData.RScoreAgility",
                     "calculatedData.RScoreDefense",
                     "calculatedData.RScoreBallControl"},
-            {"pitLowBarCapability",
-                    "pitPotentialLowBarCapability",
-                    "pitPotentialMidlineBallCapability",
-                    "pitDriveBaseWidth",
-                    "pitDriveBaseLength",
-                    "pitBumperHeight",
-                    "pitPotentialShotBlockerCapability",
-                    "pitOrganization",
+            {"pitOrganization",
+                    "pitCheesecakeAbility",
+                    "pitAvailableWeight",
                     "pitNotes"}};
 
     private String[] sectionTitles = {"Matches", "High Level", "Auto", "Teleop", "Defenses", "Siege", "Status", "Super", "Pit"};
@@ -103,7 +98,9 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "pitBumperHeight",
             "pitPotentialShotBlockerCapability",
             "pitOrganization",
-            "VIEWER.matchesUntilNextMatchForTeam"
+            "VIEWER.matchesUntilNextMatchForTeam",
+            "pitCheesecakeAbility",
+            "pitAvailableWeight"
     };
 
     private String[] shouldDisplayAsLongText = {
@@ -124,6 +121,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "pitPotentialShotBlockerCapability",
             "pitOrganization",
             "pitNotes",
+            "pitCheesecakeAbility",
+            "pitAvailableWeight",
             "VIEWER.matchesUntilNextMatchForTeam"
     };
 

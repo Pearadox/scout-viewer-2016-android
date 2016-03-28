@@ -135,6 +135,10 @@ public class PhotoSync extends Service {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 3;
                 Bitmap image = BitmapFactory.decodeStream(in, new Rect(0, 0, 0, 0), options);
+                if (image == null) {
+                    Log.i("Dropbox Error", "Failed to download image from dropbox");
+                    throw new MalformedURLException();
+                }
                 in.close();
                 saveTeamImage(getApplicationContext(), (Integer)params[0], image, selectedImageURLString);
             } catch (MalformedURLException e) {
