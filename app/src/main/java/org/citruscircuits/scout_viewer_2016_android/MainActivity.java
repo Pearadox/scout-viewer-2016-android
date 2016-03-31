@@ -1,5 +1,6 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
+import android.content.Intent;
 import android.os.Vibrator;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -176,9 +177,10 @@ public class MainActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, Settings.class));
             return true;
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
     }

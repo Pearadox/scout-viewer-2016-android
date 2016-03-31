@@ -47,6 +47,8 @@
 
         <activity android:name=".team_details.SecondPickAbilityActivity" >
         </activity>
+        <activity android:name=".Settings" >
+        </activity>
     </application>
 
 </manifest>

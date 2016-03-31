@@ -40,29 +40,7 @@ public class ViewerApplication extends Application {
         Firebase.setAndroidContext(this);
         Firebase.getDefaultConfig().setPersistenceEnabled(true);
 
-        FirebaseLists.matchesList = new FirebaseList<>(Constants.MATCHES_PATH, new FirebaseList.FirebaseUpdatedCallback() {
-            @Override
-            public void execute(String key, String previousValue) {
-                Log.i("MATCHES", key);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.MATCHES_UPDATED_ACTION).putExtra("key", key).putExtra("previousValue", previousValue));
-            }
-        }, Match.class);
-
-        FirebaseLists.teamsList = new FirebaseList<>(Constants.TEAMS_PATH, new FirebaseList.FirebaseUpdatedCallback() {
-            @Override
-            public void execute(String key, String previousValue) {
-                Log.i("TEAMS", key);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.TEAMS_UPDATED_ACTION).putExtra("key", key));
-            }
-        }, Team.class);
-
-        FirebaseLists.teamInMatchDataList = new FirebaseList<>(Constants.TEAM_IN_MATCH_DATAS_PATH, new FirebaseList.FirebaseUpdatedCallback() {
-            @Override
-            public void execute(String key, String previousValue) {
-                Log.i("TEAMS_IN_MATCHES", key);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(Constants.TEAM_IN_MATCH_DATAS_UPDATED_ACTION).putExtra("key", key));
-            }
-        }, TeamInMatchData.class);
+        startListListeners(getApplicationContext());
 
 
 
@@ -71,6 +49,34 @@ public class ViewerApplication extends Application {
         startService(new Intent(this, StarManager.class));
         startService(new Intent(this, PhotoSync.class));
     }
+
+
+    public static void startListListeners(final Context context) {
+        FirebaseLists.matchesList = new FirebaseList<>(Constants.MATCHES_PATH, new FirebaseList.FirebaseUpdatedCallback() {
+            @Override
+            public void execute(String key, String previousValue) {
+                Log.i("MATCHES", key);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.MATCHES_UPDATED_ACTION).putExtra("key", key).putExtra("previousValue", previousValue));
+            }
+        }, Match.class);
+
+        FirebaseLists.teamsList = new FirebaseList<>(Constants.TEAMS_PATH, new FirebaseList.FirebaseUpdatedCallback() {
+            @Override
+            public void execute(String key, String previousValue) {
+                Log.i("TEAMS", key);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.TEAMS_UPDATED_ACTION).putExtra("key", key));
+            }
+        }, Team.class);
+
+        FirebaseLists.teamInMatchDataList = new FirebaseList<>(Constants.TEAM_IN_MATCH_DATAS_PATH, new FirebaseList.FirebaseUpdatedCallback() {
+            @Override
+            public void execute(String key, String previousValue) {
+                Log.i("TEAMS_IN_MATCHES", key);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.TEAM_IN_MATCH_DATAS_UPDATED_ACTION).putExtra("key", key));
+            }
+        }, TeamInMatchData.class);
+    }
+
 
     public void restoreFromSharedPreferences() {
         sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);

@@ -25,7 +25,7 @@ public class FirebaseList<T> {
         setupFirebaseListening(url, firebaseClass, firebaseUpdatedCallback);
     }
 
-    public void setupFirebaseListening(String url, final Class<T> firebaseClass, final FirebaseUpdatedCallback firebaseUpdatedCallback) {
+    public void setupFirebaseListening(final String url, final Class<T> firebaseClass, final FirebaseUpdatedCallback firebaseUpdatedCallback) {
         final Firebase firebase = new Firebase(url);
         firebase.addChildEventListener(new ChildEventListener() {
             @Override
@@ -126,7 +126,7 @@ public class FirebaseList<T> {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.e("Firebase List", "Listen was cancelled, no more updates will occur");
+                Log.e("Firebase List", "Listen was cancelled, no more updates will occur on url: " + url );
             }
         });
     }

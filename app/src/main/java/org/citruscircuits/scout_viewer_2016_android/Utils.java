@@ -1,11 +1,7 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.text.Html;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 
@@ -19,14 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
