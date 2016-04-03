@@ -33,6 +33,7 @@ public class TeamRankingsActivity extends ActionBarActivity {
         Bundle arguments = new Bundle();
         arguments.putString("field", getIntent().getStringExtra("field"));
         arguments.putInt("team", getIntent().getIntExtra("team", 0));
+        arguments.putBoolean("displayValueAsPercentage", getIntent().getBooleanExtra("displayValueAsPercentage", false));
         fragment.setArguments(arguments);
         return fragment;
     }

@@ -70,29 +70,7 @@ public class MainActivity extends ActionBarActivity
 
 
         Log.e("test", "Logcat is up!");
-
-        Firebase firebaseRef = new Firebase(Constants.ROOT_FIREBASE_PATH);
-
-        Firebase.AuthResultHandler authResultHandler = new Firebase.AuthResultHandler() {
-            @Override
-            public void onAuthenticated(AuthData authData) {
-                // Do nothing if authenticated
-                Context context = getApplicationContext();
-                CharSequence text = "Authenticated!";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
-
-            @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
-                Log.e("FireBase error", "Failed to auth");
-            }
-        };
-
-        firebaseRef.authWithCustomToken(Constants.FIREBASE_KEYS.get(Constants.ROOT_FIREBASE_PATH), authResultHandler);
-//        firebaseRef.authWithPassword("1678programming@gmail.com", "Squeezecrush1", authResultHandler);
+        ViewerApplication.setupFirebaseAuth(this);
     }
 
     @Override

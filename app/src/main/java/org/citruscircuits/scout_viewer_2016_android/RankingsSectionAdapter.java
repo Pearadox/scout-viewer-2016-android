@@ -34,11 +34,13 @@ public abstract class RankingsSectionAdapter extends SectionAdapter {
                 if (rowView == null) {
                     LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     rowView = inflater.inflate(R.layout.unranked_cell, parent, false);
+                    rowView.setId(View.generateViewId());
                 }
             } else {
                 if (rowView == null) {
                     LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     rowView = inflater.inflate(R.layout.ranking_cell, parent, false);
+                    rowView.setId(View.generateViewId());
                 }
 
                 TextView rankingTextView = (TextView) rowView.findViewById(R.id.rankingTextView);

@@ -6,8 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.instabug.library.IBGInvocationEvent;
+import com.instabug.library.Instabug;
 
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Competition;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
@@ -35,6 +40,12 @@ public class ViewerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
+        new Instabug.Builder(this, "a81e83742330fc178964d1eb3554463f")
+                .setInvocationEvent(IBGInvocationEvent.IBGInvocationEventShake)
+                .build();
+
 
         appContext = getApplicationContext();
         Firebase.setAndroidContext(this);
@@ -75,6 +86,30 @@ public class ViewerApplication extends Application {
                 LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.TEAM_IN_MATCH_DATAS_UPDATED_ACTION).putExtra("key", key));
             }
         }, TeamInMatchData.class);
+    }
+
+    public static void setupFirebaseAuth(final Context context) {
+        Firebase firebaseRef = new Firebase(Constants.ROOT_FIREBASE_PATH);
+
+        Firebase.AuthResultHandler authResultHandler = new Firebase.AuthResultHandler() {
+            @Override
+            public void onAuthenticated(AuthData authData) {
+                // Do nothing if authenticated
+                CharSequence text = "Authenticated!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+
+            @Override
+            public void onAuthenticationError(FirebaseError firebaseError) {
+                Log.e("FireBase error", "Failed to auth");
+            }
+        };
+
+        firebaseRef.authWithCustomToken(Constants.FIREBASE_KEYS.get(Constants.ROOT_FIREBASE_PATH), authResultHandler);
+//        firebaseRef.authWithPassword("1678programming@gmail.com", "Squeezecrush1", authResultHandler);
     }
 
 

@@ -48,4 +48,5 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.5.0'
     compile project(':HeaderListView')
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.2'
+    compile 'com.instabug.library:instabug:2.3.1'
 }

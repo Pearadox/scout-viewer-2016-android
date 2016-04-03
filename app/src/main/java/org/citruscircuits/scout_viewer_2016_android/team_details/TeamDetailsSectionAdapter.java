@@ -255,7 +255,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     public boolean onRowItemLongClick (AdapterView<?> parent, View view, int section, int row, long id) {
         if (!isUnranked(section, row)) {
             Intent intent = new Intent(context, TeamRankingsActivity.class);
-            intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row));
+            intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row))
+                    .putExtra("displayValueAsPercentage", Arrays.asList(getPercentageFields()).contains(getRowItem(section,row)));
             context.startActivity(intent);
         }
         return true;

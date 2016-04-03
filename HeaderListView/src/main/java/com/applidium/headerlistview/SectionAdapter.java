@@ -68,7 +68,6 @@ public abstract class SectionAdapter extends BaseAdapter implements OnItemClickL
 
     @Override
     public boolean onItemLongClick (AdapterView<?> parent, View view, int position, long id) {
-        Log.i("JSIDFES", "IUNSFE");
         return onRowItemLongClick(parent, view, getSection(position), getRowInSection(position), id);
     }
 

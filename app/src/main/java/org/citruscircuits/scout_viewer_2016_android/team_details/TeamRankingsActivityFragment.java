@@ -15,18 +15,25 @@ public class TeamRankingsActivityFragment extends TeamRankingsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         field = getArguments().getString("field");
+        Boolean displayValueAsPercentage = getArguments().getBoolean("displayValueAsPercentage");
+
 
         getActivity().setTitle(Constants.KEYS_TO_TITLES.get(field));
-        setListAdapter(new TeamRankingsActivityAdapter(getActivity().getApplicationContext(), field));
+        setListAdapter(new TeamRankingsActivityAdapter(getActivity().getApplicationContext(), field, displayValueAsPercentage));
     }
 
     /**
      * Created by citruscircuits on 1/27/16.
      */
     public static class TeamRankingsActivityAdapter extends TeamRankingsAdapter {
-
-        public TeamRankingsActivityAdapter(Context context, String field) {
+        private Boolean displayValueAsPercentage;
+        public TeamRankingsActivityAdapter(Context context, String field, Boolean displayValueAsPercentage) {
             super(context, field, field, false);
+            this.displayValueAsPercentage = displayValueAsPercentage;
+        }
+        @Override
+        public Boolean displayValueAsPercentage() {
+            return displayValueAsPercentage;
         }
     }
 }

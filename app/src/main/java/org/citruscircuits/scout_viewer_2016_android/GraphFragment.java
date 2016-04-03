@@ -78,6 +78,7 @@ public abstract class GraphFragment extends Fragment {
         dataSets.add(dataSet);
 
         BarData data = new BarData(getLabels(), dataSets);
+        data.setValueTextSize(15f);
         barChart.setData(data);
         barChart.invalidate();
     }

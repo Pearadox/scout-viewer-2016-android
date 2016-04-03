@@ -84,7 +84,11 @@ public abstract class RankingsAdapter<T> extends SearchableFirebaseListAdapter<T
         }
 
         TextView valueTextView = (TextView)rowView.findViewById(R.id.valueTextView);
-        valueTextView.setText(Utils.roundDataPoint(getRankCellDataPoint(value), 2, "?"));
+        if (!displayValueAsPercentage()) {
+            valueTextView.setText(Utils.roundDataPoint(getRankCellDataPoint(value), 2, "???"));
+        } else {
+            valueTextView.setText(Utils.dataPointToPercentage((Float)getRankCellDataPoint(value), 1));
+        }
 
         rowView.setOnLongClickListener(new StarLongClickListener());
         rowView.setOnClickListener(new RankClickListener());
@@ -101,6 +105,7 @@ public abstract class RankingsAdapter<T> extends SearchableFirebaseListAdapter<T
     public abstract void makeImportant(String valueTitle);
     public abstract void makeNoLongerImportant(String valueTitle);
     public abstract void respondToClick(String valueTitle);
+    public Boolean displayValueAsPercentage() {return false;}
 
     @Override
     public boolean isEnabled(int position) {

@@ -26,6 +26,7 @@ import java.util.List;
 public class MatchDetailsTeamCellAdapter extends BaseAdapter {
     private String[] fields = {"calculatedData.actualSeed", "calculatedData.firstPickAbility", "calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele", "calculatedData.RScoreDrivingAbility"};
     private String[] fieldsToDisplayAsPercentages = {"calculatedData.highShotAccuracyTele", "calculatedData.lowShotAccuracyTele"};
+    private String[] reverseRankFields = {"calculatedData.actualSeed"};
     private Integer teamNumber;
 
     private Context context;
@@ -89,8 +90,8 @@ public class MatchDetailsTeamCellAdapter extends BaseAdapter {
         Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
         List<Object> teams = new ArrayList<>();
         teams.addAll(FirebaseLists.teamsList.getValues());
-        Integer rank = Utils.getRankOfObject(team, teams, fieldName);
-        return (rank != null) ? rank.toString() : "?";
+        Integer rank = Utils.getRankOfObject(team, teams, fieldName, Arrays.asList(reverseRankFields).contains(fieldName));
+        return (rank != null) ? (++rank).toString() : "?";
     };
 
     @Override

@@ -20,14 +20,16 @@ import java.util.List;
 public class FirebaseList<T> {
     private List<String> keys = new ArrayList<>();
     private List<T> values = new ArrayList<>();
+    private ChildEventListener listener;
+    Firebase firebase;
 
     public FirebaseList(String url, FirebaseUpdatedCallback firebaseUpdatedCallback, Class<T> firebaseClass) {
         setupFirebaseListening(url, firebaseClass, firebaseUpdatedCallback);
     }
 
     public void setupFirebaseListening(final String url, final Class<T> firebaseClass, final FirebaseUpdatedCallback firebaseUpdatedCallback) {
-        final Firebase firebase = new Firebase(url);
-        firebase.addChildEventListener(new ChildEventListener() {
+        firebase = new Firebase(url);
+        listener = firebase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 T model = dataSnapshot.getValue(firebaseClass);
@@ -146,4 +148,6 @@ public class FirebaseList<T> {
     public List<T> getValues() {
         return values;
     }
+
+    public void cancelListen() {firebase.removeEventListener(listener);}
 }
