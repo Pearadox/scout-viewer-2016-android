@@ -29,6 +29,7 @@ import org.citruscircuits.scout_viewer_2016_android.FirebaseList;
 import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.Utils;
+import org.citruscircuits.scout_viewer_2016_android.ViewerActivity;
 import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
 import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
@@ -37,7 +38,7 @@ import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsActi
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatchDetailsActivity extends ActionBarActivity {
+public class MatchDetailsActivity extends ViewerActivity {
     private Integer matchNumber;
     private BroadcastReceiver matchesUpdatedReceiver;
     private BroadcastReceiver starReceiver;

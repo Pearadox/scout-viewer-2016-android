@@ -31,6 +31,7 @@ import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.FirebaseLists;
 import org.citruscircuits.scout_viewer_2016_android.R;
 import org.citruscircuits.scout_viewer_2016_android.Utils;
+import org.citruscircuits.scout_viewer_2016_android.ViewerActivity;
 import org.citruscircuits.scout_viewer_2016_android.ViewerApplication;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
@@ -44,7 +45,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class TeamDetailsActivity extends ActionBarActivity {
+public class TeamDetailsActivity extends ViewerActivity {
 
     LinearLayout headerPhotoLinearLayout;
     Integer teamNumber;

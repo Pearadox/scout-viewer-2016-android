@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.applidium.headerlistview.HeaderListView;
 
 import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.ViewerActivity;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
 import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsSectionAdapter;
 
@@ -33,7 +34,7 @@ import java.net.URL;
  * Created by colinunger on 1/31/16.
  */
 
-public class TeamInMatchDetailsActivity extends ActionBarActivity {
+public class TeamInMatchDetailsActivity extends ViewerActivity {
 
     Integer teamNumber;
     Integer matchNumber;

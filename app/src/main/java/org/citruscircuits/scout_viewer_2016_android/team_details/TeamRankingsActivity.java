@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.ViewerActivity;
 
-public class TeamRankingsActivity extends ActionBarActivity {
+public class TeamRankingsActivity extends ViewerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

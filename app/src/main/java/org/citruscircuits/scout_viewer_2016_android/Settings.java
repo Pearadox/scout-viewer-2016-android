@@ -3,6 +3,7 @@ package org.citruscircuits.scout_viewer_2016_android;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import org.citruscircuits.scout_viewer_2016_android.services.PhotoSync;
+import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Settings extends ActionBarActivity {
+public class Settings extends ViewerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,11 @@ public class Settings extends ActionBarActivity {
                                     //start new lists
                                     ViewerApplication.startListListeners(context);
                                     ViewerApplication.setupFirebaseAuth(context);
+                                    //restart star manager if needed
+                                    stopService(new Intent(context, StarManager.class));
+                                    if (Constants.ROOT_FIREBASE_PATH.equals(Constants.ORIGINAL_ROOT_FIREBASE_PATH)) {
+                                        startService(new Intent(context, StarManager.class));
+                                    }
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

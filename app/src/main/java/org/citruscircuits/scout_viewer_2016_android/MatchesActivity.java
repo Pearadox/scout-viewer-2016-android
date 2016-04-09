@@ -10,7 +10,7 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.TeamSchedul
 /**
  * Created by colinunger on 2/14/16.
  */
-public class MatchesActivity extends ActionBarActivity {
+public class MatchesActivity extends ViewerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

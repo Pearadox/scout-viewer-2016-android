@@ -7,11 +7,12 @@ import android.os.Bundle;
 
 import org.citruscircuits.scout_viewer_2016_android.Constants;
 import org.citruscircuits.scout_viewer_2016_android.R;
+import org.citruscircuits.scout_viewer_2016_android.ViewerActivity;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.TeamScheduleFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.second_pick.SecondPickAbilityFragment;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.second_pick.SecondPickAbilityListFragment;
 
-public class SecondPickAbilityActivity extends ActionBarActivity {
+public class SecondPickAbilityActivity extends ViewerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

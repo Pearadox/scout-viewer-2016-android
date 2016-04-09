@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by colinunger on 2/13/16.
  */
-public class DefenseDetailsActivity extends ActionBarActivity {
+public class DefenseDetailsActivity extends ViewerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

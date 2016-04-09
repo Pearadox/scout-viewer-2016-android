@@ -12,11 +12,12 @@ import java.util.Map;
  * Created by citruscircuits on 1/16/16.
  */
 public class Constants {
-    public static String ROOT_FIREBASE_PATH = "https://1678-dev3-2016.firebaseio.com/";
+    public static final String ORIGINAL_ROOT_FIREBASE_PATH = "https://1678-scouting-2016.firebaseio.com/";
+    public static String ROOT_FIREBASE_PATH = ORIGINAL_ROOT_FIREBASE_PATH;
     public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Overall Second Pick", "Super Data"};
-    public static String MATCHES_PATH = ROOT_FIREBASE_PATH + "Matches";
-    public static String TEAMS_PATH = ROOT_FIREBASE_PATH + "Teams";
-    public static String TEAM_IN_MATCH_DATAS_PATH = ROOT_FIREBASE_PATH + "TeamInMatchDatas";
+    public static String MATCHES_PATH = ORIGINAL_ROOT_FIREBASE_PATH + "Matches";
+    public static String TEAMS_PATH = ORIGINAL_ROOT_FIREBASE_PATH + "Teams";
+    public static String TEAM_IN_MATCH_DATAS_PATH = ORIGINAL_ROOT_FIREBASE_PATH + "TeamInMatchDatas";
     public static final String TEAMS_UPDATED_ACTION = "org.citruscircuits.scout_viewer_2016_android.teamsupdated";
     public static final String MATCHES_UPDATED_ACTION = "org.citruscircuits.scout_viewer_2016_android.matchesupdated";
     public static final String TEAM_IN_MATCH_DATAS_UPDATED_ACTION = "org.citruscircuits.scout_viewer_2016_android.teaminmatchdatasupdated";

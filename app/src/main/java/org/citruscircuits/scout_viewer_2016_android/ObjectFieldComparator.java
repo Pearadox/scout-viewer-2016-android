@@ -21,12 +21,23 @@ public class ObjectFieldComparator<T extends Comparable> implements Comparator {
 
     @Override
     public int compare(Object o1, Object o2) {
-        try {
-            T value1 = (T) Utils.getObjectField(o1, field);
-            T value2 = (T) Utils.getObjectField(o2, field);
+        Integer reversed = (isNotReversed) ? 1 : -1;
+        T value1 = (T) Utils.getObjectField(o1, field);
+        T value2 = (T) Utils.getObjectField(o2, field);
+        if (value1 == null && value2 != null) {
+            return 1;
+        } else if (value1 != null && value2 == null) {
+            return -1;
+        } else if (value1 == null) {
+            return 0;
+        } else {
+            return reversed * value1.compareTo(value2);
+        }
+        /*try {
+
             return ((isNotReversed) ? 1 : -1) * value1.compareTo(value2);
         } catch (NullPointerException npe) {
             return 0;
-        }
+        }*/
     }
 }

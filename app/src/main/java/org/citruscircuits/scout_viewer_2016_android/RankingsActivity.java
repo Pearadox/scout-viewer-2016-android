@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-public class RankingsActivity extends ActionBarActivity {
+public class RankingsActivity extends ViewerActivity {
     private boolean isShowingGraph;
 
     private Integer teamNumber;
