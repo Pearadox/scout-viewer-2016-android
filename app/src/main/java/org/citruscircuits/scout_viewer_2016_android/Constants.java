@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by citruscircuits on 1/16/16.
  */
 public class Constants {
-    public static final String ORIGINAL_ROOT_FIREBASE_PATH = "https://1678-scouting-2016.firebaseio.com/";
+    public static final String ORIGINAL_ROOT_FIREBASE_PATH = "https://1678-strat-dev-2016.firebaseio.com/";
     public static String ROOT_FIREBASE_PATH = ORIGINAL_ROOT_FIREBASE_PATH;
     public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Overall Second Pick", "Super Data"};
     public static String MATCHES_PATH = ORIGINAL_ROOT_FIREBASE_PATH + "Matches";
@@ -24,7 +24,7 @@ public class Constants {
     public static final String NEW_TEAM_PHOTO_ACTION = "org.citruscircuits.scout_viewer_2016_android.newteamphoto";
     public static final String NEW_MATCH_PLAYED_ACTION = "org.citruscircuits.scout_viewer_2016_android.newmatchplayed";
     public static final String STARS_MODIFIED_ACTION = "org.citruscircuits.scout_viewer_2016_android.starsmodified";
-    public static final String[] MATCH_SCOPES = {"Match", "Team"};
+    public static final String[] MATCH_SCOPES = {"Team", "Match"};
     public static final String[] TEAM_SCOPES = {"Team"};
     public static final int STAR_COLOR = Color.argb(255, 255, 255, 204);
     public static final int TEAM_NUMBER = 1678;
@@ -35,12 +35,13 @@ public class Constants {
         put("https://1678-dev-2016.firebaseio.com/","j1r2wo3RUPMeUZosxwvVSFEFVcrXuuMAGjk6uPOc");
         put("https://1678-dev3-2016.firebaseio.com/", "AEduO6VFlZKD4v10eW81u9j3ZNopr5h2R32SPpeq");
         put("https://1678-scouting-2016.firebaseio.com/", "qVIARBnAD93iykeZSGG8mWOwGegminXUUGF2q0ee");
+        put("https://1678-strat-dev-2016.firebaseio.com/", "IMXOxXD3FjOOUoMGJlkAK5pAtn89mGIWAEnaKJhP");
     }};
+    public static final List<String> DEFENSE_ENDINGS = new ArrayList<>(Arrays.asList("pc", "cdf", "mt", "rp", "db", "sp", "rw", "rt", "lb"));
 
 
     //static means run on class load.  We declare our lists here so we can edit them before 'making them final'
     static {
-        List<String> defenseEndings = new ArrayList<>(Arrays.asList("pc", "cdf", "mt", "rp", "db", "sp", "rw", "rt", "lb"));
         Map<String, String> initialKeysToTitlesMap = new HashMap<String, String> () {
             {
                 put("calculatedData.avgHighShotsAuto", "Avg. Auto High Shots");
@@ -162,6 +163,7 @@ public class Constants {
                 put("calculatedData.sdLowShotsAuto", "SD. Low Shot Auto");
                 put("calculatedData.sdLowShotsTele", "SD. Low Shot Tele");
                 put("VIEWER.matchesUntilNextMatchForTeam", "Matches Until Next Match");
+                put("VIEWER.defenseCrossingTeamDetailsTitle.DEFENSE", "DEFENSE");
                 put("calculatedData.slowedPercentage.DEFENSE", "DEFENSE Slowed Percentage");
                 put("calculatedData.beachedPercentage.DEFENSE", "DEFENSE Beached Percentage");
                 put("pitCheesecakeAbility", "Cheesecake Ease");
@@ -227,7 +229,7 @@ public class Constants {
         for (Map.Entry<String, String> entry : initialKeysToTitlesMap.entrySet()) {
             if (entry.getKey().endsWith(".DEFENSE")) {
                 modifiableKeysToTitlesMap.remove(entry.getKey());
-                for (String defense : defenseEndings) {
+                for (String defense : DEFENSE_ENDINGS) {
                     modifiableKeysToTitlesMap.put(entry.getKey().replaceAll("DEFENSE", defense), entry.getValue().replaceAll("DEFENSE", defense.toUpperCase()));
                 }
             }
@@ -237,7 +239,7 @@ public class Constants {
         for (Map.Entry<String, String> entry : initialDatasToGraphMap.entrySet()) {
             if (entry.getKey().endsWith(".DEFENSE")) {
                 modifiableDatasToGraphMap.remove(entry.getKey());
-                for (String defense : defenseEndings) {
+                for (String defense : DEFENSE_ENDINGS) {
                     modifiableDatasToGraphMap.put(entry.getKey().replaceAll("DEFENSE", defense), entry.getValue().replaceAll("DEFENSE", defense));
                 }
             }

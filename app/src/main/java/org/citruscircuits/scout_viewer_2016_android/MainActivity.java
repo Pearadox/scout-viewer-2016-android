@@ -70,7 +70,6 @@ public class MainActivity extends ActionBarActivity
 
 
         Log.e("test", "Logcat is up!");
-        ViewerApplication.setupFirebaseAuth(this);
     }
 
     @Override

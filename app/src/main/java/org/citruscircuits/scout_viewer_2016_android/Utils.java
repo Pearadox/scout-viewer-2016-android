@@ -1,5 +1,6 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
@@ -193,23 +194,22 @@ public class Utils {
     }
     //do I use reflection too much? probably
     //anyway this method is used to display data points that aren't on firebase.  Basically it calls a getter method for the field on the utils class
-    public static Object getViewerObjectField(Object object, String fieldName) {
+    public static Object getViewerObjectField(Object object, String fieldName, Intent args) {
         try {
-            Method method = Utils.class.getMethod("get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1), object.getClass());
-            return method.invoke(new Utils(), object);
+            Method method = ViewerDataPoints.class.getMethod("get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1), object.getClass(), Intent.class);
+            return method.invoke(new ViewerDataPoints(), object, args);
         } catch (Exception e) {
             Log.e("Method error", "Requested viewer object that doesn't exist!");
             return null;
         }
     }
-    //getter method for viewer data point
-    public static Integer getMatchesUntilNextMatchForTeam(Team team) {
-        Integer currentMatch = getLastMatchPlayed();
-        for (Integer matchNumber : getMatchNumbersForTeamNumber(team.number)) {
-            if (matchNumber > currentMatch) {
-                return matchNumber - currentMatch;
-            }
+    public static String getViewerObjectFieldRank(String fieldName, Intent args) {
+        try {
+            Method method = ViewerDataPoints.class.getMethod("get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1) + "RankingsValue", Intent.class);
+            return (String)method.invoke(new ViewerDataPoints(), args);
+        } catch (Exception e) {
+            Log.e("Method error", "Requested viewer object that doesn't exist!");
+            return null;
         }
-        return null;
     }
 }

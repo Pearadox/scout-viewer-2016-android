@@ -95,4 +95,5 @@ public class CalculatedTeamData extends Object{
 	public Map<String, Float> slowedPercentage;
 	public Map<String, Float> unaffectedPercentage;
 	public Map<String, Float> beachedPercentage;
+	public String defensesCrossableAuto;
 }

@@ -51,8 +51,10 @@ public class ViewerApplication extends Application {
         Firebase.setAndroidContext(this);
         Firebase.getDefaultConfig().setPersistenceEnabled(true);
 
-        startListListeners(getApplicationContext());
 
+
+        startListListeners(getApplicationContext());
+        setupFirebaseAuth(this);
 
 
 

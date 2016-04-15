@@ -70,6 +70,16 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
     public String getRankTextOfRowInSection(int section, int row) {
         String fieldName = (String)getRowItem(section, row);
         Object object = getObject();
+        if (fieldName.startsWith("VIEWER.")) {
+            List<String> datas = Arrays.asList(fieldName.replaceFirst("VIEWER.", "").split("\\."));
+            String ending = datas.get(datas.size() - 1);
+            Intent intent = new Intent();
+            if (Constants.DEFENSE_ENDINGS.contains(ending)) {
+                intent.putExtra("defense", ending);
+                fieldName = fieldName.replaceAll("." + ending, "");
+            }
+            fieldName = Utils.getViewerObjectFieldRank(fieldName.replaceFirst("VIEWER.", ""), intent);
+        }
         Integer rank = Utils.getRankOfObject(object, getObjectList(), fieldName, false);
         if (rank == null) {
             return "?";
@@ -87,8 +97,17 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
         String fieldKey = (String)getRowItem(section, row);
         Object object = getObject();
         if (fieldKey.contains("VIEWER.")) {
+            List<String> datas = Arrays.asList(fieldKey.replaceFirst("VIEWER.", "").split("\\."));
+            Intent intent = new Intent();
+            if (datas.size() > 0) {
+                String ending = datas.get(datas.size() - 1);
+                if (Constants.DEFENSE_ENDINGS.contains(ending)) {
+                    intent.putExtra("defense", ending);
+                    fieldKey = fieldKey.replaceAll("." + ending, "");
+                }
+            }
             try {
-                return Utils.getViewerObjectField(object, fieldKey.replaceAll("VIEWER.", "")).toString();
+                return Utils.getViewerObjectField(object, fieldKey.replaceAll("VIEWER.", ""), intent).toString();
             } catch (NullPointerException npe) {
                 return "???";
             }
