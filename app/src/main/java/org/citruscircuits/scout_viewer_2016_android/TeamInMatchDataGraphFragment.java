@@ -21,6 +21,7 @@ import java.util.List;
 public class TeamInMatchDataGraphFragment extends GraphFragment {
     Integer teamNumber;
     String field;
+    Boolean displayAsPercentage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class TeamInMatchDataGraphFragment extends GraphFragment {
 
         teamNumber = getArguments().getInt("team", 0);
         field = getArguments().getString("field");
+        displayAsPercentage = getArguments().getBoolean("displayAsPercentage");
     }
 
     @Override
@@ -57,6 +59,10 @@ public class TeamInMatchDataGraphFragment extends GraphFragment {
             } else if (value instanceof Boolean) {
                 dataValues.add((Boolean)value ? 1f : 0f);
             } else {
+                if (displayAsPercentage && value != null) {
+                    dataValues.add((Float) value * 100);
+                    continue;
+                }
                 dataValues.add((Float) value);
             }
         }

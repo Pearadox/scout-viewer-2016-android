@@ -49,6 +49,10 @@
         </activity>
         <activity android:name=".Settings" >
         </activity>
+        <activity android:name=".team_details.AutoDetailsFurtherInfo" >
+        </activity>
+        <activity android:name=".team_details.TeleDetailsFurtherInfo" >
+        </activity>
     </application>
 
 </manifest>

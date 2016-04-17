@@ -105,7 +105,7 @@ public class Constants {
                 put("calculatedData.avgSuccessfulTimesCrossedDefensesTele.DEFENSE", "Avg. Tele DEFENSE Cross");
                 put("calculatedData.avgFailedTimesCrossedDefensesTele.DEFENSE", "Avg. Tele DEFENSE Fails");
                 put("calculatedData.twoBallAutoAccuracy", "Two Ball Auto Accuracy");
-                put("calculatedData.twoBallAutoAttemptedPercentage", "Two Ball Auto Attempted");
+                put("calculatedData.twoBallAutoTriedPercentage", "Two Ball Auto Attempted");
                 put("didGetIncapacitated", "Incapacitated?");
                 put("didGetDisabled", "Disabled?");
                 put("rankTorque", "Torque");
@@ -168,6 +168,9 @@ public class Constants {
                 put("calculatedData.beachedPercentage.DEFENSE", "DEFENSE Beached Percentage");
                 put("pitCheesecakeAbility", "Cheesecake Ease");
                 put("pitAvailableWeight", "Avail. Weight");
+                put("calculatedData.autoAbility", "Auto Ability");
+                put("autoDetails", "More Auto");
+                put("teleDetails", "More Teleop");
             }
         };
         Map<String, String> initialDatasToGraphMap = new HashMap<String, String> () {
@@ -222,6 +225,7 @@ public class Constants {
                 put("calculatedData.crossingsSuccessRateForDefenseTele.DEFENSE", "calculatedData.crossingsForDefensePercentageTele.DEFENSE");
                 put("calculatedData.slowedPercentage", "calculatedData.slowedPercentage");
                 put("calculatedData.beachedPercentage", "calculatedData.beachedPercentage");
+                put("calculatedData.autoAbility", "calculatedData.autoAbility");
             }
         };
         //replace all 'DEFENSE's with the correct defenses

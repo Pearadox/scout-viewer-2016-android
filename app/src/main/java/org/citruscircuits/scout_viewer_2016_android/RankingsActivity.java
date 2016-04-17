@@ -22,6 +22,7 @@ public class RankingsActivity extends ViewerActivity {
         Bundle argumentsBundle = new Bundle();
         argumentsBundle.putString("field", Constants.DATA_TO_GRAPH.get(getIntent().getStringExtra("field")));
         argumentsBundle.putInt("team", getIntent().getIntExtra("team", 0));
+        argumentsBundle.putBoolean("displayAsPercentage", getIntent().getBooleanExtra("displayAsPercentage", false));
         fragment.setArguments(argumentsBundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

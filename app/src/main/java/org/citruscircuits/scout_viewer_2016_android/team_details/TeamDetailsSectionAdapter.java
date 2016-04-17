@@ -39,21 +39,14 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
                     "calculatedData.overallSecondPickAbility"},
             {"calculatedData.numAutoPoints",
                     "calculatedData.highShotAccuracyAuto",
-                    "calculatedData.lowShotAccuracyAuto",
-                    "calculatedData.avgMidlineBallsIntakedAuto",
-                    "calculatedData.avgBallsKnockedOffMidlineAuto",
                     "calculatedData.avgHighShotsAuto",
                     "calculatedData.twoBallAutoAccuracy",
-                    "calculatedData.twoBallAutoAttemptedPercentage",
-                    "calculatedData.sdHighShotsAuto",
-                    "calculatedData.sdLowShotsAuto"},
+                    "autoDetails"},
             {"calculatedData.highShotAccuracyTele",
                     "calculatedData.lowShotAccuracyTele",
                     "calculatedData.avgHighShotsTele",
                     "calculatedData.avgLowShotsTele",
-                    "calculatedData.avgGroundIntakes",
-                    "calculatedData.sdHighShotsTele",
-                    "calculatedData.sdLowShotsTele"},
+                    "teleDetails"},
             {"VIEWER.defenseCrossingTeamDetailsTitle.pc",
                     "VIEWER.defenseCrossingTeamDetailsTitle.cdf",
                     "VIEWER.defenseCrossingTeamDetailsTitle.mt",
@@ -86,10 +79,15 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "calculatedData.lowShotAccuracyAuto",
             "calculatedData.siegeConsistency",
             "calculatedData.disabledPercentage",
-            "calculatedData.incapacitatedPercentage"
+            "calculatedData.incapacitatedPercentage",
+            "calculatedData.twoBallAutoAccuracy",
+            "calculatedData.twoBallAutoTriedPercentage"
     };
 
     private String[] displayAsUnranked = {
+            "matches",
+            "autoDetails",
+            "teleDetails",
             "pitLowBarCapability",
             "pitPotentialLowBarCapability",
             "pitPotentialMidlineBallCapability",
@@ -108,7 +106,9 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     };
 
     private String[] shouldDisplayAsFurtherInformation = {
-            "matches"
+            "autoDetails",
+            "matches",
+            "teleDetails"
     };
 
     private String[] notClickableFields = {
@@ -137,10 +137,12 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "VIEWER.defenseCrossingTeamDetailsTitle.rt",
             "VIEWER.defenseCrossingTeamDetailsTitle.lb",
             "matches",
+            "autoDetails",
+            "teleDetails",
             "calculatedData.firstPickAbility",
             "calculatedData.overallSecondPickAbility",
             "calculatedData.twoBallAutoAccuracy",
-            "calculatedData.twoBallAutoAttemptedPercentage",
+            "calculatedData.twoBallAutoTriedPercentage",
             "calculatedData.sdHighShotsTele",
             "calculatedData.sdLowShotsTele",
             "calculatedData.sdHighShotsAuto",
@@ -151,7 +153,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "calculatedData.firstPickAbility",
             "calculatedData.overallSecondPickAbility",
             "calculatedData.twoBallAutoAccuracy",
-            "calculatedData.twoBallAutoAttemptedPercentage",
+            "calculatedData.twoBallAutoTriedPercentage",
             "calculatedData.sdHighShotsTele",
             "calculatedData.sdLowShotsTele",
             "calculatedData.sdHighShotsAuto",
@@ -213,9 +215,18 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             Intent teamMatchesIntent = new Intent(context, MatchesActivity.class);
             teamMatchesIntent.putExtra("teamNumber", teamNumber).putExtra("field", "matches");
             context.startActivity(teamMatchesIntent);
+        } else if (key.equals("autoDetails")) {
+            Intent intent = new Intent(context, AutoDetailsFurtherInfo.class);
+            intent.putExtra("teamNumber", teamNumber);
+            context.startActivity(intent);
+        } else if (key.equals("teleDetails")) {
+            Intent intent = new Intent(context, TeleDetailsFurtherInfo.class);
+            intent.putExtra("teamNumber", teamNumber);
+            context.startActivity(intent);
         } else if (Arrays.asList(rankInsteadOfGraph).contains(key)) {
             Intent intent = new Intent(context, TeamRankingsActivity.class);
-            intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row));
+            intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row))
+                .putExtra("displayValueAsPercentage", Arrays.asList(shouldDisplayAsPercentage).contains(key));
             context.startActivity(intent);
         } else {
             Intent rankingsActivityIntent = new Intent(context, DefenseDetailsActivity.class);
@@ -254,8 +265,19 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     @Override
     public boolean onRowItemLongClick (AdapterView<?> parent, View view, int section, int row, long id) {
         if (!isUnranked(section, row)) {
+            String fieldName = (String)getRowItem(section,row);
             Intent intent = new Intent(context, TeamRankingsActivity.class);
-            intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row))
+            if (fieldName.startsWith("VIEWER.")) {
+                List<String> datas = Arrays.asList(fieldName.replaceFirst("VIEWER.", "").split("\\."));
+                String ending = datas.get(datas.size() - 1);
+                Intent rankDataArgs = new Intent();
+                if (Constants.DEFENSE_ENDINGS.contains(ending)) {
+                    rankDataArgs.putExtra("defense", ending);
+                    fieldName = fieldName.replaceAll("." + ending, "");
+                }
+                fieldName = Utils.getViewerObjectFieldRank(fieldName.replaceFirst("VIEWER.", ""), rankDataArgs);
+            }
+            intent.putExtra("teamNumber", teamNumber).putExtra("field", fieldName)
                     .putExtra("displayValueAsPercentage", Arrays.asList(getPercentageFields()).contains(getRowItem(section,row)));
             context.startActivity(intent);
         }

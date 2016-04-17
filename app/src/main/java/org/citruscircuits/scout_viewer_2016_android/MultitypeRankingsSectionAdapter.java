@@ -183,9 +183,9 @@ public abstract class MultitypeRankingsSectionAdapter extends RankingsSectionAda
         if(isClickable(section, row)) {
             if (respondsNormallyToClick(section, row)) {
                 Intent rankingsActivityIntent = new Intent(context, RankingsActivity.class);
-                rankingsActivityIntent.putExtra("team", ((Team)getObject()).number);
-                rankingsActivityIntent.putExtra("field", (String)getRowItem(section, row));
-
+                rankingsActivityIntent.putExtra("team", ((Team)getObject()).number)
+                        .putExtra("field", (String)getRowItem(section, row))
+                        .putExtra("displayAsPercentage", Arrays.asList(getPercentageFields()).contains(getRowItem(section, row)));
                 context.startActivity(rankingsActivityIntent);
             } else {
                 handleNonDefaultClick(section, row);
