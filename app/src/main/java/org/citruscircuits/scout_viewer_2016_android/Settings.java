@@ -1,6 +1,7 @@
 package org.citruscircuits.scout_viewer_2016_android;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+
+import com.firebase.client.Config;
+import com.firebase.client.Firebase;
 
 import org.citruscircuits.scout_viewer_2016_android.services.PhotoSync;
 import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
@@ -78,6 +83,35 @@ public class Settings extends ViewerActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+
+
+
+        Button clearDataButton = (Button) findViewById(R.id.settingsClearAllDataButton);
+        clearDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Restart All Data Listeners?")
+                        .setMessage("This will force the app to re-download all the data.  Are you sure you want to continue?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /*((ActivityManager)context.getSystemService(ACTIVITY_SERVICE))
+                                        .clearApplicationUserData();*/
+                                FirebaseLists.matchesList.cancelListen();
+                                FirebaseLists.teamInMatchDataList.cancelListen();
+                                FirebaseLists.teamsList.cancelListen();
+
+                                ViewerApplication.startListListeners(context);
+                                ViewerApplication.setupFirebaseAuth(context);
+                                //I am so sorry that you had to read that ^
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
         });
     }
 }

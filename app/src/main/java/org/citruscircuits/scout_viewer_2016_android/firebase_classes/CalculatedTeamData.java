@@ -96,4 +96,7 @@ public class CalculatedTeamData extends Object{
 	public Map<String, Float> unaffectedPercentage;
 	public Map<String, Float> beachedPercentage;
 	public String defensesCrossableAuto;
+	public Float autoAbilityExcludeD;
+	public Float avgNumTimesCrossedDefensesAuto;
+	public Float autoAbilityExcludeLB;
 }

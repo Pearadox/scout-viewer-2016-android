@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by citruscircuits on 1/16/16.
  */
 public class Constants {
-    public static final String ORIGINAL_ROOT_FIREBASE_PATH = "https://1678-strat-dev-2016.firebaseio.com/";
+    public static final String ORIGINAL_ROOT_FIREBASE_PATH = "https://1678-scouting-2016.firebaseio.com/";
     public static String ROOT_FIREBASE_PATH = ORIGINAL_ROOT_FIREBASE_PATH;
     public static final String[] DRAWER_TITLES = {"Recent Matches", "Upcoming Matches", "Our Schedule", "Starred Matches", "Schedule", "Seeding", "Predicted Seeding", "First Pick", "Overall Second Pick", "Super Data"};
     public static String MATCHES_PATH = ORIGINAL_ROOT_FIREBASE_PATH + "Matches";
@@ -171,10 +171,18 @@ public class Constants {
                 put("calculatedData.autoAbility", "Auto Ability");
                 put("autoDetails", "More Auto");
                 put("teleDetails", "More Teleop");
+                put("superDetails", "Super Data");
+                put("pitDetails", "Pit Data");
+                put("pitProgrammingLanguage", "Program Language");
+                put("calculatedData.avgNumTimesCrossedDefensesAuto", "Avg. Crosses Auto");
+                put("calculatedData.autoAbilityExcludeD", "Auto Points W/O Def. D");
+                put("calculatedData.autoAbilityExcludeLB", "Auto Points W/O LB");
+                put("calculatedData.defensesCrossableAuto", "Defenses Crossable Auto");
             }
         };
         Map<String, String> initialDatasToGraphMap = new HashMap<String, String> () {
             {
+                put("calculatedData.avgNumTimesCrossedDefensesAuto", "calculatedData.totalNumTimesCrossedDefensesAuto");
                 put("calculatedData.actualNumRPs", "calculatedData.numRPs");
                 put("calculatedData.avgHighShotsAuto", "numHighShotsMadeAuto");
                 put("calculatedData.avgLowShotsAuto", "numLowShotsMadeAuto");

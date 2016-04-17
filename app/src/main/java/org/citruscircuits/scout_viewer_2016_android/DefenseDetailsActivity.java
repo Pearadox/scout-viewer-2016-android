@@ -2,7 +2,9 @@ package org.citruscircuits.scout_viewer_2016_android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -11,12 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.applidium.headerlistview.HeaderListView;
 
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.MatchesAdapter;
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.abstract_classes.SearchableFirebaseListAdapter;
 import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Match;
+import org.citruscircuits.scout_viewer_2016_android.firebase_classes.Team;
+import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 import org.citruscircuits.scout_viewer_2016_android.team_details.TeamDetailsSectionAdapter;
 import org.citruscircuits.scout_viewer_2016_android.team_details.TeamRankingsActivity;
 
@@ -28,27 +33,50 @@ import java.util.List;
  * Created by colinunger on 2/13/16.
  */
 public class DefenseDetailsActivity extends ViewerActivity {
+    Integer teamNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_listview);
         setTitle(Constants.KEYS_TO_TITLES.get(getIntent().getStringExtra("defense")));
+        teamNumber = getIntent().getIntExtra("teamNumber", 1678);
+        Log.i("teamNumber", teamNumber.toString());
+
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
-        teamDetailsHeaderListView.setAdapter(new DefenseDetailsSectionAdapter(this, getIntent().getIntExtra("teamNumber", 1678), getIntent().getStringExtra("defense")));
-        /*setContentView(R.layout.activity_rankings);
-        String defense = getIntent().getStringExtra("defense");
-        setTitle(Constants.KEYS_TO_TITLES.get(defense));
+        teamDetailsHeaderListView.setAdapter(new DefenseDetailsSectionAdapter(this, teamNumber, getIntent().getStringExtra("defense")));
+        View teamDetailsHeaderView = getLayoutInflater().inflate(R.layout.team_details_header, null);
+        teamDetailsHeaderListView.getListView().addHeaderView(teamDetailsHeaderView, null, false);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        DefenseDetailsActivityFragment fragment = new DefenseDetailsActivityFragment();
-
-        Bundle args = new Bundle();
-        args.putString("defense", defense);
-        args.putInt("teamNumber", getIntent().getIntExtra("teamNumber", 0));
-
-        fragment.setArguments(args);
-        fragmentManager.beginTransaction().replace(R.id.rankingsLinearLayout, fragment, "").commit();*/
+        reload();
     }
+
+
+    public void reload() {
+        HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
+        View teamDetailsHeaderView = teamDetailsHeaderListView.getChildAt(0);
+        if (StarManager.isStarredTeam(teamNumber)) {
+            teamDetailsHeaderView.setBackgroundColor(Constants.STAR_COLOR);
+        } else {
+            teamDetailsHeaderView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        Team team = FirebaseLists.teamsList.getFirebaseObjectByKey(teamNumber.toString());
+
+        TextView teamDetailsTeamNumberTextView = (TextView)teamDetailsHeaderView.findViewById(R.id.teamDetailsTeamNumberTextView);
+        teamDetailsTeamNumberTextView.setText(Utils.getDisplayValue(team, "number"));
+        teamDetailsTeamNumberTextView.setOnLongClickListener(new StarLongClickListener());
+
+        TextView teamDetailsTeamNameTextView = (TextView)teamDetailsHeaderView.findViewById(R.id.teamDetailsTeamNameTextView);
+        teamDetailsTeamNameTextView.setText(Utils.getDisplayValue(team, "name"));
+
+        TextView teamDetailsSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsSeeding);
+        teamDetailsSeedingTextView.setText((Utils.fieldIsNotNull(team, "calculatedData.actualSeed")) ? Utils.roundDataPoint(team.calculatedData.actualSeed, 2, "???") : "???");
+
+        TextView teamDetailsPredictedSeedingTextView = (TextView)teamDetailsHeaderListView.findViewById(R.id.teamDetailsPredictedSeeding);
+        teamDetailsPredictedSeedingTextView.setText((Utils.fieldIsNotNull(team, "calculatedData.predictedSeed")) ? Utils.roundDataPoint(team.calculatedData.predictedSeed, 2, "???") : "???");
+    }
+
+
     private class DefenseDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
         Integer teamNumber;
         String defense;
@@ -64,19 +92,20 @@ public class DefenseDetailsActivity extends ViewerActivity {
                 fieldsToDisplay[0] = newOverallFields;
             }
             for (int i = 0; i < fieldsToDisplay.length; i++) {
-                for (int j = 0; j < fieldsToDisplay[i].length; j++) {
-                    fieldsToDisplay[i][j] = fieldsToDisplay[i][j].replaceAll("DEFENSE", defense);
-                }
+                fieldsToDisplay[i] = formatStringList(fieldsToDisplay[i]);
             }
-            for (int i = 0; i < sectionTitles.length; i++) {
-                sectionTitles[i] = sectionTitles[i].replaceAll("DEFENSE", defense);
+            sectionTitles = formatStringList(sectionTitles);
+            shouldDisplayAsPercentage = formatStringList(shouldDisplayAsPercentage);
+            createListOnClick = formatStringList(createListOnClick);
+        }
+
+
+        private String[] formatStringList(String[] list) {
+            List<String> newList = new ArrayList<>();
+            for (String dataPoint : Arrays.asList(list)) {
+                newList.add(dataPoint.replaceAll("DEFENSE", defense));
             }
-            for (int i = 0; i < shouldDisplayAsPercentage.length; i++) {
-                shouldDisplayAsPercentage[i] = shouldDisplayAsPercentage[i].replaceAll("DEFENSE", defense);
-            }
-            for (int i = 0; i < createListOnClick.length; i++) {
-                createListOnClick[i] = createListOnClick[i].replaceAll("DEFENSE", defense);
-            }
+            return newList.toArray(new String[list.length]);
         }
 
 
@@ -192,6 +221,25 @@ public class DefenseDetailsActivity extends ViewerActivity {
                 intent.putExtra("teamNumber", teamNumber).putExtra("field", (String)getRowItem(section,row));
                 context.startActivity(intent);
             }
+            return true;
+        }
+    }
+
+
+    private class StarLongClickListener implements View.OnLongClickListener {
+
+        @Override
+        public boolean onLongClick(View v) {
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(75);
+            TextView teamNumberTextView = (TextView) v;
+            Integer teamNumber = Integer.parseInt(teamNumberTextView.getText().toString());
+            if (StarManager.isStarredTeam(teamNumber)) {
+                StarManager.removeStarredTeam(teamNumber);
+            } else {
+                StarManager.addStarredTeam(teamNumber);
+            }
+            reload();
             return true;
         }
     }

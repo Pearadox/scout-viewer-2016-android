@@ -36,4 +36,5 @@ public class Team extends Object {
 	public Integer pitHeightOfBallLeavingShooter;
 	public Integer pitAvailableWeight;
 	public Integer pitCheesecakeAbility;
+	public String pitProgrammingLanguage;
 }

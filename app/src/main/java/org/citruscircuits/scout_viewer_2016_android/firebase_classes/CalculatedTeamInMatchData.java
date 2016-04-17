@@ -46,4 +46,6 @@ public class CalculatedTeamInMatchData extends Object {
     public Float slowedPercentage;
     public Float beachedPercentage;
     public Float unaffectedPercentage;
+    public Boolean wasDisfunctional;
+    public Integer totalNumTimesCrossedDefensesAuto;
 }

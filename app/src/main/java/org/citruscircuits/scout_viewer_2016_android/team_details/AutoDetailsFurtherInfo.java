@@ -18,15 +18,19 @@ import org.citruscircuits.scout_viewer_2016_android.ViewerActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutoDetailsFurtherInfo extends ViewerActivity {
+public class AutoDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_section_listview);
         setTitle("Auto Details");
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
         teamDetailsHeaderListView.setAdapter(new AutoDetailsSectionAdapter(this, getIntent().getIntExtra("teamNumber", 1678)));
+    }
+
+    @Override
+    protected MultitypeRankingsSectionAdapter getAdapter() {
+        return new AutoDetailsSectionAdapter(this, getIntent().getIntExtra("teamNumber", 1678));
     }
 
     private class AutoDetailsSectionAdapter extends TeamDetailsFurtherInfoSectionAdapter {
@@ -34,12 +38,15 @@ public class AutoDetailsFurtherInfo extends ViewerActivity {
             super(context, teamNumber);
         }
         private String[][] fieldsToDisplay = {
-                {"calculatedData.lowShotAccuracyAuto",
+                {"calculatedData.autoAbilityExcludeD",
+                        "calculatedData.autoAbilityExcludeLB",
+                        "calculatedData.lowShotAccuracyAuto",
                         "calculatedData.avgMidlineBallsIntakedAuto",
                         "calculatedData.avgBallsKnockedOffMidlineAuto",
                         "calculatedData.twoBallAutoTriedPercentage",
                         "calculatedData.sdHighShotsAuto",
-                        "calculatedData.sdLowShotsAuto"}
+                        "calculatedData.sdLowShotsAuto",
+                        "calculatedData.defensesCrossableAuto"}
         };
         private String[] sectionTitles = {
                 "Auto"
@@ -49,9 +56,14 @@ public class AutoDetailsFurtherInfo extends ViewerActivity {
                 "calculatedData.twoBallAutoTriedPercentage"
         };
         private String[] createListOnClick = {
+                "calculatedData.autoAbilityExcludeD",
+                "calculatedData.autoAbilityExcludeLB",
                 "calculatedData.twoBallAutoTriedPercentage",
                 "calculatedData.sdHighShotsAuto",
                 "calculatedData.sdLowShotsAuto"
+        };
+        private String[] longTextFields = {
+                "calculatedData.defensesCrossableAuto"
         };
         @Override
         public String[][] getFieldsToDisplay() {
@@ -72,5 +84,14 @@ public class AutoDetailsFurtherInfo extends ViewerActivity {
         public String[] getNonDefaultClickResponseFields() {
             return createListOnClick;
         }
+
+        @Override
+        public String[] getLongTextFields() {return longTextFields;}
+
+        @Override
+        public String[] getNotClickableFields() {return longTextFields;}
+
+        @Override
+        public String[] getUnrankedFields() {return longTextFields;}
     }
 }

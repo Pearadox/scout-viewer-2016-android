@@ -59,7 +59,6 @@ public class TeamDetailsActivity extends ViewerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_listview);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);
         Log.e("test", "Team number is " + teamNumber);
 

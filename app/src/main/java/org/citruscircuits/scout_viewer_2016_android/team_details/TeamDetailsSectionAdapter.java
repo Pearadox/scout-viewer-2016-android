@@ -41,6 +41,7 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
                     "calculatedData.highShotAccuracyAuto",
                     "calculatedData.avgHighShotsAuto",
                     "calculatedData.twoBallAutoAccuracy",
+                    "calculatedData.avgNumTimesCrossedDefensesAuto",
                     "autoDetails"},
             {"calculatedData.highShotAccuracyTele",
                     "calculatedData.lowShotAccuracyTele",
@@ -59,18 +60,10 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             {"calculatedData.siegeConsistency"},
             {"calculatedData.disabledPercentage",
                     "calculatedData.incapacitatedPercentage"},
-            {"calculatedData.RScoreDrivingAbility",
-                    "calculatedData.RScoreSpeed",
-                    "calculatedData.RScoreTorque",
-                    "calculatedData.RScoreAgility",
-                    "calculatedData.RScoreDefense",
-                    "calculatedData.RScoreBallControl"},
-            {"pitOrganization",
-                    "pitCheesecakeAbility",
-                    "pitAvailableWeight",
-                    "pitNotes"}};
+            {"superDetails",
+                    "pitDetails"}};
 
-    private String[] sectionTitles = {"Matches", "High Level", "Auto", "Teleop", "Defenses", "Siege", "Status", "Super", "Pit"};
+    private String[] sectionTitles = {"Matches", "High Level", "Auto", "Teleop", "Defenses", "Siege", "Status", "More Info"};
 
     private String[] shouldDisplayAsPercentage = {
             "calculatedData.highShotAccuracyTele",
@@ -88,6 +81,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "matches",
             "autoDetails",
             "teleDetails",
+            "superDetails",
+            "pitDetails",
             "pitLowBarCapability",
             "pitPotentialLowBarCapability",
             "pitPotentialMidlineBallCapability",
@@ -108,7 +103,9 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
     private String[] shouldDisplayAsFurtherInformation = {
             "autoDetails",
             "matches",
-            "teleDetails"
+            "pitDetails",
+            "teleDetails",
+            "superDetails"
     };
 
     private String[] notClickableFields = {
@@ -139,6 +136,8 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             "matches",
             "autoDetails",
             "teleDetails",
+            "pitDetails",
+            "superDetails",
             "calculatedData.firstPickAbility",
             "calculatedData.overallSecondPickAbility",
             "calculatedData.twoBallAutoAccuracy",
@@ -221,6 +220,14 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             context.startActivity(intent);
         } else if (key.equals("teleDetails")) {
             Intent intent = new Intent(context, TeleDetailsFurtherInfo.class);
+            intent.putExtra("teamNumber", teamNumber);
+            context.startActivity(intent);
+        } else if (key.equals("superDetails")) {
+            Intent intent = new Intent(context, SuperDetailsFurtherInfo.class);
+            intent.putExtra("teamNumber", teamNumber);
+            context.startActivity(intent);
+        } else if (key.equals("pitDetails")) {
+            Intent intent = new Intent(context, PitDetailsFurtherInfo.class);
             intent.putExtra("teamNumber", teamNumber);
             context.startActivity(intent);
         } else if (Arrays.asList(rankInsteadOfGraph).contains(key)) {

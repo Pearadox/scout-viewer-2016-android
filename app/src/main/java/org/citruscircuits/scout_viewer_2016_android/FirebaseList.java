@@ -129,6 +129,7 @@ public class FirebaseList<T> {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 Log.e("Firebase List", "Listen was cancelled, no more updates will occur on url: " + url );
+                Log.e("Firebase Error", firebaseError.getCode() + "\n" + firebaseError.getMessage() + "\n" + firebaseError.getDetails());
             }
         });
     }

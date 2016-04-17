@@ -32,7 +32,7 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.SeedingFrag
 import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.UpcomingMatchesFragment;
 
 
-public class MainActivity extends ActionBarActivity
+public class MainActivity extends ViewerActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**

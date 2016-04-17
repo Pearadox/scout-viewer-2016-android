@@ -6,17 +6,20 @@ import android.os.Bundle;
 
 import com.applidium.headerlistview.HeaderListView;
 
+import org.citruscircuits.scout_viewer_2016_android.MultitypeRankingsSectionAdapter;
 import org.citruscircuits.scout_viewer_2016_android.R;
 
-public class TeleDetailsFurtherInfo extends ActionBarActivity {
+public class TeleDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_section_listview);
-        setTitle("Tele Details");
-        HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
-        teamDetailsHeaderListView.setAdapter(new TeleDetailsSectionAdapter(this, getIntent().getIntExtra("teamNumber", 1678)));
+        setTitle("Teleop Details");
+    }
+
+    @Override
+    protected MultitypeRankingsSectionAdapter getAdapter() {
+        return new TeleDetailsSectionAdapter(this, getIntent().getIntExtra("teamNumber", 1678));
     }
 
     private class TeleDetailsSectionAdapter extends TeamDetailsFurtherInfoSectionAdapter {
@@ -29,7 +32,7 @@ public class TeleDetailsFurtherInfo extends ActionBarActivity {
                         "calculatedData.sdLowShotsTele"}
         };
         private String[] sectionTitles = {
-                "Tele"
+                "Teleop"
         };
         private String[] shouldDisplayAsPercentage = {};
         private String[] createListOnClick = {
