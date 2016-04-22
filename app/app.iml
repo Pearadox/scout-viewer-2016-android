@@ -105,10 +105,10 @@
     <orderEntry type="library" exported="" name="tubesock-0.0.12" level="project" />
     <orderEntry type="library" exported="" name="instabug-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="firebase-client-jvm-2.5.0" level="project" />
-    <orderEntry type="library" exported="" name="rxjava-1.0.13" level="project" />
     <orderEntry type="library" exported="" name="jackson-core-2.2.2" level="project" />
-    <orderEntry type="library" exported="" name="jackson-databind-2.2.2" level="project" />
+    <orderEntry type="library" exported="" name="rxjava-1.0.13" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.2.0" level="project" />
+    <orderEntry type="library" exported="" name="jackson-databind-2.2.2" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="mimecraft-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="firebase-client-android-2.5.0" level="project" />

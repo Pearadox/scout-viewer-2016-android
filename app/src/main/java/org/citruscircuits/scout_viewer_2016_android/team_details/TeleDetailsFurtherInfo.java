@@ -29,7 +29,8 @@ public class TeleDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivi
         private String[][] fieldsToDisplay = {
                 {"calculatedData.avgGroundIntakes",
                         "calculatedData.sdHighShotsTele",
-                        "calculatedData.sdLowShotsTele"}
+                        "calculatedData.sdLowShotsTele",
+                        "calculatedData.defensesCrossableTele"}
         };
         private String[] sectionTitles = {
                 "Teleop"
@@ -38,6 +39,9 @@ public class TeleDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivi
         private String[] createListOnClick = {
                 "calculatedData.sdHighShotsTele",
                 "calculatedData.sdLowShotsTele"
+        };
+        private String[] longTextFields = {
+                "calculatedData.defensesCrossableTele"
         };
         @Override
         public String[][] getFieldsToDisplay() {
@@ -58,5 +62,14 @@ public class TeleDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivi
         public String[] getNonDefaultClickResponseFields() {
             return createListOnClick;
         }
+
+        @Override
+        public String[] getLongTextFields() {return longTextFields;}
+
+        @Override
+        public String[] getNotClickableFields() {return longTextFields;}
+
+        @Override
+        public String[] getUnrankedFields() {return longTextFields;}
     }
 }

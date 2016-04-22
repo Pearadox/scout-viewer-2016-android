@@ -99,4 +99,5 @@ public class CalculatedTeamData extends Object{
 	public Float autoAbilityExcludeD;
 	public Float avgNumTimesCrossedDefensesAuto;
 	public Float autoAbilityExcludeLB;
+	public String defensesCrossableTele;
 }
