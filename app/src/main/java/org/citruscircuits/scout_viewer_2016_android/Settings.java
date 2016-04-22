@@ -27,8 +27,7 @@ import java.util.List;
 public class Settings extends ViewerActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_settings);
 
         setTitle("Settings");

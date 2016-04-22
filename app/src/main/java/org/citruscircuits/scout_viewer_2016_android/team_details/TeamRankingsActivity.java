@@ -12,8 +12,7 @@ import org.citruscircuits.scout_viewer_2016_android.ViewerActivity;
 public class TeamRankingsActivity extends ViewerActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_team_rankings);
         Fragment fragment = getFragment();
 

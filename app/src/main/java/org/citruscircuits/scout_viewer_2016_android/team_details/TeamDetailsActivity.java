@@ -56,8 +56,7 @@ public class TeamDetailsActivity extends ViewerActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_section_listview);
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);
         Log.e("test", "Team number is " + teamNumber);

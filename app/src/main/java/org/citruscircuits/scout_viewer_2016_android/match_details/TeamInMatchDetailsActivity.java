@@ -40,8 +40,7 @@ public class TeamInMatchDetailsActivity extends ViewerActivity {
     Integer matchNumber;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_section_listview);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         teamNumber = getIntent().getIntExtra("team", 1678);

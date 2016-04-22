@@ -19,9 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/rankingTextView"
+        android:paddingRight="5dp"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:text="1678"/>
+        android:text="1678"
+        android:layout_toLeftOf="@+id/valueTextView"/>
 
     <TextView
         android:id="@+id/valueTextView"

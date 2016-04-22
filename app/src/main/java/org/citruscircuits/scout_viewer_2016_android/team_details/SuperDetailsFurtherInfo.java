@@ -12,11 +12,9 @@ import org.citruscircuits.scout_viewer_2016_android.R;
 public class SuperDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
+        super.onCreate();
         setTitle("Super Details");
-        HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
-        teamDetailsHeaderListView.setAdapter(new SuperDetailsSectionAdapter(this, getIntent().getIntExtra("teamNumber", 1678)));
     }
 
     @Override

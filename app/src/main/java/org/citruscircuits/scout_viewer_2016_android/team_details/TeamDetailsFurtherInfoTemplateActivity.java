@@ -21,8 +21,7 @@ import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 public abstract class TeamDetailsFurtherInfoTemplateActivity extends ViewerActivity {
     Integer teamNumber;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_section_listview);
 
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);

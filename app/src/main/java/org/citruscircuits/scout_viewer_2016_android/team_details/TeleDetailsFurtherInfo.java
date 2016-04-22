@@ -12,8 +12,8 @@ import org.citruscircuits.scout_viewer_2016_android.R;
 public class TeleDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
+        super.onCreate();
         setTitle("Teleop Details");
     }
 

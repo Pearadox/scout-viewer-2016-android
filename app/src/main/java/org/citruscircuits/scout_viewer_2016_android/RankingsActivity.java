@@ -12,8 +12,7 @@ public class RankingsActivity extends ViewerActivity {
     private Integer teamNumber;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_rankings);
         String field = getIntent().getStringExtra("field");
         setTitle(Constants.KEYS_TO_TITLES.get(field));

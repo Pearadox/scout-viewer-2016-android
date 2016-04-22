@@ -35,8 +35,7 @@ import java.util.List;
 public class DefenseDetailsActivity extends ViewerActivity {
     Integer teamNumber;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_section_listview);
         setTitle(Constants.KEYS_TO_TITLES.get(getIntent().getStringExtra("defense")));
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);

@@ -44,8 +44,7 @@ public class MatchDetailsActivity extends ViewerActivity {
     private BroadcastReceiver starReceiver;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_match_details);
 
         matchNumber = getIntent().getIntExtra("matchNumber", 0);

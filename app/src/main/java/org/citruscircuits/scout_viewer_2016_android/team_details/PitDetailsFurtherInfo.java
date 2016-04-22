@@ -17,11 +17,9 @@ import java.util.List;
 public class PitDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
+        super.onCreate();
         setTitle("Pit Details");
-        HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
-        teamDetailsHeaderListView.setAdapter(new PitDetailsSectionAdapter(this, getIntent().getIntExtra("teamNumber", 1678)));
     }
 
     @Override

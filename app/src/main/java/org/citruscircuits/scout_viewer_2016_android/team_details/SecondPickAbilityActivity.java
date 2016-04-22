@@ -15,8 +15,7 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.second_pick
 public class SecondPickAbilityActivity extends ViewerActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_second_pick_ability);
         String field = getIntent().getStringExtra("field");
         setTitle(Constants.KEYS_TO_TITLES.get(field));

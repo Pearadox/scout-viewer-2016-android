@@ -7,7 +7,9 @@
         android:id="@+id/teamNumberTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/rankingTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/valueTextView"
+        android:paddingRight="5dp"
         android:textColor="#000000"
         android:textSize="20sp"
         android:text="1678"/>

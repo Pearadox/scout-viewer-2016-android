@@ -42,9 +42,10 @@ public class ViewerApplication extends Application {
         super.onCreate();
 
 
-        new Instabug.Builder(this, "a81e83742330fc178964d1eb3554463f")
+        new Instabug.Builder(this, "206563e36570f89397cc3f9c99af5110")
                 .setInvocationEvent(IBGInvocationEvent.IBGInvocationEventShake)
                 .build();
+
 
 
         appContext = getApplicationContext();

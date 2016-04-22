@@ -43,7 +43,7 @@ public class StarManager extends Service {
     private NotificationManager mNM;
     private Map<String, ValueEventListener> valueEventListeners = new HashMap<>();
     private static Integer currentMatchNumber;
-    private static Integer nextImportantMatch;
+    private static Integer nextImportantMatch = -1;
     public static List<Integer> importantMatches = new ArrayList<>();
     public static List<Integer> starredTeams = new ArrayList<>();
     public static Map<Integer, List<Integer>> matchesAddedByTeam = new HashMap<>();
@@ -186,13 +186,17 @@ public class StarManager extends Service {
                 }
                 addImportantMatchWithoutPreferences(matchNumber);
             }
-            final boolean notify = ((firstMatchNum < nextImportantMatch) || (nextImportantMatch == -1));
-            new Thread() {
-                @Override
-                public void run() {
-                    saveToSharedPreferences(notify);
-                }
-            }.start();
+            try {
+                final boolean notify = ((firstMatchNum < nextImportantMatch) || (nextImportantMatch == -1));
+                new Thread() {
+                    @Override
+                    public void run() {
+                        saveToSharedPreferences(notify);
+                    }
+                }.start();
+            } catch (NullPointerException npe) {
+                Log.e("SHIT", "here again");
+            }
         }
     }
 

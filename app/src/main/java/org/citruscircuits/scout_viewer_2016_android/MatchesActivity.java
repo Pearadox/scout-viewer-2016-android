@@ -12,8 +12,7 @@ import org.citruscircuits.scout_viewer_2016_android.drawer_fragments.TeamSchedul
  */
 public class MatchesActivity extends ViewerActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
         setContentView(R.layout.activity_rankings);
         String field = getIntent().getStringExtra("field");
         setTitle(Constants.KEYS_TO_TITLES.get(field));
