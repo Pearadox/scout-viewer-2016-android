@@ -12,6 +12,7 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Vibrator;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
@@ -57,6 +58,7 @@ public class TeamDetailsActivity extends ViewerActivity {
 
     @Override
     public void onCreate() {
+        //Debug.startMethodTracing("android-viewer-team-details");
         setContentView(R.layout.activity_section_listview);
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);
         setTitle("Team " + teamNumber + " Details");
@@ -169,6 +171,8 @@ public class TeamDetailsActivity extends ViewerActivity {
         if (bitmap != null) {
             bitmap.recycle();
         }
+
+        //Debug.stopMethodTracing();
     }
 
     private class StarLongClickListener implements View.OnLongClickListener {
