@@ -48,6 +48,7 @@ public class MatchDetailsActivity extends ViewerActivity {
         setContentView(R.layout.activity_match_details);
 
         matchNumber = getIntent().getIntExtra("matchNumber", 0);
+        setTitle("Match " + matchNumber + " Details");
 
         matchesUpdatedReceiver = new BroadcastReceiver() {
             @Override

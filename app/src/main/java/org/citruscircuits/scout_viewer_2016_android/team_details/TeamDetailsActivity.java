@@ -59,6 +59,7 @@ public class TeamDetailsActivity extends ViewerActivity {
     public void onCreate() {
         setContentView(R.layout.activity_section_listview);
         teamNumber = getIntent().getIntExtra("teamNumber", 1678);
+        setTitle("Team " + teamNumber + " Details");
         Log.e("test", "Team number is " + teamNumber);
 
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);

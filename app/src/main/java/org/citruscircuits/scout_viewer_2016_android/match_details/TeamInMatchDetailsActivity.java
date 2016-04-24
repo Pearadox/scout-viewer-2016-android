@@ -45,6 +45,7 @@ public class TeamInMatchDetailsActivity extends ViewerActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         teamNumber = getIntent().getIntExtra("team", 1678);
         matchNumber = getIntent().getIntExtra("match", 1);
+        setTitle("Team " + teamNumber + " In Match " + matchNumber + " Details");
 
         HeaderListView teamDetailsHeaderListView = (HeaderListView)findViewById(R.id.teamDetailsHeaderListView);
         teamDetailsHeaderListView.setAdapter(new TeamInMatchDetailsSectionAdapter(this, teamNumber, matchNumber));

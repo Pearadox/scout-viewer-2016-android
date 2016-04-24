@@ -232,8 +232,8 @@ public class Constants {
                 put("calculatedData.avgTimeForDefenseCrossTele.DEFENSE", "calculatedData.crossingTimeForDefenseTele.DEFENSE");
                 put("calculatedData.crossingsSuccessRateForDefenseAuto.DEFENSE", "calculatedData.crossingsForDefensePercentageAuto.DEFENSE");
                 put("calculatedData.crossingsSuccessRateForDefenseTele.DEFENSE", "calculatedData.crossingsForDefensePercentageTele.DEFENSE");
-                put("calculatedData.slowedPercentage", "calculatedData.slowedPercentage");
-                put("calculatedData.beachedPercentage", "calculatedData.beachedPercentage");
+                put("calculatedData.slowedPercentage.DEFENSE", "numTimesSlowed");
+                put("calculatedData.beachedPercentage.DEFENSE", "numTimesBeached");
                 put("calculatedData.autoAbility", "calculatedData.autoAbility");
             }
         };

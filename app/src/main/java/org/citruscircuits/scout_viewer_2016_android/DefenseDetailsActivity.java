@@ -113,14 +113,12 @@ public class DefenseDetailsActivity extends ViewerActivity {
                 {"calculatedData.avgSuccessfulTimesCrossedDefensesAuto.DEFENSE",
                         "calculatedData.avgFailedTimesCrossedDefensesAuto.DEFENSE",
                         "calculatedData.avgTimeForDefenseCrossAuto.DEFENSE",
-                        "calculatedData.crossingsSuccessRateForDefenseAuto.DEFENSE",
                         "calculatedData.sdSuccessfulDefenseCrossesAuto.DEFENSE",
                         "calculatedData.sdFailedDefenseCrossesAuto.DEFENSE"},
                 {"calculatedData.avgSuccessfulTimesCrossedDefensesTele.DEFENSE",
                         "calculatedData.avgFailedTimesCrossedDefensesTele.DEFENSE",
                         "calculatedData.avgTimeForDefenseCrossTele.DEFENSE",
                         "calculatedData.predictedSuccessfulCrossingsForDefenseTele.DEFENSE",
-                        "calculatedData.crossingsSuccessRateForDefenseTele.DEFENSE",
                         "calculatedData.sdSuccessfulDefenseCrossesTele.DEFENSE",
                         "calculatedData.sdFailedDefenseCrossesTele.DEFENSE"}
         };

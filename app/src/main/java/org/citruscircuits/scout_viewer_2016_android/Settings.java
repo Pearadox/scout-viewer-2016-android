@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.firebase.client.Config;
 import com.firebase.client.Firebase;
@@ -23,8 +25,12 @@ import org.citruscircuits.scout_viewer_2016_android.services.StarManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Settings extends ViewerActivity {
+    private static final Object canGoBackLock = new Object();
+    private static Boolean canGoBack = true;
 
     @Override
     public void onCreate() {
@@ -44,7 +50,9 @@ public class Settings extends ViewerActivity {
             public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
                 Log.i("AUTH", "HERE1");
                 if (!adapter.getItem(position).equals(Constants.ROOT_FIREBASE_PATH)) {
-                    new AlertDialog.Builder(context)
+                    Toast.makeText(context, "Sorry, Not Available For This Comp.", Toast.LENGTH_LONG).show();
+                    spinner.setSelection(firebaseKeys.indexOf(Constants.ROOT_FIREBASE_PATH));
+                    /*new AlertDialog.Builder(context)
                             .setTitle("Change Database")
                             .setMessage("Are you sure you want to change the database to view?\nNOTE: Some databases WILL cause the app to crash!")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -76,7 +84,7 @@ public class Settings extends ViewerActivity {
                                     spinner.setSelection(firebaseKeys.indexOf(Constants.ROOT_FIREBASE_PATH));
                                 }
                             })
-                            .show();
+                            .show();*/
                 }
             }
 
@@ -106,11 +114,52 @@ public class Settings extends ViewerActivity {
                                 ViewerApplication.startListListeners(context);
                                 ViewerApplication.setupFirebaseAuth(context);
                                 //I am so sorry that you had to read that ^
+
+                                canGoBack = false;
+                                new Thread() {
+                                    @Override
+                                    public void run() {
+                                        while (FirebaseLists.matchesList.getValues().size() < 1) {
+                                            try {
+                                                Thread.sleep(100);
+                                            } catch (InterruptedException ie) {
+                                                continue;
+                                            }
+                                        }
+                                        synchronized (canGoBackLock) {
+                                            canGoBack = true;
+                                        }
+                                    }
+                                }.start();
                             }
                         })
                         .setNegativeButton("No", null)
                         .show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Boolean tmpCanGoBack;
+        synchronized (canGoBackLock) {
+            tmpCanGoBack = canGoBack;
+        }
+        if (tmpCanGoBack) {
+            finish();
+        } else {
+            Toast.makeText(this, "Please Wait For Listeners To Register", Toast.LENGTH_LONG).show();
+        }
+    }
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        Boolean tmpCanGoBack;
+        synchronized (canGoBackLock) {
+            tmpCanGoBack = canGoBack;
+        }
+        if (!tmpCanGoBack) {
+            Toast.makeText(this, "Please Wait For Listeners To Register", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return super.onKeyLongPress(keyCode, event);
     }
 }
