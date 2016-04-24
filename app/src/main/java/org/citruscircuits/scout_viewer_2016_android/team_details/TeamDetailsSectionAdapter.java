@@ -240,7 +240,6 @@ public class TeamDetailsSectionAdapter extends MultitypeRankingsSectionAdapter {
             String defenseKey = (String)getRowItem(section, row);
             String[] splitDefenseKey = defenseKey.split("\\.");
             rankingsActivityIntent.putExtra("defense", /*splitDefenseKey[splitDefenseKey.length - 2] + "." + */splitDefenseKey[splitDefenseKey.length - 1]);
-            Log.i("QSDFE", splitDefenseKey[splitDefenseKey.length - 2] + "." + splitDefenseKey[splitDefenseKey.length - 1]);
             rankingsActivityIntent.putExtra("teamNumber", teamNumber);
             context.startActivity(rankingsActivityIntent);
         }

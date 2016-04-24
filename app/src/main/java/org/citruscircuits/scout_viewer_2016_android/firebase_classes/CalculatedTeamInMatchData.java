@@ -39,8 +39,8 @@ public class CalculatedTeamInMatchData extends Object {
     public Map<String, Integer> numTimesSuccesfulCrossedDefensesTele;
     public Map<String, Integer> numTimesSuccesfulCrossedDefensesAuto;
     public Map<String, Integer> numTimesFailedCrossedDefensesAuto;
-    public Map<String, Integer> crossingTimeForDefenseAuto;
-    public Map<String, Integer> crossingTimeForDefenseTele;
+    public Map<String, Float> crossingTimeForDefenseAuto;
+    public Map<String, Float> crossingTimeForDefenseTele;
     public Float drivingAbility;
     public Float autoAbility;
     public Float slowedPercentage;

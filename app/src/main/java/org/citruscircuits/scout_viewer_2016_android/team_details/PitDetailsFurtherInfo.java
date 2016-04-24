@@ -35,8 +35,7 @@ public class PitDetailsFurtherInfo extends TeamDetailsFurtherInfoTemplateActivit
         }
         private String[][] fieldsToDisplay = {
                 {"pitOrganization",
-                        "pitCheesecakeAbility",
-                        "pitAvailableWeight",
+                        "pitNumberOfWheels",
                         "pitProgrammingLanguage",
                         "pitNotes"}
         };

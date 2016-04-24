@@ -59,8 +59,6 @@ public class TeamInMatchDataGraphFragment extends GraphFragment {
             } else if (value instanceof Boolean) {
                 dataValues.add((Boolean)value ? 1f : 0f);
             } else {
-                Log.i("Data Point", "Is Float");
-                Log.i("Data Point", value + "");
                 if (displayAsPercentage && value != null) {
                     dataValues.add((Float) value * 100);
                     continue;

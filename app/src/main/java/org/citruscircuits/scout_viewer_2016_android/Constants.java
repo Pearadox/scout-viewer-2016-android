@@ -96,7 +96,7 @@ public class Constants {
                 put("calculatedData.siegeAbility", "Siege Ability");
                 put("calculatedData.predictedNumRPs", "Predicted RPs");
                 put("calculatedData.actualNumRPs", "Num. RPs");
-                put("calculatedData.numAutoPoints", "Num. Auto Pts.");
+                put("calculatedData.numAutoPoints", "Avg Auto Pts.");
                 put("calculatedData.numScaleAndChallengePoints", "Num. S&C Pts.");
                 put("calculatedData.predictedSeed", "Predicted Seed");
                 put("calculatedData.actualSeed", "Seed");
